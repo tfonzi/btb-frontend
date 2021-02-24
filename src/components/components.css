@@ -1,0 +1,118 @@
+
+.p {
+    margin: 0;
+    padding: 0;
+}
+
+.pokemonCatalog-header{
+    text-align: center;
+}
+
+.pokemonCatalog-flex {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    align-content: flex-start;
+    width: 100%;
+    height: 50vh;
+    overflow: scroll;
+    overflow-x: hidden;
+
+}
+
+.pokemonCatalog-object {
+    margin: 2px;
+    border: 2px solid rgb(208, 230, 233);
+    border-radius: 5px;
+    height: auto;
+
+}
+
+.berryCatalog-header{
+    text-align: center;
+}
+
+.berryCatalog-flex {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    align-content: flex-start;
+    height: 50vh;
+    overflow: scroll;
+    overflow-x: hidden;
+
+}
+
+.berryCatalog-object {
+    margin: 2px;
+    max-width: 200%;
+    border: 2px solid rgb(208, 230, 233);
+    border-radius: 5px;
+
+}
+
+.berryCatalog-image {
+    max-width: 200%;
+    height: auto;
+}
+
+.team-header{
+    text-align: center;
+}
+
+.team-flex {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    width: 100%;
+    height: 530px;
+    overflow: hidden;
+    overflow-x: hidden;
+
+}
+
+.team-object {
+    margin: 2px;
+    width: 300px;
+    border: 2px solid rgb(208, 230, 233);
+    border-radius: 5px;
+
+}
+
+.box{
+    height: 40vh;
+}
+
+.box-header{
+    text-align: center;
+}
+
+.box-flex {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    overflow: hidden;
+    overflow-x: hidden;
+    align-items: flex-start;
+    align-content: flex-start;
+
+}
+
+.box-object {
+    margin: 2px;
+    border: 2px solid rgb(208, 230, 233);
+    border-radius: 5px;
+
+}
+
+.topSideView{
+    height: 60vh;
+}
+
+.navbar-button {
+    margin: 5px;
+}
