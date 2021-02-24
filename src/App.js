@@ -354,7 +354,9 @@ const App = () => {
       <Router>
         <Route path='/' exact render={(props) => (
           <>
-            <MenuBar berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} />
+            <div className="menuBar">
+              <MenuBar berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} />
+            </div>
             <Container fluid className="topSideView">
               <Row>
                 <Col xs={4} md={6}> {/*Natively one column is 25% while the other is 75%. On desktop, it switches to 50-50 */}

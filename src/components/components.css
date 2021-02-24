@@ -4,22 +4,142 @@
     padding: 0;
 }
 
+/* For mobile*/
+@media screen and (max-width: 448px) { 
+    .menuBar{
+        height: 17vh;
+        padding: 0;
+        margin: 0; 
+    }
+
+    .topSideView{
+        height: 51vh;
+    }
+
+    .berryCatalog-flex {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        align-content: flex-start;
+        height: 41vh;
+        overflow: auto;
+        overflow-x: hidden;
+    
+    }
+
+    .pokemonCatalog-flex {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        align-content: flex-start;
+        width: 100%;
+        height: 41vh;
+        overflow: auto;
+        overflow-x: hidden;
+    
+    }
+
+    .team-flex {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: flex-start;
+        width: 100%;
+        height: 41vh;
+        overflow: auto;
+        overflow-x: hidden;
+    
+    }
+
+    .box{
+        height: 32vh;
+    }
+
+    .box-flex {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        height: 22vh;
+        overflow: auto;
+        overflow-x: hidden;
+        align-items: flex-start;
+        align-content: flex-start;
+    }
+}
+
+/* For desktop*/
+@media screen and (min-width: 449px) {
+    .menuBar{
+        height: 10vh;
+        padding: 0;
+        margin: 0; 
+    }
+
+    .topSideView{
+        height: 60vh;
+    }
+
+    .berryCatalog-flex {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        align-content: flex-start;
+        height: 50vh;
+        overflow: auto;
+        overflow-x: hidden;
+    
+    }
+
+    .pokemonCatalog-flex {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        align-content: flex-start;
+        width: 100%;
+        height: 50vh;
+        overflow: auto;
+        overflow-x: hidden;
+    
+    }
+
+    .team-flex {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: flex-start;
+        width: 100%;
+        height: 530px;
+        overflow: auto;
+        overflow-x: hidden;
+    
+    }
+
+    .box{
+        height: 30vh;
+    }
+
+    .box-flex {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        height: 20vh;
+        overflow: auto;
+        overflow-x: hidden;
+        align-items: flex-start;
+        align-content: flex-start;
+    }
+}
+
 .pokemonCatalog-header{
     text-align: center;
 }
 
-.pokemonCatalog-flex {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    align-content: flex-start;
-    width: 100%;
-    height: 50vh;
-    overflow: scroll;
-    overflow-x: hidden;
-
-}
 
 .pokemonCatalog-object {
     margin: 2px;
@@ -31,18 +151,6 @@
 
 .berryCatalog-header{
     text-align: center;
-}
-
-.berryCatalog-flex {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    align-content: flex-start;
-    height: 50vh;
-    overflow: scroll;
-    overflow-x: hidden;
-
 }
 
 .berryCatalog-object {
@@ -62,19 +170,6 @@
     text-align: center;
 }
 
-.team-flex {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-    width: 100%;
-    height: 530px;
-    overflow: hidden;
-    overflow-x: hidden;
-
-}
-
 .team-object {
     margin: 2px;
     width: 300px;
@@ -83,23 +178,8 @@
 
 }
 
-.box{
-    height: 40vh;
-}
-
 .box-header{
     text-align: center;
-}
-
-.box-flex {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    overflow: hidden;
-    overflow-x: hidden;
-    align-items: flex-start;
-    align-content: flex-start;
-
 }
 
 .box-object {
@@ -107,10 +187,6 @@
     border: 2px solid rgb(208, 230, 233);
     border-radius: 5px;
 
-}
-
-.topSideView{
-    height: 60vh;
 }
 
 .navbar-button {
