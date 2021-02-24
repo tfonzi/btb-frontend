@@ -30,8 +30,8 @@ const App = () => {
   const [pokemonCatalog, setPokemonCatalog] = useState([])
 
 
-  const backend_url = "https://btb-backend.azurewebsites.net"
-  //const backend_url = "http://localhost:5000"
+  //const backend_url = "https://btb-backend.azurewebsites.net"
+  const backend_url = "http://localhost:5000"
 
   useEffect(() => {
 

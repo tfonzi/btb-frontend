@@ -31,6 +31,17 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script type="text/javascript">
+
+    function setWindowHeight(){
+      var windowHeight = window.innerHeight;
+      document.body.style.height = windowHeight + "px";
+      console.log(document.body.style.height);
+    }
+    window.addEventListener("resize",setWindowHeight,false);
+
+
+    </script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
