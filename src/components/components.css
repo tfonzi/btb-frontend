@@ -56,9 +56,17 @@
     
     }
 
+    .pokemonCatalog-object {
+        margin: 0.5px;
+        border: 2px solid rgb(208, 230, 233);
+        border-radius: 5px;
+        height: auto;
+    
+    }
+
     .pokemonCatalog-image {
         max-width: 100%;
-        height: 4vh;
+        height: 4.4vh;
     }
 
     .pokemonCatalog-p {
@@ -144,9 +152,22 @@
     
     }
 
+    .pokemonCatalog-object {
+        margin: 2px;
+        border: 2px solid rgb(208, 230, 233);
+        border-radius: 5px;
+        height: auto;
+    
+    }
+
     .pokemonCatalog-image {
         max-width: 100%;
         height: 9vh;
+    }
+
+    .pokemonCatalog-p {
+        margin: 1px;
+    
     }
 
     .team-flex {
@@ -183,15 +204,6 @@
 
 .pokemonCatalog-header{
     text-align: center;
-}
-
-
-.pokemonCatalog-object {
-    margin: 2px;
-    border: 2px solid rgb(208, 230, 233);
-    border-radius: 5px;
-    height: auto;
-
 }
 
 .berryCatalog-header{
