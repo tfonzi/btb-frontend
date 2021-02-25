@@ -8,12 +8,14 @@
 @media screen and (max-width: 448px) { 
     .menuBar{
         height: 17vh;
+        height: calc(var(--vh, 1vh) * 17);
         padding: 0;
         margin: 0; 
     }
 
     .topSideView{
         height: 51vh;
+        height: calc(var(--vh, 1vh) * 51);
     }
 
     .berryCatalog-flex {
@@ -23,6 +25,7 @@
         align-items: flex-start;
         align-content: flex-start;
         height: 41vh;
+        height: calc(var(--vh, 1vh) * 41);
         overflow: auto;
         overflow-x: hidden;
     
@@ -36,6 +39,7 @@
         align-content: flex-start;
         width: 100%;
         height: 41vh;
+        height: calc(var(--vh, 1vh) * 41);
         overflow: auto;
         overflow-x: hidden;
     
@@ -49,6 +53,7 @@
         align-content: flex-start;
         width: 100%;
         height: 41vh;
+        height: calc(var(--vh, 1vh) * 41);
         overflow: auto;
         overflow-x: hidden;
     
@@ -56,6 +61,7 @@
 
     .box{
         height: 32vh;
+        height: calc(var(--vh, 1vh) * 32);
     }
 
     .box-flex {
@@ -63,6 +69,7 @@
         flex-flow: row wrap;
         justify-content: flex-start;
         height: 22vh;
+        height: calc(var(--vh, 1vh) * 22);
         overflow: auto;
         overflow-x: hidden;
         align-items: flex-start;
@@ -74,12 +81,14 @@
 @media screen and (min-width: 449px) {
     .menuBar{
         height: 10vh;
+        height: calc(var(--vh, 1vh) * 10);
         padding: 0;
         margin: 0; 
     }
 
     .topSideView{
         height: 60vh;
+        height: calc(var(--vh, 1vh) * 60);
     }
 
     .berryCatalog-flex {
@@ -89,6 +98,7 @@
         align-items: flex-start;
         align-content: flex-start;
         height: 50vh;
+        height: calc(var(--vh, 1vh) * 50);
         overflow: auto;
         overflow-x: hidden;
     
@@ -102,6 +112,7 @@
         align-content: flex-start;
         width: 100%;
         height: 50vh;
+        height: calc(var(--vh, 1vh) * 50);
         overflow: auto;
         overflow-x: hidden;
     
@@ -114,7 +125,8 @@
         align-items: flex-start;
         align-content: flex-start;
         width: 100%;
-        height: 530px;
+        height: 50vh;
+        height: calc(var(--vh, 1vh) * 50);
         overflow: auto;
         overflow-x: hidden;
     
@@ -122,6 +134,7 @@
 
     .box{
         height: 30vh;
+        height: calc(var(--vh, 1vh) * 30);
     }
 
     .box-flex {
@@ -129,6 +142,7 @@
         flex-flow: row wrap;
         justify-content: flex-start;
         height: 20vh;
+        height: calc(var(--vh, 1vh) * 20);
         overflow: auto;
         overflow-x: hidden;
         align-items: flex-start;
