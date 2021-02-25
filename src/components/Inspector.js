@@ -4,16 +4,20 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 
+import axios from 'axios';
+
 import './components.css'
 
-
+import Stats from './Stats'
 
 
 import {useState} from 'react'
+import PokemonCatalog from './PokemonCatalog'
 
 const Inspector = ({view, object, onDragOver, onDrop, updateNickname, AddObjectToBox, AddObjectToTeam, removeObj}) => {
     
     const [nickname, setNickname] = useState("")
+    //const [pokemon, setPokemon] = useState({})
 
     const sendNickname = () =>{
         if(nickname){
@@ -84,6 +88,27 @@ const Inspector = ({view, object, onDragOver, onDrop, updateNickname, AddObjectT
                             </Row>
                         </div>
                     )
+
+            case "inspectPokemonCatalog": //PokemonCatalog Inspect 
+            
+                return(
+                    <div
+                        onDragOver={(e) => onDragOver(e, "inspector")} 
+                        onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
+                                                e.dataTransfer.getData("id"),
+                                                "inspector")}
+                    >
+                    
+                        <p className="p">{object.name}</p>
+                        <Image draggable="false" src={object.image}/>
+                        {(object.types.length == 2) && <p>{object.types[0]} / {object.types[1]}</p>}
+                        {(object.types.length == 1) && <p>{object.types}</p>}
+                        
+
+                        <Stats stats={object.stats} />
+                    </div>
+                )
+                
             case "inspectBox": //Box Inspect 
                 return(
                     <div

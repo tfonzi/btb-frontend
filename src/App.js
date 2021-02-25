@@ -78,6 +78,9 @@ const App = () => {
     getPokemonCatalog()
   }, [])
 
+
+  /*API Functions ==============================================================================================================*/
+
   const fetchBerryCatalog = async () => {
     const res = await axios.get(`${backend_url}/berries`)
     return res.data
@@ -241,6 +244,8 @@ const App = () => {
         alert("Source Error in updating nickname.")
     }
   }
+
+  /*View and Inspect Functions ==============================================================================================================*/
   const changeViewToTeams = () => {
     setTeamBerriesToggle("teamView")
   }
@@ -253,10 +258,35 @@ const App = () => {
     setTeamBerriesToggle("pokemonCatalogView")
   }
 
+  const formatInspectData =(id) => {
+
+    axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+          .then(res => {
+            var pokemon = {}
+            pokemon.name = res.data.name
+            pokemon.image = res.data.sprites.front_default
+            pokemon.types = res.data.types.map(type => {
+              return type.type.name
+            })
+            pokemon.stats = res.data.stats.map(stat => {
+              var stat_object = {}
+              stat_object.name = stat.stat.name
+              stat_object.base_stat = stat.base_stat
+              return stat_object
+            })
+            setInspectData(pokemon)
+          })
+  }
+
   const inspectBerry = (id) => {
     const data = berryCatalog.find(berry => berry._id == id)
     setInspectData(data)
     setInspectView("inspectBerryCatalog")
+  }
+
+  const inspectPokemonCatalog = (id) => {
+    formatInspectData(id)
+    setInspectView("inspectPokemonCatalog")
   }
 
   const inspectBox = (id) => {
@@ -271,7 +301,7 @@ const App = () => {
     setInspectView("inspectTeam")
   }
 
-  //Beginning of drag code
+/*Mouse Events ==============================================================================================================*/
   const onDragStart = (ev, id, source) => {
     ev.dataTransfer.setData("id", id)
     ev.dataTransfer.setData("source", source)
@@ -294,6 +324,9 @@ const App = () => {
     if(dest == "inspector"){
       if(source == "berryCatalog"){
         inspectBerry(id)
+      }
+      else if(source == "pokemonCatalog"){
+        inspectPokemonCatalog(id)
       }
       else if(source == "box"){
         inspectBox(id)
@@ -349,6 +382,8 @@ const App = () => {
     }
   }
 
+  /*App Structure ==============================================================================================================*/
+
   return (
     <div>
       <Router>
@@ -363,7 +398,7 @@ const App = () => {
                   <div className="leftSideView">
                     {(teamBerriesToggle == "teamView") && <Team onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} inspect={inspectTeam} team={team} />}
                     {(teamBerriesToggle == "berryCatalogView") && <Berries onDragStart={onDragStart} inspect={inspectBerry} berries={berryCatalog} />}
-                    {(teamBerriesToggle == "pokemonCatalogView") && <PokemonCatalog onDragStart={onDragStart} inspect={inspectBerry} pokemons={pokemonCatalog} />} 
+                    {(teamBerriesToggle == "pokemonCatalogView") && <PokemonCatalog onDragStart={onDragStart} inspect={inspectPokemonCatalog} pokemons={pokemonCatalog} />} 
                   </div>
                 </Col>
                 <Col xs={8} md={6}>

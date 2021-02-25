@@ -111,6 +111,12 @@
         height: calc(var(--vh, 1vh) * 60);
     }
 
+    .rightSideView {
+        padding-top: 20px;
+        padding-left: 20px;
+        margin: 0;
+    }
+
     .berryCatalog-flex {
         display: flex;
         flex-flow: row wrap;
