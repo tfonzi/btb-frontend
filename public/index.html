@@ -34,7 +34,7 @@
     <script type="text/javascript">
 
     function setWindowHeight(){
-      var windowHeight = window.innerHeight;
+      var windowHeight = window.visualViewport.height;
       document.body.style.height = windowHeight + "px";
       console.log(document.body.style.height);
     }
