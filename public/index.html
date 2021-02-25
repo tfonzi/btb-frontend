@@ -35,6 +35,10 @@
 
     function setWindowHeight(){
       var windowHeight = window.visualViewport.height;
+      var windowWidth = window.visualViewport.width;
+      if(windowWidth <= 448){
+        windowHeight = windowHeight - 20
+      }
       document.body.style.height = windowHeight + "px";
       console.log(document.body.style.height);
     }
