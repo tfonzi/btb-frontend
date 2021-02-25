@@ -358,14 +358,18 @@ const App = () => {
               <MenuBar berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} />
             </div>
             <Container fluid className="topSideView">
-              <Row>
+              <Row noGutters="true">
                 <Col xs={4} md={6}> {/*Natively one column is 25% while the other is 75%. On desktop, it switches to 50-50 */}
+                  <div className="leftSideView">
                     {(teamBerriesToggle == "teamView") && <Team onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} inspect={inspectTeam} team={team} />}
                     {(teamBerriesToggle == "berryCatalogView") && <Berries onDragStart={onDragStart} inspect={inspectBerry} berries={berryCatalog} />}
                     {(teamBerriesToggle == "pokemonCatalogView") && <PokemonCatalog onDragStart={onDragStart} inspect={inspectBerry} pokemons={pokemonCatalog} />} 
+                  </div>
                 </Col>
                 <Col xs={8} md={6}>
-                  <Inspector onDragOver={onDragOver} onDrop={onDrop} view={inspectView} object={inspectData} updateNickname={updateNickname} AddObjectToBox={addObjToBox} AddObjectToTeam={addObjToTeam} removeObj={removeObj} />
+                  <div className="rightSideView">
+                    <Inspector onDragOver={onDragOver} onDrop={onDrop} view={inspectView} object={inspectData} updateNickname={updateNickname} AddObjectToBox={addObjToBox} AddObjectToTeam={addObjToTeam} removeObj={removeObj} />
+                  </div>
                 </Col>
               </Row>
             </Container>

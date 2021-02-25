@@ -18,6 +18,16 @@
         height: calc(var(--vh, 1vh) * 51);
     }
 
+    .leftSideView {
+        padding-right: 0;
+        margin: 0;
+    }
+
+    .rightSideView {
+        padding-left: 10px;
+        margin: 0;
+    }
+
     .berryCatalog-flex {
         display: flex;
         flex-flow: row wrap;
@@ -37,12 +47,22 @@
         justify-content: space-evenly;
         align-items: flex-start;
         align-content: flex-start;
-        width: 100%;
+        width: 110%;
         height: 41vh;
+        float: right;
         height: calc(var(--vh, 1vh) * 41);
         overflow: auto;
         overflow-x: hidden;
     
+    }
+
+    .pokemonCatalog-image {
+        max-width: 100%;
+        height: 4vh;
+    }
+
+    .pokemonCatalog-p {
+        display: none;
     }
 
     .team-flex {
@@ -66,12 +86,12 @@
 
     .box-flex {
         display: flex;
-        flex-flow: row wrap;
+        flex-flow: column wrap;
         justify-content: flex-start;
         height: 22vh;
         height: calc(var(--vh, 1vh) * 22);
-        overflow: auto;
-        overflow-x: hidden;
+        overflow-y: hidden;
+        overflow-x: auto;
         align-items: flex-start;
         align-content: flex-start;
     }
@@ -118,6 +138,11 @@
     
     }
 
+    .pokemonCatalog-image {
+        max-width: 100%;
+        height: 9vh;
+    }
+
     .team-flex {
         display: flex;
         flex-flow: row wrap;
@@ -139,12 +164,12 @@
 
     .box-flex {
         display: flex;
-        flex-flow: row wrap;
+        flex-flow: column wrap;
         justify-content: flex-start;
-        height: 20vh;
-        height: calc(var(--vh, 1vh) * 20);
-        overflow: auto;
-        overflow-x: hidden;
+        height: 22vh;
+        height: calc(var(--vh, 1vh) * 22);
+        overflow-y: hidden;
+        overflow-x: auto;
         align-items: flex-start;
         align-content: flex-start;
     }
