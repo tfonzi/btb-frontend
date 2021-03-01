@@ -103,9 +103,8 @@ const Inspector = ({view, object, onDragOver, onDrop, updateNickname, AddObjectT
                         <Image draggable="false" src={object.image}/>
                         {(object.types.length == 2) && <p>{object.types[0]} / {object.types[1]}</p>}
                         {(object.types.length == 1) && <p>{object.types}</p>}
-                        
-
                         <Stats stats={object.stats} />
+                        
                     </div>
                 )
                 

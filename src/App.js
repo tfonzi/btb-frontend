@@ -26,8 +26,12 @@ const App = () => {
   const [team, setTeam] = useState([])
   const [box, setBox] = useState([])
   const [berryCatalog, setBerryCatalog] = useState([])
-
   const [pokemonCatalog, setPokemonCatalog] = useState([])
+  const [active, setActive] = useState(null)
+  const [pCScrollState, setPCScrollState] = useState(0)
+  const [teamScrollState, setTeamScrollState] = useState(0)
+  const [boxScrollState, setBoxScrollState] = useState(0)
+  const [berryScrollState, setBerryScrollState] = useState(0)
 
 
   const backend_url = "https://btb-backend.azurewebsites.net"
@@ -117,7 +121,7 @@ const App = () => {
       return
     }
 
-    axios.post(`${backend_url}/box`, obj)
+    axios.post(`${backend_url}/team`, obj)
       .then(res =>{
             setTeam([...team, res.data])
       })
@@ -194,6 +198,7 @@ const App = () => {
               setTeam([...team, res.data])
               setInspectView("inspectTeam")
               setInspectData(res.data)
+              setActive(`team ${res.data._id}`)
             }
           }
           else if(source == "team"){
@@ -203,6 +208,7 @@ const App = () => {
               setBox([...box, res.data])
               setInspectView("inspectBox")
               setInspectData(res.data)
+              setActive(`box ${res.data._id}`)
             }
           }
       })
@@ -247,19 +253,50 @@ const App = () => {
 
   /*View and Inspect Functions ==============================================================================================================*/
   const changeViewToTeams = () => {
+    updateScrollState()
     setTeamBerriesToggle("teamView")
   }
 
   const changeViewToBerries = () => {
+    updateScrollState()
     setTeamBerriesToggle("berryCatalogView")
   }
 
   const changeViewToPokemonCatalog = () => {
+    updateScrollState()
     setTeamBerriesToggle("pokemonCatalogView")
   }
 
-  const formatInspectData =(id) => {
+  const updateScrollState = () => {
+    var el = ""
+    switch (teamBerriesToggle) {
+      case "teamView":
+          el = document.getElementById("TeamScroll")
+          setTeamScrollState(el.scrollTop)
+        break
 
+      case "berryCatalogView":{}
+          el = document.getElementById("BerryScroll")
+          setBerryScrollState(el.scrollTop)
+        break
+
+      case "pokemonCatalogView":
+        el = document.getElementById("PCScroll")
+        setPCScrollState(el.scrollTop)
+        break
+
+    }
+  }
+
+  const inspectBerry = (id) => {
+    const data = berryCatalog.find(berry => berry._id == id)
+    setInspectData(data)
+    setInspectView("inspectBerryCatalog")
+    setActive(`berryCatalog ${id}`)
+  }
+
+  const inspectPokemonCatalog =  (id) => {
+    
     axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
           .then(res => {
             var pokemon = {}
@@ -274,31 +311,31 @@ const App = () => {
               stat_object.base_stat = stat.base_stat
               return stat_object
             })
-            setInspectData(pokemon)
+            inspectPokeCatalogCallback(pokemon, res.data.id)
           })
   }
 
-  const inspectBerry = (id) => {
-    const data = berryCatalog.find(berry => berry._id == id)
-    setInspectData(data)
-    setInspectView("inspectBerryCatalog")
-  }
-
-  const inspectPokemonCatalog = (id) => {
-    formatInspectData(id)
+  const inspectPokeCatalogCallback =  (object, id) => {
+    updateScrollState()
+    setInspectData(object)
     setInspectView("inspectPokemonCatalog")
+    setActive(`pokemonCatalog ${id}`)
   }
 
   const inspectBox = (id) => {
     const data = box.find(obj => obj._id == id)
+    updateScrollState()
     setInspectData(data)
     setInspectView("inspectBox")
+    setActive(`box ${id}`)
   }
 
   const inspectTeam = (id) => {
     const data = team.find(obj => obj._id == id)
+    updateScrollState()
     setInspectData(data)
     setInspectView("inspectTeam")
+    setActive(`team ${id}`)
   }
 
 /*Mouse Events ==============================================================================================================*/
@@ -396,9 +433,9 @@ const App = () => {
               <Row noGutters="true">
                 <Col xs={4} md={6}> {/*Natively one column is 25% while the other is 75%. On desktop, it switches to 50-50 */}
                   <div className="leftSideView">
-                    {(teamBerriesToggle == "teamView") && <Team onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} inspect={inspectTeam} team={team} />}
-                    {(teamBerriesToggle == "berryCatalogView") && <Berries onDragStart={onDragStart} inspect={inspectBerry} berries={berryCatalog} />}
-                    {(teamBerriesToggle == "pokemonCatalogView") && <PokemonCatalog onDragStart={onDragStart} inspect={inspectPokemonCatalog} pokemons={pokemonCatalog} />} 
+                    {(teamBerriesToggle == "teamView") && <Team active={active} scrollState={teamScrollState} onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} inspect={inspectTeam} team={team} />}
+                    {(teamBerriesToggle == "berryCatalogView") && <Berries active={active} scrollState={berryScrollState} onDragStart={onDragStart} inspect={inspectBerry} berries={berryCatalog} />}
+                    {(teamBerriesToggle == "pokemonCatalogView") && <PokemonCatalog active={active} scrollState={pCScrollState} onDragStart={onDragStart} inspect={inspectPokemonCatalog} pokemons={pokemonCatalog} />} 
                   </div>
                 </Col>
                 <Col xs={8} md={6}>
@@ -409,7 +446,7 @@ const App = () => {
               </Row>
             </Container>
             <Container fluid>
-              <Box onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} inspect={inspectBox} box={box} />
+              <Box active={active} scrollState={boxScrollState} onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} inspect={inspectBox} box={box} />
             </Container> 
           </>
           )} />

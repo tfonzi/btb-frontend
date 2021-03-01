@@ -157,7 +157,14 @@
         border: 2px solid rgb(208, 230, 233);
         border-radius: 5px;
         height: auto;
-    
+    }
+
+    .active-pokemonCatalog-object {
+        border: 2px solid yellow;
+        background-color: rgb(208, 230, 233);
+        margin: 2px;
+        border-radius: 5px;
+        height: auto;
     }
 
     .pokemonCatalog-image {
@@ -202,6 +209,9 @@
     }
 }
 
+
+
+
 .pokemonCatalog-header{
     text-align: center;
 }
@@ -218,6 +228,15 @@
 
 }
 
+.active-berryCatalog-object {
+    margin: 2px;
+    max-width: 200%;
+    border: 2px solid yellow;
+    background-color: rgb(208, 230, 233);
+    border-radius: 5px;
+
+}
+
 .berryCatalog-image {
     max-width: 200%;
     height: auto;
@@ -229,8 +248,15 @@
 
 .team-object {
     margin: 2px;
-    width: 300px;
     border: 2px solid rgb(208, 230, 233);
+    border-radius: 5px;
+
+}
+
+.active-team-object {
+    margin: 2px;
+    border: 2px solid yellow;
+    background-color: rgb(208, 230, 233);
     border-radius: 5px;
 
 }
@@ -242,6 +268,14 @@
 .box-object {
     margin: 2px;
     border: 2px solid rgb(208, 230, 233);
+    border-radius: 5px;
+
+}
+
+.active-box-object {
+    margin: 2px;
+    border: 2px solid yellow;
+    background-color: rgb(208, 230, 233);
     border-radius: 5px;
 
 }
