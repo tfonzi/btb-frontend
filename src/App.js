@@ -290,6 +290,7 @@ const App = () => {
 
   const inspectBerry = (id) => {
     const data = berryCatalog.find(berry => berry._id == id)
+    updateScrollState()
     setInspectData(data)
     setInspectView("inspectBerryCatalog")
     setActive(`berryCatalog ${id}`)
