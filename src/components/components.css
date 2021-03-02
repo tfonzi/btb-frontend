@@ -64,6 +64,16 @@
     
     }
 
+    .active-pokemonCatalog-object {
+        margin: 0.5px;
+        border: 2px solid yellow;
+        background-color: rgb(208, 230, 233);
+        border-radius: 5px;
+        height: auto;
+    
+    }
+
+
     .pokemonCatalog-image {
         max-width: 100%;
         height: 4.4vh;
