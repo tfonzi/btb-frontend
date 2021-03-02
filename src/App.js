@@ -441,7 +441,7 @@ const App = () => {
         inspectPokemonCatalog(id)
       }
       else if(source == "itemCatalog"){
-        inspectItemCatalog(IDBCursor)
+        inspectItemCatalog(id)
       }
       else if(source == "box"){
         inspectBox(id)

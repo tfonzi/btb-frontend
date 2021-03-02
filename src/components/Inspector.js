@@ -52,6 +52,9 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
         else if(view == "inspectPokemonCatalog"){
             copy.type = "pokemon"
         }
+        else if(view == "inspectItemCatalog"){
+            copy.type = "item"
+        }
         copy.nickname = ""
         delete copy._id
         if(source == "box"){
