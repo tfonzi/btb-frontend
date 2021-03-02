@@ -8,7 +8,7 @@ import './components.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const MenuBar = ({teamView, berryView, pokemonCatalogView}) => {
+const MenuBar = ({teamView, berryView, pokemonCatalogView, itemCatalogView}) => {
 
     return (
       <>
@@ -19,10 +19,10 @@ const MenuBar = ({teamView, berryView, pokemonCatalogView}) => {
               <Nav.Link onClick={teamView} > Team </Nav.Link>
             </Nav.Item>
             <Nav.Item >
-              <Nav.Link onClick={berryView} > Berries </Nav.Link>
+              <Nav.Link onClick={pokemonCatalogView} > Pokemon </Nav.Link>
             </Nav.Item>
             <Nav.Item >
-              <Nav.Link onClick={pokemonCatalogView} > Pokemon </Nav.Link>
+              <Nav.Link onClick={itemCatalogView} > Items </Nav.Link>
             </Nav.Item>
             <Nav.Item >
               <Link to='/debug'> Debug</Link>

@@ -14,10 +14,9 @@ import Stats from './Stats'
 import {useState} from 'react'
 import PokemonCatalog from './PokemonCatalog'
 
-const Inspector = ({view, object, onDragOver, onDrop, updateNickname, AddObjectToBox, AddObjectToTeam, removeObj}) => {
+const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, AddObjectToBox, AddObjectToTeam, removeObj, moveTo}) => {
     
     const [nickname, setNickname] = useState("")
-    //const [pokemon, setPokemon] = useState({})
 
     const sendNickname = () =>{
         if(nickname){
@@ -31,14 +30,28 @@ const Inspector = ({view, object, onDragOver, onDrop, updateNickname, AddObjectT
             object.nickname = nickname
             setNickname("")
         }
-        else{
-            alert("Type in a nickname")
+        else{ //delete nickname
+            if(view == "inspectBox")
+                updateNickname("box", object._id, "")
+
+            if(view == "inspectTeam")
+                updateNickname("team", object._id, "")
+            
+            object.nickname = ""
+            setNickname("")
         }
     }
 
     const sendObject = (source) =>{
 
         var copy = JSON.parse(JSON.stringify(object)) //creates deep copy of original obj
+        copy.type = ""
+        if(view == "inspectBerryCatalog"){
+            copy.type = "berry"
+        }
+        else if(view == "inspectPokemonCatalog"){
+            copy.type = "pokemon"
+        }
         copy.nickname = ""
         delete copy._id
         if(source == "box"){
@@ -80,9 +93,6 @@ const Inspector = ({view, object, onDragOver, onDrop, updateNickname, AddObjectT
                             <h5>{object.description}</h5>
                             <Row>
                                 <Col>
-                                    <Button onClick={() => sendObject("team")} >Add to Team</Button>
-                                </Col>
-                                <Col>
                                     <Button onClick={() => sendObject("box")} >Add to Box</Button>
                                 </Col>
                             </Row>
@@ -99,16 +109,25 @@ const Inspector = ({view, object, onDragOver, onDrop, updateNickname, AddObjectT
                                                 "inspector")}
                     >
                     
-                        <p className="p">{object.name}</p>
-                        <Image draggable="false" src={object.image}/>
-                        {(object.types.length == 2) && <p>{object.types[0]} / {object.types[1]}</p>}
-                        {(object.types.length == 1) && <p>{object.types}</p>}
-                        <Stats stats={object.stats} />
+                        <Row>
+                            <Col>
+                                <p className="p">{object.name}</p>
+                                <Image draggable="false" src={object.image}/>
+                                {(apiData.types.length == 2) && <p>{apiData.types[0]} / {apiData.types[1]}</p>}
+                                {(apiData.types.length == 1) && <p>{apiData.types}</p>}
+                                <Stats stats={apiData.stats} />
+                            </Col>
+                            <Col>
+                                <Button onClick={() => sendObject("team")} >Add to Team</Button>
+                                <Button onClick={() => sendObject("box")} >Add to Box</Button>
+                            </Col>
+                        </Row>
                         
                     </div>
                 )
-                
-            case "inspectBox": //Box Inspect 
+
+            case "inspectItemCatalog": //ItemCatalog Inspect 
+            
                 return(
                     <div
                         onDragOver={(e) => onDragOver(e, "inspector")} 
@@ -116,24 +135,79 @@ const Inspector = ({view, object, onDragOver, onDrop, updateNickname, AddObjectT
                                                 e.dataTransfer.getData("id"),
                                                 "inspector")}
                     >
-                        <>
-                            <h4>{object.name}</h4>
-                            {(object.nickname) && <h5>"{object.nickname}"</h5>}
-                            <Image fluid draggable="false" src={object.image}/>
-                            <h5>{object.description}</h5>
-                            <Row>
-                                <Col>
-                                    <Button onClick={sendNickname} >Change Nickname</Button>
-                                    <input type="text" placeholder="Enter nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-                                </Col>
-                                <Col>
-                                    <Button variant="danger" onClick={() => removeObj(object._id, "box")}>Remove from box</Button>
-                                </Col>
-                            </Row>
-                        </>
+                    
+                        <Row>
+                            <Col>
+                                <p className="p">{object.name}</p>
+                                <Image draggable="false" src={object.image}/>
+                                <p className="p">{apiData.description}</p>
+                            </Col>
+                            <Col>
+                                <Button onClick={() => sendObject("box")} >Add to Box</Button>
+                            </Col>
+                        </Row>
+                        
                     </div>
                 )
 
+                
+            case "inspectBox": //Box Inspect 
+                
+                if(object.type === "item"){
+                    return(
+                        <div
+                            onDragOver={(e) => onDragOver(e, "inspector")} 
+                            onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
+                                                    e.dataTransfer.getData("id"),
+                                                    "inspector")}
+                        >
+                            <>
+                                <h4>{object.name}</h4>
+                                <Image fluid draggable="false" src={object.image}/>
+                                <h5>{apiData.description}</h5>
+                                <Row>
+                                    <Col>
+                                        <Button variant="danger" onClick={() => removeObj(object._id, "box")}>Remove from box</Button>
+                                    </Col>
+                                </Row>
+                            </>
+                        </div>
+                    )
+                }
+                else if (object.type === "pokemon"){
+                    
+                    return(
+                        <div
+                            onDragOver={(e) => onDragOver(e, "inspector")} 
+                            onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
+                                                    e.dataTransfer.getData("id"),
+                                                    "inspector")}
+                        >
+                            <>
+                                <h4>{object.name}</h4>
+                                {(object.nickname) && <h5>"{object.nickname}"</h5>}
+                                <Image fluid draggable="false" src={object.image}/>
+                                {(apiData.types.length == 2) && <p>{apiData.types[0]} / {apiData.types[1]}</p>}
+                                {(apiData.types.length == 1) && <p>{apiData.types}</p>}
+                                <Stats stats={apiData.stats} />
+                                <Row>
+                                    <Col>
+                                        <Button onClick={sendNickname} >Change Nickname</Button>
+                                        <input type="text" placeholder="Enter nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+                                    </Col>
+                                    <Col>
+                                        <Button variant="danger" onClick={() => removeObj(object._id, "box")}> Remove from box</Button>
+                                        <Button variant="success" onClick={() => moveTo(object._id, "box", "team")}> Move to Team</Button>
+                                    </Col>
+                                </Row>
+                            </>
+                        </div>
+                    )
+                }
+                else{
+                    return(<p>Error in displaying box object of type {object.type}</p>)
+                }
+            
             case "inspectTeam": //Team Inspect 
                 return(
                     <div
@@ -146,7 +220,9 @@ const Inspector = ({view, object, onDragOver, onDrop, updateNickname, AddObjectT
                             <h4>{object.name}</h4>
                             {(object.nickname) && <h5>"{object.nickname}"</h5>}
                             <Image fluid draggable="false" src={object.image}/>
-                            <h5>{object.description}</h5>
+                            {(apiData.types.length == 2) && <p>{apiData.types[0]} / {apiData.types[1]}</p>}
+                            {(apiData.types.length == 1) && <p>{apiData.types}</p>}
+                            <Stats stats={apiData.stats} />
                             <Row>
                                 <Col>
                                     <Button onClick={sendNickname} >Change Nickname</Button>
@@ -154,6 +230,7 @@ const Inspector = ({view, object, onDragOver, onDrop, updateNickname, AddObjectT
                                 </Col>
                                 <Col>
                                     <Button variant="danger" onClick={() => removeObj(object._id, "team")} >Remove from team</Button>
+                                    <Button variant="success" onClick={() => moveTo(object._id, "team", "box")} >Move to Box</Button>
                                 </Col>
                             </Row>
                         </>

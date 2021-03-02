@@ -6,6 +6,7 @@ import MenuBar from './components/MenuBar'
 import Team from './components/Team'
 import Berries from './components/Berries'
 import PokemonCatalog from './components/PokemonCatalog'
+import ItemCatalog from './components/ItemCatalog'
 import Inspector from './components/Inspector'
 import Box from './components/Box'
 import Debug from './components/Debug'
@@ -23,12 +24,15 @@ const App = () => {
   const [teamBerriesToggle, setTeamBerriesToggle] = useState("teamView") //Toggles lefthand view between berries and team
   const [inspectView, setInspectView] = useState("") //This variable toggles between inspect views
   const [inspectData, setInspectData] = useState(null) //This variable holds data that goes into inspect window
+  const [inspectDataAPI, setInspectDataAPI] = useState({types: 0, stats: null, description: ""})//This variable holds inspect data fetched from api
   const [team, setTeam] = useState([])
   const [box, setBox] = useState([])
   const [berryCatalog, setBerryCatalog] = useState([])
   const [pokemonCatalog, setPokemonCatalog] = useState([])
+  const [itemCatalog, setItemCatalog] = useState([])
   const [active, setActive] = useState(null)
   const [pCScrollState, setPCScrollState] = useState(0)
+  const [itemScrollState, setItemScrollState] = useState(0)
   const [teamScrollState, setTeamScrollState] = useState(0)
   const [boxScrollState, setBoxScrollState] = useState(0)
   const [berryScrollState, setBerryScrollState] = useState(0)
@@ -36,8 +40,6 @@ const App = () => {
 
   const backend_url = "https://btb-backend.azurewebsites.net"
   //const backend_url = "http://localhost:5000"
-
-  
 
   useEffect(() => {
 
@@ -75,11 +77,24 @@ const App = () => {
         })
     }
 
+    const getItemCatalog = () => {
+      
+      axios.get("https://pokeapi.co/api/v2/item-attribute/7/")
+        .then(res => {
+            var items = res.data.items
+            for (var i = 0; i < items.length; i++){
+              items[i].image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${items[i].name}.png`
+            }
+            setItemCatalog(items)
+        })
+    }
+
 
     getBerryCatalog()
     getBox()
     getTeam()
     getPokemonCatalog()
+    getItemCatalog()
   }, [])
 
 
@@ -118,6 +133,12 @@ const App = () => {
     if(team.length >= 6){
       console.log("Cancelled action due to team being full")
       alert("Cannot add more than 6 members to team.")
+      return
+    }
+
+    if(obj.type === "item"){
+      console.log("Cancelled action due to trying to add item to team")
+      alert("Cannot add an item as a team member.")
       return
     }
 
@@ -185,6 +206,16 @@ const App = () => {
         alert("Cannot add more than 6 members to team.")
         return
       }
+
+      if(source == "box"){
+        const item_check = box.find((obj) => obj._id == id)
+
+        if(item_check.type == "item"){
+          console.log("Cancelled action due to trying to add item to team")
+          alert("Cannot add an item as a team member.")
+          return
+        }
+      }
     }
 
     const body = {source, destination}
@@ -196,9 +227,12 @@ const App = () => {
 
             if(destination == "team"){
               setTeam([...team, res.data])
-              setInspectView("inspectTeam")
+              fetchInspectDataAPI(res.data.name)
+              updateScrollState()
               setInspectData(res.data)
-              setActive(`team ${res.data._id}`)
+              setInspectView("inspectTeam")
+              setActive(`box ${res.data._id}`)
+
             }
           }
           else if(source == "team"){
@@ -206,9 +240,12 @@ const App = () => {
            
             if(destination == "box"){
               setBox([...box, res.data])
-              setInspectView("inspectBox")
+              fetchInspectDataAPI(res.data.name)
+              updateScrollState()
               setInspectData(res.data)
+              setInspectView("inspectBox")
               setActive(`box ${res.data._id}`)
+
             }
           }
       })
@@ -267,6 +304,11 @@ const App = () => {
     setTeamBerriesToggle("pokemonCatalogView")
   }
 
+  const changeViewToItemCatalog = () => {
+    updateScrollState()
+    setTeamBerriesToggle("itemCatalogView")
+  }
+
   const updateScrollState = () => {
     var el = ""
     switch (teamBerriesToggle) {
@@ -285,6 +327,10 @@ const App = () => {
         setPCScrollState(el.scrollTop)
         break
 
+      case "itemCatalogView":
+        el = document.getElementById("ItemScroll")
+        setItemScrollState(el.scrollTop)
+        break
     }
   }
 
@@ -297,34 +343,61 @@ const App = () => {
   }
 
   const inspectPokemonCatalog =  (id) => {
-    
-    axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-          .then(res => {
-            var pokemon = {}
-            pokemon.name = res.data.name
-            pokemon.image = res.data.sprites.front_default
-            pokemon.types = res.data.types.map(type => {
-              return type.type.name
-            })
-            pokemon.stats = res.data.stats.map(stat => {
-              var stat_object = {}
-              stat_object.name = stat.stat.name
-              stat_object.base_stat = stat.base_stat
-              return stat_object
-            })
-            inspectPokeCatalogCallback(pokemon, res.data.id)
-          })
-  }
-
-  const inspectPokeCatalogCallback =  (object, id) => {
+    const data = pokemonCatalog.find((obj) => obj.id == id)
     updateScrollState()
-    setInspectData(object)
+    fetchInspectDataAPI(data.name, "pokemon")
+    setInspectData(data)
     setInspectView("inspectPokemonCatalog")
     setActive(`pokemonCatalog ${id}`)
   }
 
+  const inspectItemCatalog =  (name) => {
+    const data = itemCatalog.find((obj) => obj.name == name)
+    updateScrollState()
+    fetchInspectDataAPI(data.name, "item")
+    setInspectData(data)
+    setInspectView("inspectItemCatalog")
+    setActive(`itemCatalog ${name}`)
+  }
+
+
+  const fetchInspectDataAPI = (name, type) => {
+    
+    if(type == "pokemon"){
+      axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      .then(res => {
+        var pokemon = {}
+        pokemon.description = "" //Preserving format
+        pokemon.types = res.data.types.map(type => {
+          return type.type.name
+        })
+        pokemon.stats = res.data.stats.map(stat => {
+          var stat_object = {}
+          stat_object.name = stat.stat.name
+          stat_object.base_stat = stat.base_stat
+          return stat_object
+        })
+        setInspectDataAPI(pokemon)
+      })
+    }
+    else if (type == "item"){
+      axios.get(`https://pokeapi.co/api/v2/item/${name}`)
+      .then(res => {
+        var item = {}
+        item.stats = null //Preserving format
+        item.types = 0;
+        item.description = res.data.effect_entries[0].effect
+        setInspectDataAPI(item)
+      })
+    }
+    else{
+      console.log("Error in retrieving API data: Invalid Type")
+    }
+  }
+
   const inspectBox = (id) => {
     const data = box.find(obj => obj._id == id)
+    fetchInspectDataAPI(data.name, data.type)
     updateScrollState()
     setInspectData(data)
     setInspectView("inspectBox")
@@ -333,6 +406,7 @@ const App = () => {
 
   const inspectTeam = (id) => {
     const data = team.find(obj => obj._id == id)
+    fetchInspectDataAPI(data.name, data.type)
     updateScrollState()
     setInspectData(data)
     setInspectView("inspectTeam")
@@ -366,6 +440,9 @@ const App = () => {
       else if(source == "pokemonCatalog"){
         inspectPokemonCatalog(id)
       }
+      else if(source == "itemCatalog"){
+        inspectItemCatalog(IDBCursor)
+      }
       else if(source == "box"){
         inspectBox(id)
       }
@@ -384,8 +461,24 @@ const App = () => {
         obj = berryCatalog.find((berry) => berry._id == id)
         copy = JSON.parse(JSON.stringify(obj)) //creates deep copy of original obj
         copy.type = "berry"
-        copy.nickname = ""
         delete copy.id //Id gets rewritten when moving between containers
+    }
+
+    //Does object formatting if source is pokemonCatalog.
+    if(source == "pokemonCatalog"){
+      obj = pokemonCatalog.find((pokemon) => pokemon.id == id)
+      copy = JSON.parse(JSON.stringify(obj))
+      copy.type = "pokemon"
+      copy.nickname = ""
+      delete copy.id
+    }
+
+    //Does object formatting if source is itemCatalog.
+    if(source == "itemCatalog"){
+      obj = itemCatalog.find((item) => item.name == id)
+      copy = JSON.parse(JSON.stringify(obj))
+      copy.type = "item"
+      copy.nickname = ""
     }
 
 
@@ -394,7 +487,7 @@ const App = () => {
 
       case "box": {
         console.log(`Adding obj ${id} from ${source} to box.`)
-        if(source != "berryCatalog"){
+        if(source == "team"){
           moveTo(id, source, dest)
         }
         else{
@@ -405,7 +498,7 @@ const App = () => {
 
       case "team":{
         console.log(`Adding obj ${id} from ${source} to team.`)
-        if(source != "berryCatalog"){
+        if(source == "box"){
           moveTo(id, source, dest)
         }
         else{
@@ -428,7 +521,7 @@ const App = () => {
         <Route path='/' exact render={(props) => (
           <>
             <div className="menuBar">
-              <MenuBar berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} />
+              <MenuBar berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} itemCatalogView={changeViewToItemCatalog} />
             </div>
             <Container fluid className="topSideView">
               <Row noGutters="true">
@@ -437,11 +530,13 @@ const App = () => {
                     {(teamBerriesToggle == "teamView") && <Team active={active} scrollState={teamScrollState} onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} inspect={inspectTeam} team={team} />}
                     {(teamBerriesToggle == "berryCatalogView") && <Berries active={active} scrollState={berryScrollState} onDragStart={onDragStart} inspect={inspectBerry} berries={berryCatalog} />}
                     {(teamBerriesToggle == "pokemonCatalogView") && <PokemonCatalog active={active} scrollState={pCScrollState} onDragStart={onDragStart} inspect={inspectPokemonCatalog} pokemons={pokemonCatalog} />} 
+                    {(teamBerriesToggle == "itemCatalogView") && <ItemCatalog active={active} scrollState={itemScrollState} onDragStart={onDragStart} inspect={inspectItemCatalog} items={itemCatalog} />} 
+
                   </div>
                 </Col>
                 <Col xs={8} md={6}>
                   <div className="rightSideView">
-                    <Inspector onDragOver={onDragOver} onDrop={onDrop} view={inspectView} object={inspectData} updateNickname={updateNickname} AddObjectToBox={addObjToBox} AddObjectToTeam={addObjToTeam} removeObj={removeObj} />
+                    <Inspector onDragOver={onDragOver} onDrop={onDrop} view={inspectView} object={inspectData} apiData={inspectDataAPI} updateNickname={updateNickname} AddObjectToBox={addObjToBox} AddObjectToTeam={addObjToTeam} removeObj={removeObj} moveTo={moveTo} />
                   </div>
                 </Col>
               </Row>
