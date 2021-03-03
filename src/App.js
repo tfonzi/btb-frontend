@@ -550,13 +550,10 @@ const App = () => {
                     {(teamBerriesToggle == "berryCatalogView") && <Berries active={active} scrollState={berryScrollState} onDragStart={onDragStart} inspect={inspectBerry} berries={berryCatalog} />}
                     {(teamBerriesToggle == "pokemonCatalogView") && <PokemonCatalog active={active} scrollState={pCScrollState} onDragStart={onDragStart} inspect={inspectPokemonCatalog} pokemons={pokemonCatalog} />} 
                     {(teamBerriesToggle == "itemCatalogView") && <ItemCatalog active={active} scrollState={itemScrollState} onDragStart={onDragStart} inspect={inspectItemCatalog} items={itemCatalog} />} 
-
                   </div>
                 </Col>
                 <Col xs={8} md={6}>
-                  <div className="rightSideView">
                     <Inspector onDragOver={onDragOver} onDrop={onDrop} view={inspectView} object={inspectData} apiData={inspectDataAPI} updateNickname={updateNickname} AddObjectToBox={addObjToBox} AddObjectToTeam={addObjToTeam} removeObj={removeObj} moveTo={moveTo} />
-                  </div>
                 </Col>
               </Row>
             </Container>

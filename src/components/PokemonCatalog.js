@@ -12,7 +12,7 @@ const PokemonCatalog = ({pokemons, inspect, onDragStart, active, scrollState}) =
 
     return (
         <>
-            <h3 className="pokemonCatalog-header">Pokemon Catalog</h3>
+            <h3 className="pokemonCatalog-header">Pokemon</h3>
             <div id="PCScroll" className="pokemonCatalog-flex">
                 {pokemons.map((pokemon) => (
                 <div key={pokemon.id}>

@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 
@@ -105,50 +106,53 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
             case "inspectPokemonCatalog": //PokemonCatalog Inspect 
             
                 return(
-                    <div
+                    <div className="rightSideView"
                         onDragOver={(e) => onDragOver(e, "inspector")} 
                         onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
                                                 e.dataTransfer.getData("id"),
                                                 "inspector")}
                     >
                     
-                        <Row>
-                            <Col>
+                        <Row className="inspector-rows">
+                            <Col className="inspector-cols">
                                 <p className="p">{object.name}</p>
                                 <Image draggable="false" src={object.image}/>
-                                {(apiData.types.length == 2) && <p>{apiData.types[0]} / {apiData.types[1]}</p>}
-                                {(apiData.types.length == 1) && <p>{apiData.types}</p>}
-                                <Stats stats={apiData.stats} />
+                                {(apiData.types.length == 2) && <p className="p">{apiData.types[0]} / {apiData.types[1]}</p>}
+                                {(apiData.types.length == 1) && <p className="p">{apiData.types}</p>}
                             </Col>
-                            <Col>
-                                <Button onClick={() => sendObject("team")} >Add to Team</Button>
-                                <Button onClick={() => sendObject("box")} >Add to Box</Button>
+                            <Col className="inspector-cols">
+                                <div className="inspector-buttons">
+                                    <Button className="inspector-button" variant="success" onClick={() => sendObject("team")} >Add to Team</Button>
+                                    <Button className="inspector-button" onClick={() => sendObject("box")} >Add to Box</Button>
+                                </div>
                             </Col>
                         </Row>
-                        
+                        <Row className="inspector-rows">
+                            <Stats stats={apiData.stats} />
+                        </Row>
                     </div>
                 )
 
             case "inspectItemCatalog": //ItemCatalog Inspect 
             
                 return(
-                    <div
+                    <div className="rightSideView"
                         onDragOver={(e) => onDragOver(e, "inspector")} 
                         onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
                                                 e.dataTransfer.getData("id"),
                                                 "inspector")}
                     >
                     
-                        <Row>
-                            <Col>
+                        <Row className="inspector-rows">
+                            <Col className="inspector-cols">
                                 <p className="p">{object.name}</p>
                                 <Image draggable="false" src={object.image}/>
-                                <p className="p">{apiData.description}</p>
                             </Col>
-                            <Col>
+                            <Col className="inspector-cols">
                                 <Button onClick={() => sendObject("box")} >Add to Box</Button>
                             </Col>
                         </Row>
+                        <p className="p">{apiData.description}</p>
                         
                     </div>
                 )
@@ -158,52 +162,51 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
                 
                 if(object.type === "item"){
                     return(
-                        <div
+                        <div className="rightSideView"
                             onDragOver={(e) => onDragOver(e, "inspector")} 
                             onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
                                                     e.dataTransfer.getData("id"),
                                                     "inspector")}
                         >
-                            <>
-                                <h4>{object.name}</h4>
-                                <Image fluid draggable="false" src={object.image}/>
-                                <h5>{apiData.description}</h5>
-                                <Row>
-                                    <Col>
-                                        <Button variant="danger" onClick={() => removeObj(object._id, "box")}>Remove from box</Button>
-                                    </Col>
-                                </Row>
-                            </>
+                            
+                            <p className="p">{object.name}</p>
+                            <Image fluid draggable="false" src={object.image}/>
+                            <p>{apiData.description}</p>
+                            <Button className="inspector-button" variant="danger" onClick={() => removeObj(object._id, "box")}>Remove from box</Button>
+                                
+                            
                         </div>
                     )
                 }
                 else if (object.type === "pokemon"){
                     
                     return(
-                        <div
+                        <div className="rightSideView"
                             onDragOver={(e) => onDragOver(e, "inspector")} 
                             onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
                                                     e.dataTransfer.getData("id"),
                                                     "inspector")}
                         >
-                            <>
-                                <h4>{object.name}</h4>
-                                {(object.nickname) && <h5>"{object.nickname}"</h5>}
-                                <Image fluid draggable="false" src={object.image}/>
-                                {(apiData.types.length == 2) && <p>{apiData.types[0]} / {apiData.types[1]}</p>}
-                                {(apiData.types.length == 1) && <p>{apiData.types}</p>}
-                                <Stats stats={apiData.stats} />
-                                <Row>
-                                    <Col>
-                                        <Button onClick={sendNickname} >Change Nickname</Button>
-                                        <input type="text" placeholder="Enter nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-                                    </Col>
-                                    <Col>
-                                        <Button variant="danger" onClick={() => removeObj(object._id, "box")}> Remove from box</Button>
-                                        <Button variant="success" onClick={() => moveTo(object._id, "box", "team")}> Move to Team</Button>
-                                    </Col>
-                                </Row>
-                            </>
+                            <Row className="inspector-rows">
+                                <Col className="inspector-cols">
+                                    <p className="p">{object.name}</p>
+                                    {(object.nickname) && <p className="p">"{object.nickname}"</p>}
+                                    <Image fluid draggable="false" src={object.image}/>
+                                    {(apiData.types.length == 2) && <p className="p">{apiData.types[0]} / {apiData.types[1]}</p>}
+                                    {(apiData.types.length == 1) && <p className="p">{apiData.types}</p>}
+                                </Col>
+                                <Col className="inspector-cols">
+                                    <div className="inspector-buttons">
+                                        <Button className="inspector-button" variant="danger" onClick={() => removeObj(object._id, "box")}> Remove from box</Button>
+                                        <Button className="inspector-button" variant="success" onClick={() => moveTo(object._id, "box", "team")}> Move to Team</Button>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Stats stats={apiData.stats} />
+                            <div className="inspector-nickname">
+                                <Button className="inspector-nickname-button" variant="warning" onClick={sendNickname} >Name!</Button>
+                                <input className="inspector-nickname-field" type="text" placeholder="Enter nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+                            </div> 
                         </div>
                     )
                 }
@@ -213,30 +216,33 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
             
             case "inspectTeam": //Team Inspect 
                 return(
-                    <div
+                    <div className="rightSideView"
                         onDragOver={(e) => onDragOver(e, "inspector")} 
                         onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
                                                 e.dataTransfer.getData("id"),
                                                 "inspector")}
                     >
-                        <>
-                            <h4>{object.name}</h4>
-                            {(object.nickname) && <h5>"{object.nickname}"</h5>}
-                            <Image fluid draggable="false" src={object.image}/>
-                            {(apiData.types.length == 2) && <p>{apiData.types[0]} / {apiData.types[1]}</p>}
-                            {(apiData.types.length == 1) && <p>{apiData.types}</p>}
-                            <Stats stats={apiData.stats} />
-                            <Row>
-                                <Col>
-                                    <Button onClick={sendNickname} >Change Nickname</Button>
-                                    <input type="text" placeholder="Enter nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-                                </Col>
-                                <Col>
-                                    <Button variant="danger" onClick={() => removeObj(object._id, "team")} >Remove from team</Button>
-                                    <Button variant="success" onClick={() => moveTo(object._id, "team", "box")} >Move to Box</Button>
-                                </Col>
-                            </Row>
-                        </>
+                        
+                        <Row className="inspector-rows">
+                            <Col className="inspector-cols">
+                                <p className="p">{object.name}</p>
+                                {(object.nickname) && <p className="p">"{object.nickname}"</p>}
+                                <Image fluid draggable="false" src={object.image}/>
+                                {(apiData.types.length == 2) && <p className="p">{apiData.types[0]} / {apiData.types[1]}</p>}
+                                {(apiData.types.length == 1) && <p className="p">{apiData.types}</p>}
+                            </Col>
+                            <Col className="inspector-cols">
+                                <div className="inspector-buttons">
+                                    <Button className="inspector-button" variant="danger" onClick={() => removeObj(object._id, "team")} >Remove from team</Button>
+                                    <Button className="inspector-button" onClick={() => moveTo(object._id, "team", "box")} >Move to Box</Button>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Stats stats={apiData.stats} />
+                        <div className="inspector-nickname">
+                            <Button className="inspector-nickname-button" variant="warning" onClick={sendNickname} >Name!</Button>
+                            <input className="inspector-nickname-field" type="text" placeholder="Enter nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+                        </div>        
                     </div>
                 )
                 
