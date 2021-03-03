@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import axios from 'axios';
+import axios from 'axios'
 
 import MenuBar from './components/MenuBar'
 import Team from './components/Team'
@@ -11,11 +11,13 @@ import Inspector from './components/Inspector'
 import Box from './components/Box'
 import Debug from './components/Debug'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import "./components/components.css"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+
+import { readFromCache, writeToCache } from './cache.js'
 
 
 
@@ -36,6 +38,8 @@ const App = () => {
   const [teamScrollState, setTeamScrollState] = useState(0)
   const [boxScrollState, setBoxScrollState] = useState(0)
   const [berryScrollState, setBerryScrollState] = useState(0)
+
+
 
 
   const backend_url = "https://btb-backend.azurewebsites.net"
@@ -88,7 +92,6 @@ const App = () => {
             setItemCatalog(items)
         })
     }
-
 
     getBerryCatalog()
     getBox()
@@ -364,31 +367,47 @@ const App = () => {
   const fetchInspectDataAPI = (name, type) => {
     
     if(type == "pokemon"){
-      axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-      .then(res => {
-        var pokemon = {}
-        pokemon.description = "" //Preserving format
-        pokemon.types = res.data.types.map(type => {
-          return type.type.name
+
+      const cached = readFromCache(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      if(cached){
+        setInspectDataAPI(cached)
+      }
+      else{
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+        .then(res => {
+          var pokemon = {}
+          pokemon.description = "" //Preserving format
+          pokemon.types = res.data.types.map(type => {
+            return type.type.name
+          })
+          pokemon.stats = res.data.stats.map(stat => {
+            var stat_object = {}
+            stat_object.name = stat.stat.name
+            stat_object.base_stat = stat.base_stat
+            return stat_object
+          })
+          writeToCache(`https://pokeapi.co/api/v2/pokemon/${name}`, pokemon)
+          setInspectDataAPI(pokemon)
         })
-        pokemon.stats = res.data.stats.map(stat => {
-          var stat_object = {}
-          stat_object.name = stat.stat.name
-          stat_object.base_stat = stat.base_stat
-          return stat_object
-        })
-        setInspectDataAPI(pokemon)
-      })
+      }
     }
     else if (type == "item"){
-      axios.get(`https://pokeapi.co/api/v2/item/${name}`)
-      .then(res => {
-        var item = {}
-        item.stats = null //Preserving format
-        item.types = 0;
-        item.description = res.data.effect_entries[0].effect
-        setInspectDataAPI(item)
-      })
+
+      const cached = readFromCache(`https://pokeapi.co/api/v2/item/${name}`)
+      if(cached){
+        setInspectDataAPI(cached)
+      }
+      else{
+        axios.get(`https://pokeapi.co/api/v2/item/${name}`)
+        .then(res => {
+          var item = {}
+          item.stats = null //Preserving format
+          item.types = 0;
+          item.description = res.data.effect_entries[0].effect
+          writeToCache(`https://pokeapi.co/api/v2/item/${name}`, item)
+          setInspectDataAPI(item)
+        })
+      }
     }
     else{
       console.log("Error in retrieving API data: Invalid Type")
