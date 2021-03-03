@@ -117,8 +117,8 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
                             <Col className="inspector-cols">
                                 <p className="p">{object.name}</p>
                                 <Image draggable="false" src={object.image}/>
-                                {(apiData.types.length == 2) && <p className="p">{apiData.types[0]} / {apiData.types[1]}</p>}
-                                {(apiData.types.length == 1) && <p className="p">{apiData.types}</p>}
+                                {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]} / {apiData.types[1]}</p>}
+                                {(apiData.types.length == 1) && <p className="inspector-type">{apiData.types}</p>}
                             </Col>
                             <Col className="inspector-cols">
                                 <div className="inspector-buttons">
@@ -192,8 +192,8 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
                                     <p className="p">{object.name}</p>
                                     {(object.nickname) && <p className="p">"{object.nickname}"</p>}
                                     <Image fluid draggable="false" src={object.image}/>
-                                    {(apiData.types.length == 2) && <p className="p">{apiData.types[0]} / {apiData.types[1]}</p>}
-                                    {(apiData.types.length == 1) && <p className="p">{apiData.types}</p>}
+                                    {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]} / {apiData.types[1]}</p>}
+                                    {(apiData.types.length == 1) && <p className="inspector-type">{apiData.types}</p>}
                                 </Col>
                                 <Col className="inspector-cols">
                                     <div className="inspector-buttons">
@@ -228,8 +228,8 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
                                 <p className="p">{object.name}</p>
                                 {(object.nickname) && <p className="p">"{object.nickname}"</p>}
                                 <Image fluid draggable="false" src={object.image}/>
-                                {(apiData.types.length == 2) && <p className="p">{apiData.types[0]} / {apiData.types[1]}</p>}
-                                {(apiData.types.length == 1) && <p className="p">{apiData.types}</p>}
+                                {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]} / {apiData.types[1]}</p>}
+                                {(apiData.types.length == 1) && <p className="inspector-type">{apiData.types}</p>}
                             </Col>
                             <Col className="inspector-cols">
                                 <div className="inspector-buttons">
