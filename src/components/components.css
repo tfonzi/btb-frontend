@@ -22,7 +22,12 @@
     .rightSideView {
         padding-left: 10px;
         padding-right: 5px;  
-        margin: 0;
+        margin-left: 8px;
+        margin-right: -10px;
+        border: 2px solid rgb(208, 230, 233);
+        border-radius: 5px;
+        height: 51vh;
+        height: calc(var(--vh, 1vh) * 51);
     }
 
     .inspector-rows {
@@ -46,6 +51,7 @@
 
     .inspector-nickname{
         margin-top: 3px;
+        margin-bottom: 3px;
     }
 
     .inspector-nickname-field{
@@ -65,8 +71,6 @@
         padding: 0;
         font-size: small;
     }
-
-
 
     .leftSideView {
         padding-right: 0;
@@ -243,6 +247,69 @@
     .rightSideView {
         padding-top: 20px;
         padding-left: 20px;
+        margin-left: 15px;
+        margin-top: 40px;
+        border: 2px solid rgb(208, 230, 233);
+        border-radius: 5px;
+        height: 50vh;
+        height: calc(var(--vh, 1vh) * 50);
+    }
+
+    .inspector-rows {
+        margin: 0   !important;
+    }
+
+    .inspector-cols {
+        padding: 0  !important;
+    }
+
+    .inspector-buttons {
+        position: absolute;
+        top: 25%;
+    }
+
+    .inspector-button {
+        margin-bottom: 10px;
+        font-size: 14px !important;
+        width: 100%
+    }
+
+    .inspector-nickname{
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+
+    .inspector-nickname-field{
+        font-size: 12px;
+        width: 50%
+    }
+
+    .inspector-nickname-button{
+        font-size: 12px !important;
+        width: 40%;
+        padding: 3px !important;
+        margin: 5px;
+    }
+
+    .inspector-type{
+        margin: 0;
+        margin-bottom: 5px;
+        margin-top: -7.5px;
+        padding: 0;
+        font-size: medium;
+    }
+
+    .inspector-empty {
+        width: 97.5%;
+        position: absolute;
+        left: 2.5%;
+        height: 45vh;
+        border: 2px solid rgb(208, 230, 233);
+        border-radius: 5px;
+    }
+
+    .leftSideView {
+        padding-right: 0;
         margin: 0;
     }
 
@@ -384,7 +451,6 @@
         align-content: flex-start;
     }
 }
-
 
 .stats{
     margin-left: 5px;

@@ -69,15 +69,12 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
 
     if(!object){
         return(
-            <div
+            <div className="rightSideView"
                 onDragOver={(e) => onDragOver(e)} 
                 onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
                                         e.dataTransfer.getData("id"),
                                         "inspector")}
             >
-                <div height="60%">
-                    <p>Click to Inspect!</p>
-                </div>
             </div>
         )
     }
@@ -149,7 +146,7 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
                                 <Image draggable="false" src={object.image}/>
                             </Col>
                             <Col className="inspector-cols">
-                                <Button onClick={() => sendObject("box")} >Add to Box</Button>
+                                <Button className="inspector-buttons" onClick={() => sendObject("box")} >Add to Box</Button>
                             </Col>
                         </Row>
                         <p className="p">{apiData.description}</p>
@@ -174,7 +171,6 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
                             <p>{apiData.description}</p>
                             <Button className="inspector-button" variant="danger" onClick={() => removeObj(object._id, "box")}>Remove from box</Button>
                                 
-                            
                         </div>
                     )
                 }
@@ -248,15 +244,12 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
                 
             default:
                 return(
-                    <div className="inspector"
+                    <div className="rightSideView"
                         onDragOver={(e) => onDragOver(e)} 
                         onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
                                                 e.dataTransfer.getData("id"),
                                                 "inspector")}
                     >
-                        <div height="500px">
-                            <h1>Click to Inspect!</h1>
-                        </div>
                     </div>
                 )
         }
