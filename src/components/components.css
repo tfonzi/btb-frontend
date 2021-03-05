@@ -96,7 +96,7 @@
     }
 
     .box-header{
-        position: absolute;
+        position: relative;
         left: 12%;
         font-size: x-large;
     }
