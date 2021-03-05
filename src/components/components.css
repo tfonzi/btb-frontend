@@ -96,7 +96,8 @@
     }
 
     .box-header{
-        text-align: left;
+        position: absolute;
+        left: 12%;
         font-size: x-large;
     }
 
