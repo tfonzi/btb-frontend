@@ -26,8 +26,8 @@
         margin-right: -10px;
         border: 2px solid rgb(208, 230, 233);
         border-radius: 5px;
-        height: 51vh;
-        height: calc(var(--vh, 1vh) * 51);
+        height: 54vh;
+        height: calc(var(--vh, 1vh) * 54);
     }
 
     .inspector-rows {
