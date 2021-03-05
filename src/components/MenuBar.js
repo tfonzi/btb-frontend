@@ -24,9 +24,6 @@ const MenuBar = ({teamView, berryView, pokemonCatalogView, itemCatalogView}) => 
             <Nav.Item className="navbar-button">
               <Nav.Link onClick={itemCatalogView} > Items </Nav.Link>
             </Nav.Item>
-            <Nav.Item className="navbar-button">
-              <Link to='/debug'> Debug</Link>
-            </Nav.Item>
           </Nav>
           
         </Navbar>
