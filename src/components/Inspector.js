@@ -10,12 +10,14 @@ import axios from 'axios';
 import './components.css'
 
 import Stats from './Stats'
+import Moves from './Moves'
+
 
 
 import {useState} from 'react'
 import PokemonCatalog from './PokemonCatalog'
 
-const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, AddObjectToBox, AddObjectToTeam, removeObj, moveTo}) => {
+const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMoves, updateNickname, AddObjectToBox, AddObjectToTeam, removeObj, moveTo}) => {
     
     const [nickname, setNickname] = useState("")
 
@@ -125,7 +127,7 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
                             </Col>
                         </Row>
                         <Row className="inspector-rows">
-                            <Stats stats={apiData.stats} />
+                            {(apiData.stats) && <Stats stats={apiData.stats} />}
                         </Row>
                     </div>
                 )
@@ -198,11 +200,14 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
                                     </div>
                                 </Col>
                             </Row>
-                            <Stats stats={apiData.stats} />
                             <div className="inspector-nickname">
                                 <Button className="inspector-nickname-button" variant="warning" onClick={sendNickname} >Name!</Button>
                                 <input className="inspector-nickname-field" type="text" placeholder="Enter nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-                            </div> 
+                            </div>
+                            <div>
+                                {(apiData.stats) && <Stats stats={apiData.stats} />}  
+                                {(apiData.moves) && <Moves key={object._id} pokemon={object} source="box" updatePokemonMoves={updatePokemonMoves} movesAPI={apiData.moves} />}    
+                            </div>
                         </div>
                     )
                 }
@@ -234,11 +239,14 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updateNickname, A
                                 </div>
                             </Col>
                         </Row>
-                        <Stats stats={apiData.stats} />
                         <div className="inspector-nickname">
                             <Button className="inspector-nickname-button" variant="warning" onClick={sendNickname} >Name!</Button>
                             <input className="inspector-nickname-field" type="text" placeholder="Enter nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-                        </div>        
+                        </div> 
+                        <div>
+                            {(apiData.stats) && <Stats stats={apiData.stats} />}  
+                            {(apiData.moves) && <Moves key={object._id} pokemon={object} source="team" updatePokemonMoves={updatePokemonMoves} movesAPI={apiData.moves} />}    
+                        </div>
                     </div>
                 )
                 

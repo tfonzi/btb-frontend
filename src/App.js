@@ -38,6 +38,7 @@ const App = () => {
   const [teamScrollState, setTeamScrollState] = useState(0)
   const [boxScrollState, setBoxScrollState] = useState(0)
   const [berryScrollState, setBerryScrollState] = useState(0)
+  const [knownMoves, setKnownMoves] = useState([])
 
 
 
@@ -230,12 +231,11 @@ const App = () => {
 
             if(destination == "team"){
               setTeam([...team, res.data])
-              fetchInspectDataAPI(res.data.name)
               updateScrollState()
               setInspectData(res.data)
+              fetchInspectDataAPI(res.data.name, res.data.type)
+              setActive(`team ${res.data._id}`)
               setInspectView("inspectTeam")
-              setActive(`box ${res.data._id}`)
-
             }
           }
           else if(source == "team"){
@@ -243,12 +243,11 @@ const App = () => {
            
             if(destination == "box"){
               setBox([...box, res.data])
-              fetchInspectDataAPI(res.data.name)
               updateScrollState()
               setInspectData(res.data)
-              setInspectView("inspectBox")
+              fetchInspectDataAPI(res.data.name, res.data.type)
               setActive(`box ${res.data._id}`)
-
+              setInspectView("inspectBox")
             }
           }
       })
@@ -288,6 +287,43 @@ const App = () => {
 
       default:
         alert("Source Error in updating nickname.")
+    }
+  }
+
+  const updateMoves = async (source, id, moves) => {
+    switch (source){
+      case "box":{
+        var copy = box.find((obj) => obj._id == id)
+        copy.moves = moves
+
+        axios.patch(`${backend_url}/box/${id}`, copy)
+          .then(res =>{
+            setBox(box.map(
+              (obj) => obj.id === id //For every obj, if obj._id equals id
+              ? {...obj, moves: res.moves }  //Update obj nickname
+              : obj) //Else, leave obj as is
+              )
+          })
+        break
+      }
+
+      case "team":{
+        var copy = team.find((obj) => obj._id == id)
+        copy.moves = moves
+
+        axios.patch(`${backend_url}/team/${id}`, copy)
+          .then(res =>{
+            setTeam(team.map(
+              (obj) => obj.id === id //For every obj, if obj._id equals id
+              ? {...obj, moves: res.moves }  //Update obj nickname
+              : obj) //Else, leave obj as is
+              )
+          })
+        break
+      }
+
+      default:
+        alert("Source Error in updating moves.")
     }
   }
 
@@ -386,6 +422,13 @@ const App = () => {
             stat_object.base_stat = stat.base_stat
             return stat_object
           })
+          pokemon.moves = res.data.moves.map(move => {
+            var move_object = {}
+            move_object.name = move.move.name
+            move_object.url = move.move.url
+            return move_object
+          })
+
           writeToCache(`https://pokeapi.co/api/v2/pokemon/${name}`, pokemon)
           setInspectDataAPI(pokemon)
         })
@@ -411,23 +454,24 @@ const App = () => {
     }
     else{
       console.log("Error in retrieving API data: Invalid Type")
+      console.log(`${name} : ${type}`)
     }
   }
 
   const inspectBox = (id) => {
     const data = box.find(obj => obj._id == id)
-    fetchInspectDataAPI(data.name, data.type)
     updateScrollState()
     setInspectData(data)
+    fetchInspectDataAPI(data.name, data.type)
     setInspectView("inspectBox")
     setActive(`box ${id}`)
   }
 
   const inspectTeam = (id) => {
     const data = team.find(obj => obj._id == id)
-    fetchInspectDataAPI(data.name, data.type)
     updateScrollState()
     setInspectData(data)
+    fetchInspectDataAPI(data.name, data.type)
     setInspectView("inspectTeam")
     setActive(`team ${id}`)
   }
@@ -436,6 +480,12 @@ const App = () => {
   const onDragStart = (ev, id, source) => {
     ev.dataTransfer.setData("id", id)
     ev.dataTransfer.setData("source", source)
+    if(source == "box"){
+      inspectBox(id)
+    }
+    else if(source == "team"){
+      inspectTeam(id)
+    }
   } 
 
   const onDragOver = (ev) => {
@@ -553,7 +603,7 @@ const App = () => {
                   </div>
                 </Col>
                 <Col xs={8} md={6}>
-                    <Inspector onDragOver={onDragOver} onDrop={onDrop} view={inspectView} object={inspectData} apiData={inspectDataAPI} updateNickname={updateNickname} AddObjectToBox={addObjToBox} AddObjectToTeam={addObjToTeam} removeObj={removeObj} moveTo={moveTo} />
+                    <Inspector onDragOver={onDragOver} onDrop={onDrop} view={inspectView} object={inspectData} apiData={inspectDataAPI} updatePokemonMoves={updateMoves} updateNickname={updateNickname} AddObjectToBox={addObjToBox} AddObjectToTeam={addObjToTeam} removeObj={removeObj} moveTo={moveTo} />
                 </Col>
               </Row>
             </Container>

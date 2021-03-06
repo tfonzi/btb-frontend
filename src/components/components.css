@@ -254,6 +254,8 @@
         border-radius: 5px;
         height: 50vh;
         height: calc(var(--vh, 1vh) * 50);
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .inspector-rows {
@@ -298,6 +300,41 @@
         margin-top: -7.5px;
         padding: 0;
         font-size: medium;
+    }
+
+    .inspector-moves{
+        margin-top: 10px;
+        margin-left: 17.5px;
+    }
+
+    .inspector-move_select{
+        margin-left: -17.5px;
+    }
+
+    .inspector-move_buttons{
+        position: relative;
+        left: -150%;
+    }
+
+    .inspector-move_button{
+        width: 100%;
+        padding: -0px !important;
+        font-size: small !important;
+    }
+
+    .inspector-move_data{
+        margin-top: -5px;
+    }
+
+    .p_inspector-move_data{
+        padding: 0px;
+        margin-bottom: 5px;
+        font-size: smaller;
+        margin-left: -60px;
+    }
+
+    .scroll-spacer {
+        height: 1vh;
     }
 
     .inspector-empty {
