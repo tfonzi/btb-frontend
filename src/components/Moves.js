@@ -25,7 +25,7 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
     const [mobileModal, setMobileModal] = useState(false)
 
     useEffect(() => {
-       
+        resetFocus()
         let move_1 = pokemon.moves[0]
         let move_2 = pokemon.moves[1]
         let move_3 = pokemon.moves[2]
@@ -54,6 +54,10 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
         }
         
     }, [])
+
+    const resetFocus = () => {
+        window.scrollX = 0
+    }
 
     const showModal = () => {
         setMobileModal(true)
@@ -166,6 +170,7 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
     }
 
     const updateMoves = (id) => {
+        resetFocus()
         updateKnownMoves()
         updateAvaliableMoves()
         updateMoveData(id)
