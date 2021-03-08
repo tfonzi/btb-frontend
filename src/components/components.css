@@ -28,6 +28,8 @@
         border-radius: 5px;
         height: 54vh;
         height: calc(var(--vh, 1vh) * 54);
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .inspector-rows {
@@ -56,20 +58,58 @@
 
     .inspector-nickname-field{
         font-size: 12px;
-        width: 50%
+        width: 50%;
+        margin-left: 12px;
     }
 
     .inspector-nickname-button{
         font-size: 12px !important;
         width: 40%;
         padding: 3px !important;
-        margin: 5px;
+        margin: 5px 0px;
     }
 
     .inspector-type{
         margin: 0;
         padding: 0;
         font-size: small;
+    }
+
+    .inspector-moves{
+        margin-top: 10px;
+        margin-left: 4px;
+    }
+
+    .inspector-move_select{
+        margin: 4px 0px 0px 0px;
+        font-size: small;
+        width: 100%;
+    }
+
+    .inspector-move_buttons{
+        margin-top: 1px;
+    }
+
+    .inspector-move_button{
+        margin: 4px 0px 0px 0px;
+        width: 75%;
+        padding: -0px !important;
+        font-size: small !important;
+    }
+
+    .inspector-move_data{
+        margin-top: -5px;
+    }
+
+    .p_inspector-move_data{
+        padding: 0px;
+        margin-bottom: 5px;
+        font-size: medium;
+        margin-left: 0px;
+    }
+
+    .scroll-spacer {
+        height: 1vh;
     }
 
     .leftSideView {
@@ -337,15 +377,7 @@
         height: 1vh;
     }
 
-    .inspector-empty {
-        width: 97.5%;
-        position: absolute;
-        left: 2.5%;
-        height: 45vh;
-        border: 2px solid rgb(208, 230, 233);
-        border-radius: 5px;
-    }
-
+    
     .leftSideView {
         padding-right: 0;
         margin: 0;

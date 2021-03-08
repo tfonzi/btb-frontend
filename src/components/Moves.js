@@ -3,6 +3,11 @@ import {useState, useEffect} from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
+import ModalHeader from 'react-bootstrap/ModalHeader'
+import ModalBody from 'react-bootstrap/ModalBody'
+import ModalFooter from 'react-bootstrap/ModalFooter'
+
 import './components.css'
 import axios from 'axios'
 import { readFromCache, writeToCache } from './../cache.js'
@@ -16,6 +21,8 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
     const [availableForMove_3, setAvailableForMove_3] = useState([{name: "", url: ""}, ...movesAPI])
     const [availableForMove_4, setAvailableForMove_4] = useState([{name: "", url: ""}, ...movesAPI])
     const [moveData, setMoveData] = useState("")
+    const [width, setWidth] = useState(window.innerWidth)
+    const [mobileModal, setMobileModal] = useState(false)
 
     useEffect(() => {
        
@@ -35,12 +42,34 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
         select_4.value = move_4
 
         updateAvaliableMoves()
+
+
+        //Code for getting screen width
+        const resizeWidth = () => {
+            setWidth(window.innerWidth)
+        }
+        window.addEventListener('resize', resizeWidth)
+        return _ => {
+            window.removeEventListener('resize', resizeWidth)
+        }
         
     }, [])
 
+    const showModal = () => {
+        setMobileModal(true)
+    }
+
+    const closeModal = () => {
+        setMobileModal(false)
+    }
+
+
+    const mobileMoveButtonPress = (move) => {
+        updateMoveData(move)
+        showModal()
+    }
 
     const updateMoveData = (move) => {
-        console.log(move)
         let name = document.getElementById(move).value
         let move_object = movesAPI.find( move => move.name === name)
         let url = move_object.url
@@ -49,12 +78,13 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
         if(cached){
             setMoveData(cached)
         }
-
-        axios.get(url)
-        .then(res => {
-            writeToCache(url, res.data)
-            setMoveData(res.data)
-        })
+        else{
+            axios.get(url)
+            .then(res => {
+                writeToCache(url, res.data)
+                setMoveData(res.data)
+            })
+        }
     }
 
 
@@ -141,56 +171,129 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
         updateMoveData(id)
     }
     
-    return (
-        <div className="inspector-moves">
-        <Row>
-            <Col md={3}>
-                <select className="inspector-move_select" onChange={() => updateMoves("move_1")} id="move_1">
-                    {availableForMove_1.map(move => (
-                        <option key={`move_1_${move.name}`} value={move.name}>{move.name}</option>
-                    ))}
-                </select>
-                <select className="inspector-move_select" onChange={() => updateMoves("move_2")} id="move_2">
-                    {availableForMove_2.map(move => (
-                        <option key={`move_2_${move.name}`} value={move.name}>{move.name}</option>
-                    ))}
-                </select>
-                <select className="inspector-move_select" onChange={() => updateMoves("move_3")} id="move_3">
-                    {availableForMove_3.map(move => (
-                        <option key={`move_3_${move.name}`} value={move.name}>{move.name}</option>
-                    ))}
-                </select>
-                <select className="inspector-move_select" onChange={() => updateMoves("move_4")} id="move_4">
-                    {availableForMove_4.map(move => (
-                        <option key={`move_4_${move.name}`} value={move.name}>{move.name}</option>
-                    ))}
-                </select>
-            </Col>
-            <Col md={1}>
-                <div className="inspector-move_buttons">
-                    {(pokemon.moves[0]) && <Button  className="inspector-move_button" onClick={() => updateMoveData("move_1")}>Info</Button>}
-                    {(pokemon.moves[1]) && <Button className="inspector-move_button" onClick={() => updateMoveData("move_2")}>Info</Button>}
-                    {(pokemon.moves[2]) && <Button className="inspector-move_button" onClick={() => updateMoveData("move_3")}>Info</Button>}
-                    {(pokemon.moves[3]) && <Button className="inspector-move_button" onClick={() => updateMoveData("move_4")}>Info</Button>}
-                </div>
-            </Col>
-            <Col md={8}>
-                {(moveData) && <div className="inspector-move_data">
-                    <p className="p_inspector-move_data"><b>Name:</b> {moveData.name}</p>
-                    <p className="p_inspector-move_data"><b>Description:</b> {moveData.effect_entries[0].effect}</p>
-                    <p className="p_inspector-move_data"><b>Type:</b> {moveData.type.name}</p>
-                    <p className="p_inspector-move_data"><b>Damage class:</b> {moveData.damage_class.name}</p>
-                    {(moveData.power) && <p className="p_inspector-move_data"><b>Power:</b> {moveData.power}</p>}
-                    <p className="p_inspector-move_data"><b>PP:</b> {moveData.pp}</p>
-                    {(moveData.accuracy) && <p className="p_inspector-move_data"><b>Accuracy:</b> {moveData.accuracy}</p>}
-                </div>}
-            </Col>
-        </Row>
-        <div className="scroll-spacer"> </div>
-        
-        
-        </div>
-    )
+    if(width <= 448){
+        return (
+            <div className="inspector-moves">
+                <Row>
+                    <Col xs={8} sm={8}>
+                        <select className="inspector-move_select" onChange={() => updateMoves("move_1")} id="move_1">
+                            {availableForMove_1.map(move => (
+                                <option key={`move_1_${move.name}`} value={move.name}>{move.name}</option>
+                            ))}
+                        </select>
+                        <select className="inspector-move_select" onChange={() => updateMoves("move_2")} id="move_2">
+                            {availableForMove_2.map(move => (
+                                <option key={`move_2_${move.name}`} value={move.name}>{move.name}</option>
+                            ))}
+                        </select>
+                        <select className="inspector-move_select" onChange={() => updateMoves("move_3")} id="move_3">
+                            {availableForMove_3.map(move => (
+                                <option key={`move_3_${move.name}`} value={move.name}>{move.name}</option>
+                            ))}
+                        </select>
+                        <select className="inspector-move_select" onChange={() => updateMoves("move_4")} id="move_4">
+                            {availableForMove_4.map(move => (
+                                <option key={`move_4_${move.name}`} value={move.name}>{move.name}</option>
+                            ))}
+                        </select>
+                    </Col>
+                    <Col xs={4} sm={4}>
+                        <div className="inspector-move_buttons">
+                            <Row>
+                                {(pokemon.moves[0]) && <Button  className="inspector-move_button" onClick={() => mobileMoveButtonPress("move_1")}>Info</Button>}
+                            </Row>
+                            <Row>
+                                {(pokemon.moves[1]) && <Button className="inspector-move_button" onClick={() => mobileMoveButtonPress("move_2")}>Info</Button>}
+                            </Row>
+                            <Row>
+                                {(pokemon.moves[2]) && <Button className="inspector-move_button" onClick={() => mobileMoveButtonPress("move_3")}>Info</Button>}
+                            </Row>
+                            <Row>
+                                {(pokemon.moves[3]) && <Button className="inspector-move_button" onClick={() => mobileMoveButtonPress("move_4")}>Info</Button>}
+                            </Row>
+                        </div>
+                    </Col>
+                </Row>
+                <div className="scroll-spacer"> </div>
+
+                {(moveData) && <Modal
+                    show={mobileModal}
+                    onHide={closeModal}
+                    backdrop="static"
+                    keyboard={false}
+                    centered
+                >
+                    <Modal.Header>
+                        <p className="p_inspector-move_data"><b>Name:</b> {moveData.name}</p>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p className="p_inspector-move_data"><b>Description:</b> {moveData.effect_entries[0].effect}</p>
+                        <p className="p_inspector-move_data"><b>Type:</b> {moveData.type.name}</p>
+                        <p className="p_inspector-move_data"><b>Damage class:</b> {moveData.damage_class.name}</p>
+                        {(moveData.power) && <p className="p_inspector-move_data"><b>Power:</b> {moveData.power}</p>}
+                        <p className="p_inspector-move_data"><b>PP:</b> {moveData.pp}</p>
+                        {(moveData.accuracy) && <p className="p_inspector-move_data"><b>Accuracy:</b> {moveData.accuracy}</p>}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={() => closeModal()} variant="primary"> Close </Button>
+                    </Modal.Footer>
+                </Modal>}
+            </div>
+        )
+    }
+    else{
+
+        return (
+            <div className="inspector-moves">
+                <Row>
+                    <Col md={3}>
+                        <select className="inspector-move_select" onChange={() => updateMoves("move_1")} id="move_1">
+                            {availableForMove_1.map(move => (
+                                <option key={`move_1_${move.name}`} value={move.name}>{move.name}</option>
+                            ))}
+                        </select>
+                        <select className="inspector-move_select" onChange={() => updateMoves("move_2")} id="move_2">
+                            {availableForMove_2.map(move => (
+                                <option key={`move_2_${move.name}`} value={move.name}>{move.name}</option>
+                            ))}
+                        </select>
+                        <select className="inspector-move_select" onChange={() => updateMoves("move_3")} id="move_3">
+                            {availableForMove_3.map(move => (
+                                <option key={`move_3_${move.name}`} value={move.name}>{move.name}</option>
+                            ))}
+                        </select>
+                        <select className="inspector-move_select" onChange={() => updateMoves("move_4")} id="move_4">
+                            {availableForMove_4.map(move => (
+                                <option key={`move_4_${move.name}`} value={move.name}>{move.name}</option>
+                            ))}
+                        </select>
+                    </Col>
+                    <Col md={1}>
+                        <div className="inspector-move_buttons">
+                            {(pokemon.moves[0]) && <Button  className="inspector-move_button" onClick={() => updateMoveData("move_1")}>Info</Button>}
+                            {(pokemon.moves[1]) && <Button className="inspector-move_button" onClick={() => updateMoveData("move_2")}>Info</Button>}
+                            {(pokemon.moves[2]) && <Button className="inspector-move_button" onClick={() => updateMoveData("move_3")}>Info</Button>}
+                            {(pokemon.moves[3]) && <Button className="inspector-move_button" onClick={() => updateMoveData("move_4")}>Info</Button>}
+                        </div>
+                    </Col>
+                    <Col md={8}>
+                        {(moveData) && <div className="inspector-move_data">
+                            <p className="p_inspector-move_data"><b>Name:</b> {moveData.name}</p>
+                            <p className="p_inspector-move_data"><b>Description:</b> {moveData.effect_entries[0].effect}</p>
+                            <p className="p_inspector-move_data"><b>Type:</b> {moveData.type.name}</p>
+                            <p className="p_inspector-move_data"><b>Damage class:</b> {moveData.damage_class.name}</p>
+                            {(moveData.power) && <p className="p_inspector-move_data"><b>Power:</b> {moveData.power}</p>}
+                            <p className="p_inspector-move_data"><b>PP:</b> {moveData.pp}</p>
+                            {(moveData.accuracy) && <p className="p_inspector-move_data"><b>Accuracy:</b> {moveData.accuracy}</p>}
+                        </div>}
+                    </Col>
+                </Row>
+            <div className="scroll-spacer"> </div>
+            
+            
+            </div>
+        )
+    }
 }
 
 export default Moves
