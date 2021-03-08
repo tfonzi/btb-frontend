@@ -180,22 +180,22 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
             <div className="inspector-moves">
                 <Row>
                     <Col xs={8} sm={8}>
-                        <select className="inspector-move_select" onFocus={() => resetFocus()} onChange={() => updateMoves("move_1")} id="move_1">
+                        <select className="inspector-move_select" onFocusOut={() => resetFocus()} onChange={() => updateMoves("move_1")} id="move_1">
                             {availableForMove_1.map(move => (
                                 <option key={`move_1_${move.name}`} value={move.name}>{move.name}</option>
                             ))}
                         </select>
-                        <select className="inspector-move_select" onFocus={() => resetFocus()} onChange={() => updateMoves("move_2")} id="move_2">
+                        <select className="inspector-move_select" onFocusOut={() => resetFocus()} onChange={() => updateMoves("move_2")} id="move_2">
                             {availableForMove_2.map(move => (
                                 <option key={`move_2_${move.name}`} value={move.name}>{move.name}</option>
                             ))}
                         </select>
-                        <select className="inspector-move_select" onFocus={() => resetFocus()} onChange={() => updateMoves("move_3")} id="move_3">
+                        <select className="inspector-move_select" onFocusOut={() => resetFocus()} onChange={() => updateMoves("move_3")} id="move_3">
                             {availableForMove_3.map(move => (
                                 <option key={`move_3_${move.name}`} value={move.name}>{move.name}</option>
                             ))}
                         </select>
-                        <select className="inspector-move_select" onFocus={() => resetFocus()} onChange={() => updateMoves("move_4")} id="move_4">
+                        <select className="inspector-move_select" onFocusOut={() => resetFocus()} onChange={() => updateMoves("move_4")} id="move_4">
                             {availableForMove_4.map(move => (
                                 <option key={`move_4_${move.name}`} value={move.name}>{move.name}</option>
                             ))}
