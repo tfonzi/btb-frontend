@@ -69,6 +69,10 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
         }
     }
 
+    const resetFocus = () => {
+        window.scrollTo(0, 0)
+    }
+
     if(!object){
         return(
             <div className="rightSideView"
@@ -202,7 +206,7 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                             </Row>
                             <div className="inspector-nickname">
                                 <Button className="inspector-nickname-button" variant="warning" onClick={sendNickname} >Name!</Button>
-                                <input className="inspector-nickname-field" type="text" placeholder="Enter nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+                                <input className="inspector-nickname-field" type="text" placeholder="Enter nickname" value={nickname} onBlur={() => resetFocus()} onChange={(e) => setNickname(e.target.value)} />
                             </div>
                             <div>
                                 {(apiData.stats) && <Stats stats={apiData.stats} />}  
@@ -241,7 +245,7 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                         </Row>
                         <div className="inspector-nickname">
                             <Button className="inspector-nickname-button" variant="warning" onClick={sendNickname} >Name!</Button>
-                            <input className="inspector-nickname-field" type="text" placeholder="Enter nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+                            <input className="inspector-nickname-field" type="text" placeholder="Enter nickname" value={nickname} onBlur={() => resetFocus()} onChange={(e) => setNickname(e.target.value)} />
                         </div> 
                         <div>
                             {(apiData.stats) && <Stats stats={apiData.stats} />}  
