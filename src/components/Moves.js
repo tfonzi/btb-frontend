@@ -25,7 +25,7 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
     const [mobileModal, setMobileModal] = useState(false)
 
     useEffect(() => {
-        resetFocus()
+       
         let move_1 = pokemon.moves[0]
         let move_2 = pokemon.moves[1]
         let move_3 = pokemon.moves[2]
@@ -56,7 +56,7 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
     }, [])
 
     const resetFocus = () => {
-        window.scrollX = 0
+        window.scrollTo(0, 0)
     }
 
     const showModal = () => {
@@ -170,7 +170,6 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
     }
 
     const updateMoves = (id) => {
-        resetFocus()
         updateKnownMoves()
         updateAvaliableMoves()
         updateMoveData(id)
@@ -181,22 +180,22 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
             <div className="inspector-moves">
                 <Row>
                     <Col xs={8} sm={8}>
-                        <select className="inspector-move_select" onChange={() => updateMoves("move_1")} id="move_1">
+                        <select className="inspector-move_select" onFocus={() => resetFocus()} onChange={() => updateMoves("move_1")} id="move_1">
                             {availableForMove_1.map(move => (
                                 <option key={`move_1_${move.name}`} value={move.name}>{move.name}</option>
                             ))}
                         </select>
-                        <select className="inspector-move_select" onChange={() => updateMoves("move_2")} id="move_2">
+                        <select className="inspector-move_select" onFocus={() => resetFocus()} onChange={() => updateMoves("move_2")} id="move_2">
                             {availableForMove_2.map(move => (
                                 <option key={`move_2_${move.name}`} value={move.name}>{move.name}</option>
                             ))}
                         </select>
-                        <select className="inspector-move_select" onChange={() => updateMoves("move_3")} id="move_3">
+                        <select className="inspector-move_select" onFocus={() => resetFocus()} onChange={() => updateMoves("move_3")} id="move_3">
                             {availableForMove_3.map(move => (
                                 <option key={`move_3_${move.name}`} value={move.name}>{move.name}</option>
                             ))}
                         </select>
-                        <select className="inspector-move_select" onChange={() => updateMoves("move_4")} id="move_4">
+                        <select className="inspector-move_select" onFocus={() => resetFocus()} onChange={() => updateMoves("move_4")} id="move_4">
                             {availableForMove_4.map(move => (
                                 <option key={`move_4_${move.name}`} value={move.name}>{move.name}</option>
                             ))}
