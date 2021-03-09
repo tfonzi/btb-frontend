@@ -118,9 +118,9 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                     
                         <Row className="inspector-rows">
                             <Col className="inspector-cols">
-                                <p className="p">{object.name}</p>
+                                <p className="inspector-name">{object.name}</p>
                                 <Image draggable="false" src={object.image}/>
-                                {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]} / {apiData.types[1]}</p>}
+                                {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]}/{apiData.types[1]}</p>}
                                 {(apiData.types.length == 1) && <p className="inspector-type">{apiData.types}</p>}
                             </Col>
                             <Col className="inspector-cols">
@@ -130,7 +130,9 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                                 </div>
                             </Col>
                         </Row>
+                        <p className="inspector-header">Stats</p>
                         <Row className="inspector-rows">
+                            
                             {(apiData.stats) && <Stats stats={apiData.stats} />}
                         </Row>
                     </div>
@@ -147,15 +149,15 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                     >
                     
                         <Row className="inspector-rows">
-                            <Col className="inspector-cols">
-                                <p className="p">{object.name}</p>
-                                <Image draggable="false" src={object.image}/>
+                            <Col xs={7} sm={7} className="inspector-cols">
+                                <p className="inspector-name">{object.name}</p>
+                                <Image className="inspector-item-image" draggable="false" src={object.image}/>
                             </Col>
-                            <Col className="inspector-cols">
-                                <Button className="inspector-buttons" onClick={() => sendObject("box")} >Add to Box</Button>
+                            <Col xs={5} sm={5} className="inspector-cols">
+                                <Button className="inspector-item-button" onClick={() => sendObject("box")} >Add to Box</Button>
                             </Col>
                         </Row>
-                        <p className="p">{apiData.description}</p>
+                        <p className="p-inspector-item">{apiData.description}</p>
                         
                     </div>
                 )
@@ -191,10 +193,10 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                         >
                             <Row className="inspector-rows">
                                 <Col className="inspector-cols">
-                                    <p className="p">{object.name}</p>
+                                    <p className="inspector-name">{object.name}</p>
                                     {(object.nickname) && <p className="p">"{object.nickname}"</p>}
                                     <Image fluid draggable="false" src={object.image}/>
-                                    {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]} / {apiData.types[1]}</p>}
+                                    {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]}/{apiData.types[1]}</p>}
                                     {(apiData.types.length == 1) && <p className="inspector-type">{apiData.types}</p>}
                                 </Col>
                                 <Col className="inspector-cols">
@@ -209,7 +211,9 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                                 <input className="inspector-nickname-field" type="text" placeholder="Enter nickname" value={nickname} onBlur={() => resetFocus()} onChange={(e) => setNickname(e.target.value)} />
                             </div>
                             <div>
-                                {(apiData.stats) && <Stats stats={apiData.stats} />}  
+                                <p className="inspector-header">Stats</p>
+                                {(apiData.stats) && <Stats stats={apiData.stats} />} 
+                                <p className="inspector-header">Moves</p> 
                                 {(apiData.moves) && <Moves key={object._id} pokemon={object} source="box" updatePokemonMoves={updatePokemonMoves} movesAPI={apiData.moves} />}    
                             </div>
                         </div>
@@ -230,10 +234,10 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                         
                         <Row className="inspector-rows">
                             <Col className="inspector-cols">
-                                <p className="p">{object.name}</p>
+                                <p className="inspector-name">{object.name}</p>
                                 {(object.nickname) && <p className="p">"{object.nickname}"</p>}
                                 <Image fluid draggable="false" src={object.image}/>
-                                {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]} / {apiData.types[1]}</p>}
+                                {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]}/{apiData.types[1]}</p>}
                                 {(apiData.types.length == 1) && <p className="inspector-type">{apiData.types}</p>}
                             </Col>
                             <Col className="inspector-cols">
@@ -248,7 +252,9 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                             <input className="inspector-nickname-field" type="text" placeholder="Enter nickname" value={nickname} onBlur={() => resetFocus()} onChange={(e) => setNickname(e.target.value)} />
                         </div> 
                         <div>
-                            {(apiData.stats) && <Stats stats={apiData.stats} />}  
+                            <p className="inspector-header">Stats</p>
+                            {(apiData.stats) && <Stats stats={apiData.stats} />} 
+                            <p className="inspector-header">Moves</p> 
                             {(apiData.moves) && <Moves key={object._id} pokemon={object} source="team" updatePokemonMoves={updatePokemonMoves} movesAPI={apiData.moves} />}    
                         </div>
                     </div>

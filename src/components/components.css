@@ -22,8 +22,8 @@
     .rightSideView {
         padding-left: 10px;
         padding-right: 5px;  
-        margin-left: 8px;
-        margin-right: -10px;
+        margin-left: 7px;
+        margin-right: -9px;
         border: 2px solid rgb(208, 230, 233);
         border-radius: 5px;
         height: 54vh;
@@ -38,6 +38,37 @@
 
     .inspector-cols {
         padding: 0  !important;
+    }
+
+    .inspector-item-button{
+        margin-top: 45px;
+        font-size: 12px !important;
+        width: 100%
+    }
+
+    .inspector-item-image{
+        height: auto;
+        width: 50%;
+    }
+
+    .p-inspector-item{
+        margin-top: 10px;
+    }
+
+    .inspector-name {
+        font-size: larger;
+        font-weight: bold;
+        text-transform: capitalize;
+        margin: 0px;
+    }
+
+    .inspector-header {
+        font-size: larger;
+        font-weight: bold;
+        padding: 0px;
+        margin-top: 20px;
+        margin-bottom: 0px;
+
     }
 
     .inspector-buttons {
@@ -73,6 +104,13 @@
         margin: 0;
         padding: 0;
         font-size: small;
+        text-transform: capitalize;
+    }
+
+    .p-stats {
+        margin: 0;
+        padding: 0;
+        text-transform: capitalize;
     }
 
     .inspector-moves{
@@ -80,28 +118,41 @@
         margin-left: 4px;
     }
 
-    .inspector-move_select{
+    .inspector-move-select{
         margin: 4px 0px 0px 0px;
         font-size: small;
+        text-transform: capitalize;
         width: 100%;
     }
 
-    .inspector-move_buttons{
+    .inspector-move-option{
+        text-transform: capitalize;
+    }
+
+    .inspector-move-buttons{
         margin-top: 1px;
     }
 
-    .inspector-move_button{
+    .inspector-move-button{
         margin: 5px 0px 0px 0px;
         width: 75%;
         padding: -0px !important;
         font-size: small !important;
     }
 
-    .inspector-move_data{
+    .inspector-move-data{
         margin-top: -5px;
     }
 
-    .p_inspector-move_data{
+    .p_inspector-move-data{
+        padding: 0px;
+        margin-bottom: 5px;
+        font-size: medium;
+        margin-left: 0px;
+        text-transform: capitalize;
+    }
+
+    .p_inspector-move-data-nocap{
         padding: 0px;
         margin-bottom: 5px;
         font-size: medium;
@@ -190,6 +241,7 @@
     .pokemonCatalog-image {
         max-width: 100%;
         height: 4.4vh;
+        height: calc(var(--vh, 1vh) * 4.4);
     }
 
     .pokemonCatalog-p {
@@ -232,6 +284,7 @@
     .itemCatalog-image {
         max-width: 100%;
         height: 4.4vh;
+        height: calc(var(--vh, 1vh) * 4.4);
     }
 
     .itemCatalog-p {
@@ -252,6 +305,33 @@
     
     }
 
+    .p-team {
+        display: none;
+    }
+
+    .team-object {
+        margin: 2px;
+        border: 2px solid rgb(208, 230, 233);
+        border-radius: 5px;
+        height: auto;
+    
+    }
+    
+    .active-team-object {
+        margin: 2px;
+        border: 2px solid yellow;
+        background-color: rgb(208, 230, 233);
+        border-radius: 5px;
+        height: auto;
+    
+    }
+
+    .team-image {
+        max-width: 100%;
+        height: 12vh;
+        height: calc(var(--vh, 1vh) * 12);
+    }
+
     .box{
         height: 32vh;
         height: calc(var(--vh, 1vh) * 32);
@@ -269,9 +349,34 @@
         align-items: flex-start;
         align-content: flex-start;
     }
+
+    .p-box {
+        display: none;
+    }
+
+    .box-object {
+        margin: 2px;
+        border: 2px solid rgb(208, 230, 233);
+        border-radius: 5px;
+        height: auto;
+    }
+    
+    .active-box-object {
+        margin: 2px;
+        border: 2px solid yellow;
+        background-color: rgb(208, 230, 233);
+        border-radius: 5px;
+        height: auto;
+    
+    }
+    .box-image {
+        max-width: 100%;
+        height: 7vh;
+        height: calc(var(--vh, 1vh) * 7);
+    }
 }
 
-/* For desktop*/
+/* For desktop =================================================================================================================================================================*/
 @media screen and (min-width: 449px) {
     .menuBar{
         height: 10vh;
@@ -304,6 +409,38 @@
 
     .inspector-cols {
         padding: 0  !important;
+    }
+
+    .inspector-item-button{
+        margin-top: 70px;
+        font-size: 14px !important;
+        width: 50%
+    }
+
+    .inspector-item-image{
+        height: auto;
+        width: 25%;
+    }
+
+    .p-inspector-item{
+        margin-top: 10px;
+        font-size: large;
+    }
+
+    .inspector-name {
+        font-size: larger;
+        font-weight: bold;
+        text-transform: capitalize;
+        margin: 0px;
+    }
+
+    .inspector-header {
+        font-size: larger;
+        font-weight: bold;
+        padding: 0px;
+        margin-top: 20px;
+        margin-bottom: 0px;
+
     }
 
     .inspector-buttons {
@@ -340,6 +477,13 @@
         margin-top: -7.5px;
         padding: 0;
         font-size: medium;
+        text-transform: capitalize;
+    }
+
+    .p-stats {
+        margin: 0;
+        padding: 0;
+        text-transform: capitalize;
     }
 
     .inspector-moves{
@@ -347,26 +491,39 @@
         margin-left: 17.5px;
     }
 
-    .inspector-move_select{
+    .inspector-move-select{
         margin-left: -17.5px;
+        text-transform: capitalize;
     }
 
-    .inspector-move_buttons{
+    .inspector-move-option{
+        text-transform: capitalize;
+    }
+
+    .inspector-move-buttons{
         position: relative;
         left: -150%;
     }
 
-    .inspector-move_button{
+    .inspector-move-button{
         width: 100%;
         padding: -0px !important;
         font-size: small !important;
     }
 
-    .inspector-move_data{
+    .inspector-move-data{
         margin-top: -5px;
     }
 
-    .p_inspector-move_data{
+    .p_inspector-move-data{
+        padding: 0px;
+        margin-bottom: 5px;
+        font-size: smaller;
+        margin-left: -60px;
+        text-transform: capitalize;
+    }
+
+    .p_inspector-move-data-nocap{
         padding: 0px;
         margin-bottom: 5px;
         font-size: smaller;
@@ -520,6 +677,37 @@
         align-items: flex-start;
         align-content: flex-start;
     }
+
+    .team-object {
+        margin: 2px;
+        border: 2px solid rgb(208, 230, 233);
+        border-radius: 5px;
+    
+    }
+    
+    .active-team-object {
+        margin: 2px;
+        border: 2px solid yellow;
+        background-color: rgb(208, 230, 233);
+        border-radius: 5px;
+    
+    }
+    
+    .box-object {
+        margin: 2px;
+        border: 2px solid rgb(208, 230, 233);
+        border-radius: 5px;
+    
+    }
+    
+    .active-box-object {
+        margin: 2px;
+        border: 2px solid yellow;
+        background-color: rgb(208, 230, 233);
+        border-radius: 5px;
+    
+    }
+
 }
 
 .stats{
@@ -550,38 +738,6 @@
 .berryCatalog-image {
     max-width: 200%;
     height: auto;
-}
-
-.team-object {
-    margin: 2px;
-    border: 2px solid rgb(208, 230, 233);
-    border-radius: 5px;
-
-}
-
-.active-team-object {
-    margin: 2px;
-    border: 2px solid yellow;
-    background-color: rgb(208, 230, 233);
-    border-radius: 5px;
-
-}
-
-
-
-.box-object {
-    margin: 2px;
-    border: 2px solid rgb(208, 230, 233);
-    border-radius: 5px;
-
-}
-
-.active-box-object {
-    margin: 2px;
-    border: 2px solid yellow;
-    background-color: rgb(208, 230, 233);
-    border-radius: 5px;
-
 }
 
 .navbar {
