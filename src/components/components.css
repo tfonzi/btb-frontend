@@ -183,7 +183,8 @@
     .team-header{
         text-align: center;
         font-size: x-large;
-        margin-left: -10px;
+        margin-left: auto;
+        margin-bottom: 5px;
     }
 
     .box-header{
@@ -294,7 +295,7 @@
     .team-flex {
         display: flex;
         flex-flow: row wrap;
-        justify-content: flex-start;
+        justify-content: space-evenly;
         align-items: flex-start;
         align-content: flex-start;
         width: 100%;
