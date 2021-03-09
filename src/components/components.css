@@ -177,7 +177,6 @@
     .itemCatalog-header{
         text-align: center;
         font-size: x-large;
-        margin-left: -10px;
     }
     
     .team-header{
@@ -214,7 +213,6 @@
         width: 100%;
         height: 41vh;
         margin: auto;
-        float: right;
         height: calc(var(--vh, 1vh) * 41);
         overflow: auto;
         overflow-x: hidden;
@@ -255,9 +253,9 @@
         justify-content: space-evenly;
         align-items: flex-start;
         align-content: flex-start;
-        width: 110%;
+        width: 100%;
         height: 41vh;
-        float: right;
+        margin: auto;
         height: calc(var(--vh, 1vh) * 41);
         overflow: auto;
         overflow-x: hidden;
@@ -265,7 +263,7 @@
     }
 
     .itemCatalog-object {
-        margin: 0.5px;
+        margin: 1px;
         border: 2px solid rgb(208, 230, 233);
         border-radius: 5px;
         height: auto;
@@ -273,7 +271,7 @@
     }
 
     .active-itemCatalog-object {
-        margin: 0.5px;
+        margin: 1px;
         border: 2px solid yellow;
         background-color: rgb(208, 230, 233);
         border-radius: 5px;

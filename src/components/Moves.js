@@ -229,17 +229,18 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
                 >
                     <Modal.Header>
                         <p className="p_inspector-move-data"><b>Name:</b> {moveData.name}</p>
+                        <Button onClick={() => closeModal()} variant="primary"> Close </Button>
                     </Modal.Header>
                     <Modal.Body>
-                        <p className="p_inspector-move-data"><b>Description:</b> {moveData.effect_entries[0].effect}</p>
                         <p className="p_inspector-move-data"><b>Type:</b> {moveData.type.name}</p>
                         <p className="p_inspector-move-data"><b>Damage class:</b> {moveData.damage_class.name}</p>
                         {(moveData.power) && <p className="p_inspector-move-data"><b>Power:</b> {moveData.power}</p>}
                         <p className="p_inspector-move-data"><b>PP:</b> {moveData.pp}</p>
                         {(moveData.accuracy) && <p className="p_inspector-move-data"><b>Accuracy:</b> {moveData.accuracy}</p>}
+                        <p className="p_inspector-move-data"><b>Description:</b> {moveData.effect_entries[0].effect}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={() => closeModal()} variant="primary"> Close </Button>
+                        
                     </Modal.Footer>
                 </Modal>}
             </div>
@@ -283,12 +284,12 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
                     <Col md={8}>
                         {(moveData) && <div className="inspector-move-data">
                             <p className="p_inspector-move-data"><b>Name:</b> {moveData.name}</p>
-                            <p className="p_inspector-move-data-nocap"><b>Description:</b> {moveData.effect_entries[0].effect}</p>
                             <p className="p_inspector-move-data"><b>Type:</b> {moveData.type.name}</p>
                             <p className="p_inspector-move-data"><b>Damage class:</b> {moveData.damage_class.name}</p>
                             {(moveData.power) && <p className="p_inspector-move-data"><b>Power:</b> {moveData.power}</p>}
                             <p className="p_inspector-move-data"><b>PP:</b> {moveData.pp}</p>
                             {(moveData.accuracy) && <p className="p_inspector-move-data"><b>Accuracy:</b> {moveData.accuracy}</p>}
+                            <p className="p_inspector-move-data-nocap"><b>Description:</b> {moveData.effect_entries[0].effect}</p>
                         </div>}
                     </Col>
                 </Row>
