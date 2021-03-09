@@ -47,7 +47,7 @@
 
     .inspector-button {
         margin-bottom: 10px;
-        font-size: 14px !important;
+        font-size: 12px !important;
         width: 100%
     }
 
@@ -91,7 +91,7 @@
     }
 
     .inspector-move_button{
-        margin: 4px 0px 0px 0px;
+        margin: 5px 0px 0px 0px;
         width: 75%;
         padding: -0px !important;
         font-size: small !important;
