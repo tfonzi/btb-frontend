@@ -9,6 +9,7 @@ import PokemonCatalog from './components/PokemonCatalog'
 import ItemCatalog from './components/ItemCatalog'
 import Inspector from './components/Inspector'
 import Box from './components/Box'
+import Analysis from './components/Analysis'
 import Debug from './components/Debug'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -16,6 +17,9 @@ import "./components/components.css"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
+
 
 import { readFromCache, writeToCache } from './cache.js'
 
@@ -38,7 +42,7 @@ const App = () => {
   const [teamScrollState, setTeamScrollState] = useState(0)
   const [boxScrollState, setBoxScrollState] = useState(0)
   const [berryScrollState, setBerryScrollState] = useState(0)
-  const [knownMoves, setKnownMoves] = useState([])
+  const [analysis, setAnalysis] = useState(false)
 
 
 
@@ -476,6 +480,14 @@ const App = () => {
     setActive(`team ${id}`)
   }
 
+  const showAnalysis = () => {
+    setAnalysis(true)
+}
+
+const closeAnalysis = () => {
+    setAnalysis(false)
+}
+
 /*Mouse Events ==============================================================================================================*/
   const onDragStart = (ev, id, source) => {
     ev.dataTransfer.setData("id", id)
@@ -590,7 +602,7 @@ const App = () => {
         <Route path='/' exact render={(props) => (
           <>
             <div className="menuBar">
-              <MenuBar berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} itemCatalogView={changeViewToItemCatalog} />
+              <MenuBar berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} itemCatalogView={changeViewToItemCatalog} analysis={showAnalysis} />
             </div>
             <Container fluid className="topSideView">
               <Row noGutters="true">
@@ -610,6 +622,23 @@ const App = () => {
             <Container fluid>
               <Box active={active} scrollState={boxScrollState} onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} inspect={inspectBox} box={box} />
             </Container> 
+            <Modal
+              show={analysis}
+              onHide={closeAnalysis}
+              backdrop="static"
+              keyboard={false}
+              centered
+          >
+              <Modal.Header>
+                  Analysis
+                  <Button onClick={() => closeAnalysis()} variant="primary"> Close </Button>
+              </Modal.Header>
+              <Modal.Body>
+                  <Analysis team={team} />
+              </Modal.Body>
+              <Modal.Footer></Modal.Footer>
+            </Modal>
+
           </>
           )} />
         <Route path='/debug' exact render={(props) => (

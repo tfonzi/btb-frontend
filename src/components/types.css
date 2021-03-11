@@ -1,0 +1,179 @@
+/* For mobile*/
+@media screen and (max-width: 448px) { 
+
+    .type-effect-header {
+        font-size: small;
+        font-weight: bold;
+    }
+    
+    .multiplier {
+        display: inline-block;
+        vertical-align: top;
+        font-size: x-small;
+        font-weight: bold;
+        width: 2%;
+        text-align: left;
+        color: red;
+        text-shadow: 0.5px 0.5px black;
+        margin-top: -1px;
+        margin-left: 3px;
+    
+    }
+    
+    .type-sm{
+        display: inline-block;
+        vertical-align: top;
+        font-size: xx-small;
+        width: 33%;
+        font-weight: bold;
+        color: white;
+        border-radius: 5px;
+        padding: 1px;
+        text-align: center;
+        text-transform: capitalize;
+        margin-left: 2px;
+    }
+    
+    .type-lg{
+        display: inline-block;
+        vertical-align: top;
+        font-size: xx-small;
+        width: 79%;
+        font-weight: bold;
+        color: white;
+        border-radius: 5px;
+        padding: 1px;
+        text-align: center;
+        text-transform: capitalize;
+        margin-left: 2px;
+    }
+
+}
+
+
+
+/* For desktop =================================================================================================================================================================*/
+@media screen and (min-width: 449px) {
+
+    .type-effect-header {
+        font-size: medium;
+        font-weight: bold;
+    }
+    
+    .multiplier {
+        display: inline-block;
+        vertical-align: top;
+        font-size: medium;
+        font-weight: bold;
+        width: 10%;
+        text-align: left;
+        color: red;
+        text-shadow: 0.5px 0.5px black;
+        margin-top: -5px;
+        margin-left: 5px;
+    
+    }
+    
+    .type-sm{
+        display: inline-block;
+        vertical-align: top;
+        font-size: x-small;
+        width: 25%;
+        font-weight: bold;
+        color: white;
+        border-radius: 5px;
+        padding: 1px;
+        text-align: center;
+        text-transform: capitalize;
+        margin-left: 2px;
+    }
+    
+    .type-lg{
+        display: inline-block;
+        vertical-align: top;
+        font-size: x-small;
+        width: 75%;
+        font-weight: bold;
+        color: white;
+        border-radius: 5px;
+        padding: 1px;
+        text-align: center;
+        text-transform: capitalize;
+        margin-left: 2px;
+    }
+}
+
+
+/*====================================================================================================================================*/
+
+.normal{
+    background-color: #A8A77A;
+}
+
+.fire{
+    background-color: #EE8130;
+}
+
+.water{
+    background-color: #6390F0;
+}
+
+.electric{
+    background-color: #F7D02C;
+}
+
+.grass{
+    background-color: #7AC74C;
+}
+
+.ice{
+    background-color: #96D9D6;
+}
+
+.fighting{
+    background-color: #C22E28;
+}
+
+.poison{
+    background-color: #A33EA1;
+}
+
+.ground{
+    background-color: #E2BF65;
+}
+
+.flying{
+    background-color: #A98FF3;
+}
+
+.psychic{
+    background-color: #F95587;
+}
+
+.bug{
+    background-color: #A6B91A;
+}
+
+.rock{
+    background-color: #B6A136;
+}
+
+.ghost{
+    background-color: #735797;
+}
+
+.dragon{
+    background-color: #6F35FC;
+}
+
+.dark{
+    background-color: #705746;
+}
+
+.steel{
+    background-color: #B7B7CE;
+}
+
+.fairy{
+    background-color: #D685AD;
+}

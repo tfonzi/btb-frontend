@@ -4,9 +4,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import ModalHeader from 'react-bootstrap/ModalHeader'
-import ModalBody from 'react-bootstrap/ModalBody'
-import ModalFooter from 'react-bootstrap/ModalFooter'
+
 
 import './components.css'
 import axios from 'axios'
