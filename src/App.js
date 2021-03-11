@@ -628,17 +628,16 @@ const closeAnalysis = () => {
               backdrop="static"
               keyboard={false}
               centered
-          >
+            >
               <Modal.Header>
                   Analysis
                   <Button onClick={() => closeAnalysis()} variant="primary"> Close </Button>
               </Modal.Header>
               <Modal.Body>
-                  <Analysis team={team} />
+                <Analysis team={team} />
               </Modal.Body>
               <Modal.Footer></Modal.Footer>
             </Modal>
-
           </>
           )} />
         <Route path='/debug' exact render={(props) => (
