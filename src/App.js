@@ -429,7 +429,7 @@ const App = () => {
           pokemon.moves = res.data.moves.map(move => {
             var move_object = {}
             move_object.name = move.move.name
-            move_object.url = move.move.url
+            move_object.url = `https://pokeapi.co/api/v2/move/${move.move.name}`
             return move_object
           })
 

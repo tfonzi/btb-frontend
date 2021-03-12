@@ -55,7 +55,8 @@ const Analysis = ({team}) => {
 
     const getAPIMoveData = (pokemon) => {
         
-        var newMoves = pokemon.moves.filter(move => move != "") //Removing blank moves
+        var newMoves = pokemon.moves.filter(move => move !== "") //Removing blank moves
+        console.log(newMoves)
 
         newMoves = newMoves.map(move => {
             const cached = readFromCache(`https://pokeapi.co/api/v2/move/${move}`)

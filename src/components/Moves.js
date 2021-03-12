@@ -73,6 +73,11 @@ const Moves = ({pokemon, source, movesAPI, updatePokemonMoves}) => {
 
     const updateMoveData = (move) => {
         let name = document.getElementById(move).value
+        if(name == ""){
+            setMoveData("")
+            return
+        }
+        
         let move_object = movesAPI.find( move => move.name === name)
         let url = move_object.url
         
