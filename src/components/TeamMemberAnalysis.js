@@ -10,7 +10,7 @@ import {findTypeEffects} from './TypeEffects.js'
 
 
 const TeamMemberAnalysis = ({teamMember}) => {
-        
+    
     let defensive_effectiveness = findTypeEffects(teamMember.types, "defending") //teamMember.types is already in an array
 
     return (
