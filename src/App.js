@@ -625,8 +625,6 @@ const closeAnalysis = () => {
             <Modal
               show={analysis}
               onHide={closeAnalysis}
-              backdrop="static"
-              keyboard={false}
               centered
             >
               <Modal.Header>

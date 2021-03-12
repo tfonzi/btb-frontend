@@ -56,8 +56,6 @@ const Analysis = ({team}) => {
     const getAPIMoveData = (pokemon) => {
         
         var newMoves = pokemon.moves.filter(move => move !== "") //Removing blank moves
-        console.log(newMoves)
-
         newMoves = newMoves.map(move => {
             const cached = readFromCache(`https://pokeapi.co/api/v2/move/${move}`)
             if(cached){
@@ -66,11 +64,12 @@ const Analysis = ({team}) => {
             else{
                 axios.get(`https://pokeapi.co/api/v2/move/${move}`)
                     .then(res => {
-                        writeToCache(`https://pokeapi.co/api/v2/move/${move}` ,res.data)
+                        writeToCache(`https://pokeapi.co/api/v2/move/${move}` , res.data)
                         return {name: move, type: res.data.type.name, accuracy: res.data.accuracy, damage_class: res.data.damage_class.name, power: res.data.power, pp: res.data.pp}
                     })
             }
         })
+        
         pokemon.moves = newMoves
         return pokemon
     }
@@ -80,7 +79,6 @@ const Analysis = ({team}) => {
     }, [])
     
     if(teamData){
-        
         return (
             <div>
                 <h3>Overview</h3>
