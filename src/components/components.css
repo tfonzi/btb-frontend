@@ -101,12 +101,15 @@
     }
 
     .inspector-type{
+        display: inline-block;
+        vertical-align: top;
         margin: 0;
         margin-bottom: 5px;
-        font-size: small;
+        margin-right: 5px;
+        font-size: x-small;
         text-transform: capitalize;
         text-align: center;
-        width: 60%;
+        width: 42.5%;
         font-weight: bold;
         color: white;
         border-radius: 5px;
