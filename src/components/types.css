@@ -48,6 +48,22 @@
         margin-left: 2px;
     }
 
+    .type-inspector-move{
+        display: inline-block;
+        vertical-align: top;
+        font-size: small;
+        width: 20%;
+        font-weight: bold;
+        color: white;
+        border-radius: 5px;
+        padding: 1px;
+        text-align: center;
+        text-transform: capitalize;
+        margin-left: 2px;
+        margin-top: 3px;
+        margin-bottom: 0px;
+    }
+
 }
 
 
@@ -100,6 +116,22 @@
         text-align: center;
         text-transform: capitalize;
         margin-left: 2px;
+    }
+
+    .type-inspector-move{
+        display: inline-block;
+        vertical-align: top;
+        font-size: x-small;
+        width: 15%;
+        font-weight: bold;
+        color: white;
+        border-radius: 5px;
+        padding: 1px;
+        text-align: center;
+        text-transform: capitalize;
+        margin-left: 2px;
+        margin-top: 3px;
+        margin-bottom: 0px;
     }
 }
 

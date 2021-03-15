@@ -8,6 +8,8 @@ import Image from 'react-bootstrap/Image'
 import axios from 'axios';
 
 import './components.css'
+import './types.css'
+
 
 import Stats from './Stats'
 import Moves from './Moves'
@@ -120,8 +122,8 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                             <Col className="inspector-cols">
                                 <p className="inspector-name">{object.name}</p>
                                 <Image draggable="false" src={object.image}/>
-                                {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]}/{apiData.types[1]}</p>}
-                                {(apiData.types.length == 1) && <p className="inspector-type">{apiData.types}</p>}
+                                {(apiData.types.length == 2) && <div><p className={`inspector-type ${apiData.types[0]}`}>{apiData.types[0]}</p><p className={`inspector-type ${apiData.types[1]}`}>{apiData.types[1]}</p></div>}
+                                {(apiData.types.length == 1) && <div><p className={`inspector-type ${apiData.types}`}>{apiData.types}</p></div>}
                             </Col>
                             <Col className="inspector-cols">
                                 <div className="inspector-buttons">
@@ -196,8 +198,8 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                                     <p className="inspector-name">{object.name}</p>
                                     {(object.nickname) && <p className="p">"{object.nickname}"</p>}
                                     <Image fluid draggable="false" src={object.image}/>
-                                    {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]}/{apiData.types[1]}</p>}
-                                    {(apiData.types.length == 1) && <p className="inspector-type">{apiData.types}</p>}
+                                    {(apiData.types.length == 2) && <div><p className={`inspector-type ${apiData.types[0]}`}>{apiData.types[0]}</p><p className={`inspector-type ${apiData.types[1]}`}>{apiData.types[1]}</p></div>}
+                                    {(apiData.types.length == 1) && <div><p className={`inspector-type ${apiData.types}`}>{apiData.types}</p></div>}
                                 </Col>
                                 <Col className="inspector-cols">
                                     <div className="inspector-buttons">
@@ -237,8 +239,8 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                                 <p className="inspector-name">{object.name}</p>
                                 {(object.nickname) && <p className="p">"{object.nickname}"</p>}
                                 <Image fluid draggable="false" src={object.image}/>
-                                {(apiData.types.length == 2) && <p className="inspector-type">{apiData.types[0]}/{apiData.types[1]}</p>}
-                                {(apiData.types.length == 1) && <p className="inspector-type">{apiData.types}</p>}
+                                {(apiData.types.length == 2) && <div><p className={`inspector-type ${apiData.types[0]}`}>{apiData.types[0]}</p><p className={`inspector-type ${apiData.types[1]}`}>{apiData.types[1]}</p></div>}
+                                {(apiData.types.length == 1) && <div><p className={`inspector-type ${apiData.types}`}>{apiData.types}</p></div>}
                             </Col>
                             <Col className="inspector-cols">
                                 <div className="inspector-buttons">
