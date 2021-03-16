@@ -107,9 +107,13 @@ const TeamMemberAnalysis = ({teamMember}) => {
                                 </Popover.Content>
                             </Popover>
                         )
+                        
+                        const focus = (id, move) => { //Adds extra function to force focus for IOS 
+                            document.getElementById(`${id}-${move}-desc`).focus();
+                        }
 
                         return (
-                        <div className="analysis-move" key={move.name}>
+                        <div className="analysis-move" key={`${teamMember._id}-${move.name}`}>
                             <Row>
                                 <Col xs={5}>
                                 <p className="analysis-move-name">{move.name}</p>
@@ -119,7 +123,7 @@ const TeamMemberAnalysis = ({teamMember}) => {
                                 {(move.power) && <p className="analysis-move-info"> Power: {move.power}</p>}
                                 {(move.accuracy) && <p className="analysis-move-info"> Accuracy: {move.accuracy}</p>}
                                 <OverlayTrigger trigger="focus" placement="auto" overlay={description}>
-                                    <Button className="analysis-move-description-button" size="sm">Description</Button>
+                                    <Button id={`${teamMember._id}-${move.name}-desc`} onClick={() => focus(teamMember._id, move.name)} className="analysis-move-description-button" size="sm">Description</Button>
                                 </OverlayTrigger>
 
                                 </Col>
