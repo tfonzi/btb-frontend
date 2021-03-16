@@ -24,6 +24,7 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
     const [nickname, setNickname] = useState("")
 
     const sendNickname = () =>{
+                
         if(nickname){
             
             if(view == "inspectBox")

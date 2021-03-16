@@ -328,6 +328,10 @@
         display: none;
     }
 
+    .p-team-nickname{
+        display: none;
+    }
+
     .team-object {
         margin: 2px;
         border: 2px solid rgb(208, 230, 233);
@@ -641,6 +645,8 @@
 
     .pokemonCatalog-p {
         margin: 1px;
+        text-align: center;
+        text-transform: capitalize;
     
     }
 
@@ -680,7 +686,8 @@
 
     .itemCatalog-p {
         margin: 1px;
-    
+        text-align: center;
+        text-transform: capitalize;
     }
 
     .team-flex {
@@ -695,6 +702,30 @@
         overflow: auto;
         overflow-x: hidden;
     
+    }
+
+    .p-team {
+        margin-top: -12px;
+        margin-bottom: 2px;
+        text-transform: capitalize;
+        text-align: center;
+    }
+
+    .p-team-nickname{
+        margin-bottom: 2px;
+        text-align: center;
+    }
+
+    .p-box {
+        margin-top: -12px;
+        margin-bottom: 2px;
+        text-transform: capitalize;
+        text-align: center;
+    }
+
+    .p-box-nickname{
+        margin-bottom: 2px;
+        text-align: center;
     }
 
     .box{

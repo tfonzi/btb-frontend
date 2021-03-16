@@ -9,7 +9,6 @@ const PokemonCatalogObject = ({pokemon, inspect, onDragStart}) => {
         <div onDragStart={(e) => onDragStart(e, pokemon.id, 'pokemonCatalog')} draggable onClick={() => inspect(pokemon.id)}>
             <Image loading="lazy" className="pokemonCatalog-image" draggable="false" src={pokemon.image}/>
             <p className="pokemonCatalog-p">{pokemon.name}</p>
-            <p className="pokemonCatalog-p">{pokemon.id}</p>
         </div>
     )
 }
