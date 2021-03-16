@@ -5,6 +5,8 @@ import { readFromCache, writeToCache } from './../cache.js'
 import TeamMemberAnalysis from './TeamMemberAnalysis'
 import TeamAnalysis from './TeamAnalysis'
 
+import Image from 'react-bootstrap/Image'
+
 
 
 const Analysis = ({team}) => {
@@ -179,11 +181,22 @@ const Analysis = ({team}) => {
     useEffect(() => {
        getAPIData()
     }, [])
+
+    const scrollTo = (id) => {
+        document.getElementById(id).scrollIntoView({
+            behavior: 'smooth'
+          })
+    }
     
     if(teamData){
         return (
             <div>
                 <h3>Overview</h3>
+                <div className="analysis-team-images">
+                    {teamData.map(teamMember => (
+                        <Image className="analysis-team-image" draggable="false" key={`${teamMember._id}_image`} src={teamMember.image} onClick={() => scrollTo(teamMember._id)} />
+                    ))}
+                </div>
                 <TeamAnalysis team={team} />
                 {teamData.map(teamMember => (
                     <TeamMemberAnalysis key={teamMember._id} teamMember={teamMember} />

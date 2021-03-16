@@ -1,6 +1,11 @@
 import Image from 'react-bootstrap/Image'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Popover from 'react-bootstrap/Popover'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Button from 'react-bootstrap/Button'
+
+
 
 import Stats from './Stats'
 import './components.css'
@@ -14,7 +19,7 @@ const TeamMemberAnalysis = ({teamMember}) => {
     let defensive_effectiveness = findTypeEffects(teamMember.types, "defending") //teamMember.types is already in an array
 
     return (
-        <div className="analysis-teamMember">
+        <div className="analysis-teamMember" id={teamMember._id}>
             <Row>
                 <Col xs={5} >
                     <p className="analysis-teamMember-name"> {teamMember.name} </p>
@@ -92,7 +97,17 @@ const TeamMemberAnalysis = ({teamMember}) => {
                 {teamMember.moves.map(move => {
                     if(move){ //Incase it loads out of order
                        let offensive_effectiveness = findTypeEffects([move.type], "attacking") //Needs to be in array
-                    
+                        
+                        //For description pop-over
+                        const description = (
+                            <Popover>
+                                <Popover.Title><p className="analysis-move-name">{move.name}</p></Popover.Title>
+                                <Popover.Content>
+                                    {move.description}
+                                </Popover.Content>
+                            </Popover>
+                        )
+
                         return (
                         <div className="analysis-move" key={move.name}>
                             <Row>
@@ -103,6 +118,9 @@ const TeamMemberAnalysis = ({teamMember}) => {
                                 <p className="analysis-move-info"> PP: {move.pp}</p>
                                 {(move.power) && <p className="analysis-move-info"> Power: {move.power}</p>}
                                 {(move.accuracy) && <p className="analysis-move-info"> Accuracy: {move.accuracy}</p>}
+                                <OverlayTrigger trigger="focus" placement="auto" overlay={description}>
+                                    <Button className="analysis-move-description-button" size="sm">Description</Button>
+                                </OverlayTrigger>
 
                                 </Col>
                                 <Col xs={7}>
@@ -138,8 +156,7 @@ const TeamMemberAnalysis = ({teamMember}) => {
                             </Row>                    
                         </div>)
                     }
-                    else{ //If bad move data comes in
-                        console.log(JSON.stringify(teamMember.moves))
+                    else{ //If bad/no move data comes in
                         return null
                     }
                 })}

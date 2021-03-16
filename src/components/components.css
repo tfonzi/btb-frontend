@@ -839,3 +839,29 @@
     text-transform: capitalize;
     margin: 0px;
 }
+
+.analysis-move-description-button{
+    margin-top: 5px;
+    font-size: x-small !important;
+    
+}
+
+.analysis-team-images{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: auto;
+}
+
+.analysis-team-image{
+    margin: 2px;
+    border: 2px solid rgb(208, 230, 233);
+    border-radius: 5px;
+}
+
+.analysis-team-image:hover{
+    border: 2px solid yellow;
+    background-color: rgb(208, 230, 233);
+    margin: 2px;
+}
