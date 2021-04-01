@@ -814,8 +814,33 @@
     padding-right: 10px !important;
 }
 
+.navbar-login-button {
+    padding-top: 0.5px !important;
+    padding-bottom: 0.5px !important;
+    position: relative;
+    top: 15%;
+}
+
 .navbar-button {
-    margin: 5px !important;
+    margin-right: 10px;
+    text-align: center;
+    font-size: smaller;
+}
+
+.navbar-dropdown-text{
+    font-size: large;
+    text-align: center;
+    margin: 0px;
+}
+
+.navbar-header {
+    font-size: smaller;
+    margin-right: 15px;
+}
+
+.navbar-image {
+    margin-left: 5px;
+    margin-top: -2px
 }
 
 .analysis-teamMember{
@@ -895,4 +920,27 @@
     border: 2px solid yellow;
     background-color: rgb(208, 230, 233);
     margin: 2px;
+}
+
+
+.postLogin-button {
+    margin: auto;
+    margin-top: 5vh;
+    width: 50%;
+    font-size: larger;
+}
+.postLogin-button-txt {
+    margin: 0;
+    font-size: larger;
+}
+
+.postLogin-header {
+    margin-top: 5vh;
+    text-align: center;
+}
+
+.postLogin-p {
+    margin-top: 5vh;
+    text-align: center;
+    font-size: large;
 }

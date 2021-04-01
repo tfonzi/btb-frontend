@@ -5,10 +5,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+import './components.css'
+
 import {useEffect} from 'react'
 
 import { readFromCache, deleteCache } from '../cache.js'
-
+import Row from 'react-bootstrap/Row'
 
 
 const PostLogin = ({user, isLoading, isAuthenticated, backend_url, updateBox}) => {
@@ -58,15 +60,18 @@ const PostLogin = ({user, isLoading, isAuthenticated, backend_url, updateBox}) =
         return (
             isAuthenticated && (
             <Container>
-                <h2>Welcome {user.name}!</h2>
-                <p>Would you like to import your data from your Guest session into your account?</p>
-                <p>Note: Logging in will clear your guest session and it's data regardless.</p>
-
-
-                <Link onClick={() => import_data()} to='/'> Yes, import data.</Link>
-                <Link onClick={() => delete_data_from_local_storage()} to='/'> No, leave data behind.</Link>
-                <Link onClick={() => logout({ returnTo: window.location.origin })} to='/'> Stay Logged Out.</Link>
-
+                <h2 className="postLogin-header">Welcome {user.name}!</h2>
+                <p className="postLogin-p">Would you like to import your data from your Guest session into your account?</p>
+                <p className="postLogin-p"> Note: Logging in will clear your guest session and it's data regardless.</p>
+                <Row>
+                    <Link className="btn btn-info postLogin-button" onClick={() => import_data()} to='/'><p className="postLogin-button-txt">Yes, import data.</p></Link>
+                </Row>
+                <Row>
+                    <Link className="btn btn-danger postLogin-button" onClick={() => delete_data_from_local_storage()} to='/'> <p className="postLogin-button-txt">No, leave data behind.</p></Link>
+                </Row>
+                <Row>
+                    <Link className="btn btn-secondary postLogin-button" onClick={() => logout({ returnTo: window.location.origin })} to='/'> <p className="postLogin-button-txt">Stay Logged Out.</p></Link>
+                </Row>
             </Container>
             )
         )

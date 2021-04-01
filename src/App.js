@@ -144,7 +144,7 @@ const App = () => {
 
     getPokemonCatalog()
     getItemCatalog()
-  }, [user])
+  }, [user, isAuthenticated])
 
 
   const updateBox = (new_box) => {
