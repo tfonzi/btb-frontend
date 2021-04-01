@@ -49,7 +49,7 @@ const MenuBar = ({isAuthenticated, isLoading, user, teamView, pokemonCatalogView
           <Nav className="mr-sm-2">
             {(isAuthenticated) && 
               <Navbar.Text>
-                <Nav.Item>Welcome {user.name}</Nav.Item>
+                <Nav.Item className="navbar-button">Welcome {user.name}</Nav.Item>
               </Navbar.Text>}
             {(!isAuthenticated) && 
               <Navbar.Text>
@@ -60,7 +60,7 @@ const MenuBar = ({isAuthenticated, isLoading, user, teamView, pokemonCatalogView
               </Nav.Item>}
               {(isAuthenticated && !isLoading) && 
               <Nav.Item>
-                <Nav.Link onClick={() => logout({ returnTo: window.location.origin })} > Logout </Nav.Link>
+                <Nav.Link className="navbar-login-button btn btn-secondary" onClick={() => logout({ returnTo: window.location.origin })} > Logout </Nav.Link>
               </Nav.Item>}
           </Nav>
         </Navbar>
