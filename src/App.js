@@ -1,6 +1,10 @@
 import {useState, useEffect} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import axios from 'axios'
+import { useAuth0 } from "@auth0/auth0-react";
+import { v4 as uuidv4 } from 'uuid';
+
+
 
 import MenuBar from './components/MenuBar'
 import Team from './components/Team'
@@ -11,6 +15,8 @@ import Inspector from './components/Inspector'
 import Box from './components/Box'
 import Analysis from './components/Analysis'
 import Debug from './components/Debug'
+import PostLogin from './components/PostLogin'
+
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "./components/components.css"
@@ -43,8 +49,7 @@ const App = () => {
   const [boxScrollState, setBoxScrollState] = useState(0)
   const [berryScrollState, setBerryScrollState] = useState(0)
   const [analysis, setAnalysis] = useState(false)
-
-
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
 
 
   const backend_url = "https://btb-backend.azurewebsites.net"
@@ -52,17 +57,45 @@ const App = () => {
 
   useEffect(() => {
 
+    const getUser = async () => {
+      const domain = "dev-1odthoac.us.auth0.com";
+  
+      try {
+        const accessToken = await getAccessTokenSilently({
+          audience: `https://${domain}/api/v2/`,
+          scope: "read:current_user",
+        });
+  
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+
     const getBerryCatalog = async () => {
       const berriesFromServer = await fetchBerryCatalog()
       setBerryCatalog(berriesFromServer)
     }
 
-    const getBox = async () => {
+    const getBoxFromLocalStorage = () => {
+      const boxObjects = readFromCache("guest_box")
+      if(boxObjects){
+        setBox(boxObjects)
+      }
+    }
+
+    const getTeamFromLocalStorage = () => {
+      const teamObjects = readFromCache("guest_team")
+      if(teamObjects){
+        setTeam(teamObjects)
+      }
+    }
+
+    const getBoxFromDB = async () => {
       const boxobjects = await fetchBox()
       setBox(boxobjects)
     }
 
-    const getTeam = async () => {
+    const getTeamFromDB = async () => {
       const teamObjects = await fetchTeam()
       setTeam(teamObjects)
     }
@@ -98,13 +131,25 @@ const App = () => {
         })
     }
 
-    getBerryCatalog()
-    getBox()
-    getTeam()
+    getUser()
+
+    if(user && isAuthenticated){
+      getBoxFromDB()
+      getTeamFromDB()
+    }
+    else{
+      getBoxFromLocalStorage()
+      getTeamFromLocalStorage()
+    }
+
     getPokemonCatalog()
     getItemCatalog()
-  }, [])
+  }, [user])
 
+
+  const updateBox = (new_box) => {
+    setBox(new_box)
+  }
 
   /*API Functions ==============================================================================================================*/
 
@@ -114,12 +159,14 @@ const App = () => {
   }
 
   const fetchBox = async () => {
-    const res = await axios.get(`${backend_url}/box`)
+    const userId = user.sub.replace('|', '_')
+    const res = await axios.get(`${backend_url}/${userId}/box`)
     return res.data
   }
 
   const fetchTeam = async () => {
-    const res = await axios.get(`${backend_url}/team`)
+    const userId = user.sub.replace('|', '_')
+    const res = await axios.get(`${backend_url}/${userId}/team`)
     return res.data
   }
 
@@ -131,10 +178,22 @@ const App = () => {
   }
 
   const addObjToBox = (obj) => {
-    axios.post(`${backend_url}/box`, obj)
-      .then(res =>{
-            setBox([...box, res.data])
-      })
+    if(user && isAuthenticated) {
+      const userId = user.sub.replace('|', '_')
+      axios.post(`${backend_url}/${userId}/box`, obj)
+        .then(res =>{
+              setBox([...box, res.data])
+        })
+    }
+    else{
+      //Setting up local object
+      obj.description = ""
+      obj.moves = ["", "", "", ""]
+      obj._id = uuidv4() //Generate unique ID
+      delete obj.url
+      writeToCache("guest_box", [...box, obj])
+      setBox([...box, obj])
+    }
   }
 
   const addObjToTeam = (obj) => {
@@ -147,29 +206,54 @@ const App = () => {
     if(obj.type === "item"){
       console.log("Cancelled action due to trying to add item to team")
       alert("Cannot add an item as a team member.")
-      return
     }
 
-    axios.post(`${backend_url}/team`, obj)
-      .then(res =>{
-            setTeam([...team, res.data])
-      })
+    if(user && isAuthenticated) {
+      const userId = user.sub.replace('|', '_')
+      axios.post(`${backend_url}/${userId}/team`, obj)
+        .then(res =>{
+              setTeam([...team, res.data])
+        })
+    }
+    else{
+      //Setting up local object
+      obj.description = ""
+      obj.moves = ["", "", "", ""]
+      obj._id = uuidv4() //Generate unique ID
+      delete obj.url
+      writeToCache("guest_team", [...team, obj])
+      setTeam([...team, obj])
+    }
   }
 
   const removeObjfromTeam = (id) => {
-    axios.delete(`${backend_url}/team/${id}`)
-      .then(res =>{
-        setInspectView("")
-        setTeam(team.filter((obj) => obj._id != id))
-      })
+    if(user && isAuthenticated) {
+      const userId = user.sub.replace('|', '_')
+      axios.patch(`${backend_url}/${userId}/team/delete/${id}`)
+        .then(res =>{
+          setInspectView("")
+          setTeam(team.filter((obj) => obj._id != id))
+        })
+    }
+    else{
+      writeToCache("guest_team", team.filter((obj) => obj._id != id))
+      setTeam(team.filter((obj) => obj._id != id))
+    }
   }
 
   const removeObjfromBox = (id) => {
-    axios.delete(`${backend_url}/box/${id}`)
-      .then(res =>{
-        setInspectView("")
-        setBox(box.filter((obj) => obj._id != id))
-      }) 
+    if(user && isAuthenticated) {
+      const userId = user.sub.replace('|', '_')
+      axios.patch(`${backend_url}/${userId}/box/delete/${id}`)
+        .then(res =>{
+          setInspectView("")
+          setBox(box.filter((obj) => obj._id != id))
+        }) 
+    }
+    else{
+      writeToCache("guest_box", box.filter((obj) => obj._id != id))
+      setBox(box.filter((obj) => obj._id != id))
+    }
   }
 
   const removeObj = (id, source) => {
@@ -193,12 +277,14 @@ const App = () => {
   }
 
   const fetchBoxObj = async (id) => {
-    const res = await axios.get(`${backend_url}/box/${id}`)
+    const userId = user.sub.replace('|', '_')
+    const res = await axios.get(`${backend_url}/${userId}/box/${id}`)
     return res.data
   }
 
   const fetchTeamObj = async (id) => {
-    const res = await axios.get(`${backend_url}/team/${id}`)
+    const userId = user.sub.replace('|', '_')
+    const res = await axios.get(`${backend_url}/${userId}/team/${id}`)
     return res.data
   }
 
@@ -227,50 +313,99 @@ const App = () => {
     }
 
     const body = {source, destination}
+    if(user && isAuthenticated){
+      const userId = user.sub.replace('|', '_')
+      axios.patch(`${backend_url}/${userId}/${id}`, body)
+        .then(res =>{
+            if(source == "box"){
+              setBox(box.filter((obj) => obj._id != id))
 
-    axios.post(`${backend_url}/${id}`, body)
-      .then(res =>{
-          if(source == "box"){
-            setBox(box.filter((obj) => obj._id != id))
+              if(destination == "team"){
+                setTeam([...team, res.data])
+                updateScrollState()
+                setInspectData(res.data)
+                fetchInspectDataAPI(res.data.name, res.data.type)
+                setActive(`team ${res.data._id}`)
+                setInspectView("inspectTeam")
+              }
+            }
+            else if(source == "team"){
+              setTeam(team.filter((obj) => obj._id != id))
+              
+              if(destination == "box"){
+                setBox([...box, res.data])
+                updateScrollState()
+                setInspectData(res.data)
+                fetchInspectDataAPI(res.data.name, res.data.type)
+                setActive(`box ${res.data._id}`)
+                setInspectView("inspectBox")
+              }
+            }
+        })
+    }
+    else{
+      if(source == "box"){
+        const boxObj = box.find((obj) => obj._id == id)
+        setBox(box.filter((obj) => obj._id != id))
+        writeToCache("guest_box", box.filter((obj) => obj._id != id))
 
-            if(destination == "team"){
-              setTeam([...team, res.data])
-              updateScrollState()
-              setInspectData(res.data)
-              fetchInspectDataAPI(res.data.name, res.data.type)
-              setActive(`team ${res.data._id}`)
-              setInspectView("inspectTeam")
-            }
-          }
-          else if(source == "team"){
-            setTeam(team.filter((obj) => obj._id != id))
-           
-            if(destination == "box"){
-              setBox([...box, res.data])
-              updateScrollState()
-              setInspectData(res.data)
-              fetchInspectDataAPI(res.data.name, res.data.type)
-              setActive(`box ${res.data._id}`)
-              setInspectView("inspectBox")
-            }
-          }
-      })
+        if(destination == "team"){
+          setTeam([...team, boxObj])
+          writeToCache("guest_team", [...team, boxObj])
+          updateScrollState()
+          setInspectData(boxObj)
+          fetchInspectDataAPI(boxObj.name, boxObj.type)
+          setActive(`team ${boxObj._id}`)
+          setInspectView("inspectTeam")
+        }
+      }
+      else if(source == "team"){
+        const teamObj = team.find((obj) => obj._id == id)
+        setTeam(team.filter((obj) => obj._id != id))
+        writeToCache("guest_team", team.filter((obj) => obj._id != id))
+        
+        if(destination == "box"){
+          setBox([...box, teamObj])
+          writeToCache("guest_box", [...box, teamObj])
+          updateScrollState()
+          setInspectData(teamObj)
+          fetchInspectDataAPI(teamObj.name, teamObj.type)
+          setActive(`box ${teamObj._id}`)
+          setInspectView("inspectBox")
+        }
+      }
+    }
+    
   }
 
   const updateNickname = async (source, id, nickname) => {
+    var userId = ""
+    if(user && isAuthenticated){
+      userId= user.sub.replace('|', '_')
+    }
+
     switch (source){
       case "box":{
         var copy = box.find((obj) => obj._id == id)
         copy.nickname = nickname
-
-        axios.patch(`${backend_url}/box/${id}`, copy)
-          .then(res =>{
-            setBox(box.map(
-              (obj) => obj.id === id //For every obj, if obj._id equals id
-              ? {...obj, nickname: res.nickname }  //Update obj nickname
-              : obj) //Else, leave obj as is
-              )
-          })
+        if(user && isAuthenticated){
+          axios.patch(`${backend_url}/${userId}/box/update/${id}`, copy)
+            .then(res =>{
+              setBox(box.map(
+                (obj) => obj.id === id //For every obj, if obj._id equals id
+                ? {...obj, nickname: res.nickname }  //Update obj nickname
+                : obj) //Else, leave obj as is
+                )
+            })
+        }
+        else{
+          const newBox = box.map(
+            (obj) => obj.id === id //For every obj, if obj._id equals id
+            ? {...obj, nickname: nickname }  //Update obj nickname
+            : obj) //Else, leave obj as is
+          writeToCache("guest_box", newBox)
+          setBox(newBox)
+        }
         break
       }
 
@@ -278,14 +413,24 @@ const App = () => {
         var copy = team.find((obj) => obj._id == id)
         copy.nickname = nickname
 
-        axios.patch(`${backend_url}/team/${id}`, copy)
-          .then(res =>{
-            setTeam(team.map(
-              (obj) => obj.id === id //For every obj, if obj._id equals id
-              ? {...obj, nickname: res.nickname }  //Update obj nickname
-              : obj) //Else, leave obj as is
-              )
-          })
+        if(user && isAuthenticated){
+          axios.patch(`${backend_url}/${userId}/team/update/${id}`, copy)
+            .then(res =>{
+              setTeam(team.map(
+                (obj) => obj.id === id //For every obj, if obj._id equals id
+                ? {...obj, nickname: res.nickname }  //Update obj nickname
+                : obj) //Else, leave obj as is
+                )
+            })
+        }
+        else{
+          const newTeam = team.map(
+            (obj) => obj.id === id //For every obj, if obj._id equals id
+            ? {...obj, nickname: nickname }  //Update obj nickname
+            : obj) //Else, leave obj as is
+          writeToCache("guest_team", newTeam)
+          setTeam(newTeam)
+        }
         break
       }
 
@@ -295,19 +440,33 @@ const App = () => {
   }
 
   const updateMoves = async (source, id, moves) => {
+    var userId = ""
+    if(user && isAuthenticated){
+      userId= user.sub.replace('|', '_')
+    }
+
     switch (source){
       case "box":{
         var copy = box.find((obj) => obj._id == id)
         copy.moves = moves
-
-        axios.patch(`${backend_url}/box/${id}`, copy)
-          .then(res =>{
-            setBox(box.map(
-              (obj) => obj.id === id //For every obj, if obj._id equals id
-              ? {...obj, moves: res.moves }  //Update obj nickname
-              : obj) //Else, leave obj as is
-              )
-          })
+        if(user && isAuthenticated){
+          axios.patch(`${backend_url}/${userId}/box/update/${id}`, copy)
+            .then(res =>{
+              setBox(box.map(
+                (obj) => obj.id === id //For every obj, if obj._id equals id
+                ? {...obj, moves: res.moves }  //Update obj nickname
+                : obj) //Else, leave obj as is
+                )
+            })
+        }
+        else{
+          const newBox = box.map(
+            (obj) => obj.id === id //For every obj, if obj._id equals id
+            ? {...obj, moves: moves }  //Update obj nickname
+            : obj) //Else, leave obj as is
+          writeToCache("guest_box", newBox)
+          setBox(newBox)
+        }
         break
       }
 
@@ -315,14 +474,24 @@ const App = () => {
         var copy = team.find((obj) => obj._id == id)
         copy.moves = moves
 
-        axios.patch(`${backend_url}/team/${id}`, copy)
-          .then(res =>{
-            setTeam(team.map(
-              (obj) => obj.id === id //For every obj, if obj._id equals id
-              ? {...obj, moves: res.moves }  //Update obj nickname
-              : obj) //Else, leave obj as is
-              )
-          })
+        if(user && isAuthenticated){
+          axios.patch(`${backend_url}/${userId}/team/update/${id}`, copy)
+            .then(res =>{
+              setTeam(team.map(
+                (obj) => obj.id === id //For every obj, if obj._id equals id
+                ? {...obj, moves: res.moves }  //Update obj nickname
+                : obj) //Else, leave obj as is
+                )
+            })
+        }
+        else{
+          const newTeam = team.map(
+            (obj) => obj.id === id //For every obj, if obj._id equals id
+            ? {...obj, moves: moves }  //Update obj nickname
+            : obj) //Else, leave obj as is
+          writeToCache("guest_team", newTeam)
+          setTeam(newTeam)
+        }
         break
       }
 
@@ -595,14 +764,14 @@ const closeAnalysis = () => {
   }
 
   /*App Structure ==============================================================================================================*/
-
+  
   return (
     <div>
       <Router>
         <Route path='/' exact render={(props) => (
           <>
             <div className="menuBar">
-              <MenuBar berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} itemCatalogView={changeViewToItemCatalog} analysis={showAnalysis} />
+              <MenuBar isAuthenticated={isAuthenticated} isLoading={isLoading} user={user} berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} itemCatalogView={changeViewToItemCatalog} analysis={showAnalysis} />
             </div>
             <Container fluid className="topSideView">
               <Row noGutters="true">
@@ -641,7 +810,11 @@ const closeAnalysis = () => {
         <Route path='/debug' exact render={(props) => (
           <Debug addBerry={addBerryToCatalog}/>
         )}/>
+        <Route path='/PostLogin' exact render={(props) => (
+          <PostLogin user={user} isLoading={isLoading} isAuthenticated={isAuthenticated} backend_url={backend_url} updateBox={updateBox} />
+        )}/>
       </Router>
+      
     </div>
   );
 }

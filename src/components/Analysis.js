@@ -11,8 +11,7 @@ import Image from 'react-bootstrap/Image'
 
 const Analysis = ({team}) => {
     
-
-    const [teamData, setTeamData] = useState([])
+    const [teamData, setTeamData] = useState(null)
 
 
     const getAPIData = () => {
@@ -45,6 +44,8 @@ const Analysis = ({team}) => {
             })
         })
 
+        console.log("cache_promises: ", caches_promises)
+
         let cache_promise_map = Array(caches_promises.length).fill(0) //mapping for cache/promises. 0 = cached. 1 = promise
         for(let i = 0; i < cache_promise_map.length; i++){
             let cache_promise = caches_promises[i]
@@ -53,10 +54,12 @@ const Analysis = ({team}) => {
             }
         }
 
-         axios.all(caches_promises)
+        console.log(cache_promise_map)
+        axios.all(caches_promises)
             .then(resArr => {
 
                 let curr_name = ""
+                let curr_id = ""
                 let curr_pokemon = {}
                 let curr_moveset = []
                 let firstPokemon = true;
@@ -158,7 +161,7 @@ const Analysis = ({team}) => {
                         }
                         else{ //must be pokemon api data
                              //Adding previously populated move_set to pokemon before moving on to the next one UNLESS it is the first pokemon (Based on started)
-                             if(!firstPokemon){
+                            if(!firstPokemon){
                                 curr_pokemon.moves = curr_moveset
                                 curr_moveset = []
                             }
@@ -169,10 +172,11 @@ const Analysis = ({team}) => {
                             curr_pokemon.types = data.types
                             curr_pokemon.stats = data.stats
                             firstPokemon = false;
+                            console.log(data)
                         }
                     }
                 }
-                
+                console.log("newTeam: ", newTeam)
                 setTeamData(newTeam)
                 
             })
@@ -189,6 +193,7 @@ const Analysis = ({team}) => {
     }
     
     if(teamData){
+        console.log("teamData: ", teamData)
         return (
             <div>
                 <h3>Overview</h3>
