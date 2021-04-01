@@ -65,7 +65,7 @@ const PostLogin = ({user, isLoading, isAuthenticated, backend_url, updateBox}) =
 
                 <Link onClick={() => import_data()} to='/'> Yes, import data.</Link>
                 <Link onClick={() => delete_data_from_local_storage()} to='/'> No, leave data behind.</Link>
-                <Link onClick={() => logout()} to='/'> Stay Logged Out.</Link>
+                <Link onClick={() => logout({ returnTo: window.location.origin })} to='/'> Stay Logged Out.</Link>
 
             </Container>
             )
