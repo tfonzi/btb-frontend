@@ -16,6 +16,8 @@ import Box from './components/Box'
 import Analysis from './components/Analysis'
 import Debug from './components/Debug'
 import PostLogin from './components/PostLogin'
+import Help from './components/Help'
+
 
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -33,7 +35,7 @@ import { readFromCache, writeToCache } from './cache.js'
 
 const App = () => {
   
-  const [teamBerriesToggle, setTeamBerriesToggle] = useState("teamView") //Toggles lefthand view between berries and team
+  const [teamBerriesToggle, setTeamBerriesToggle] = useState("pokemonCatalogView") //Toggles lefthand view between berries and team
   const [inspectView, setInspectView] = useState("") //This variable toggles between inspect views
   const [inspectData, setInspectData] = useState(null) //This variable holds data that goes into inspect window
   const [inspectDataAPI, setInspectDataAPI] = useState({types: 0, stats: null, description: ""})//This variable holds inspect data fetched from api
@@ -49,6 +51,7 @@ const App = () => {
   const [boxScrollState, setBoxScrollState] = useState(0)
   const [berryScrollState, setBerryScrollState] = useState(0)
   const [analysis, setAnalysis] = useState(false)
+  const [help, setHelp] = useState(false)
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
 
 
@@ -237,6 +240,7 @@ const App = () => {
     }
     else{
       writeToCache("guest_team", team.filter((obj) => obj._id != id))
+      setInspectView("")
       setTeam(team.filter((obj) => obj._id != id))
     }
   }
@@ -252,6 +256,7 @@ const App = () => {
     }
     else{
       writeToCache("guest_box", box.filter((obj) => obj._id != id))
+      setInspectView("")
       setBox(box.filter((obj) => obj._id != id))
     }
   }
@@ -649,12 +654,20 @@ const App = () => {
     setActive(`team ${id}`)
   }
 
-  const showAnalysis = () => {
+const showAnalysis = () => {
     setAnalysis(true)
 }
 
 const closeAnalysis = () => {
     setAnalysis(false)
+}
+
+const showHelp = () => {
+  setHelp(true)
+}
+
+const closeHelp = () => {
+  setHelp(false)
 }
 
 /*Mouse Events ==============================================================================================================*/
@@ -771,9 +784,19 @@ const closeAnalysis = () => {
         <Route path='/' exact render={(props) => (
           <>
             <div className="menuBar">
-              <MenuBar isAuthenticated={isAuthenticated} isLoading={isLoading} user={user} berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} itemCatalogView={changeViewToItemCatalog} analysis={showAnalysis} />
+              <MenuBar isAuthenticated={isAuthenticated} isLoading={isLoading} user={user} berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} itemCatalogView={changeViewToItemCatalog} analysis={showAnalysis} help={showHelp} />
             </div>
             <Container fluid className="topSideView">
+              <Row noGutters="true">
+                <Col xs={4} md={6}>
+                  {(teamBerriesToggle == "pokemonCatalogView") && <h4 className="pokemonCatalog-header">Pokemon</h4>}
+                  {(teamBerriesToggle == "itemCatalogView") && <h4 className="itemCatalog-header">Items</h4>}
+                  {(teamBerriesToggle == "teamView") && <h4 className="team-header">Team</h4>}
+                </Col>
+                <Col xs={8} md={6}>
+                  <h4 className="pokemonCatalog-header">Inspector</h4>
+                </Col>
+              </Row>
               <Row noGutters="true">
                 <Col xs={4} md={6}> {/*Natively one column is 25% while the other is 75%. On desktop, it switches to 50-50 */}
                   <div className="leftSideView">
@@ -781,7 +804,7 @@ const closeAnalysis = () => {
                     {(teamBerriesToggle == "berryCatalogView") && <Berries active={active} scrollState={berryScrollState} onDragStart={onDragStart} inspect={inspectBerry} berries={berryCatalog} />}
                     {(teamBerriesToggle == "pokemonCatalogView") && <PokemonCatalog active={active} scrollState={pCScrollState} onDragStart={onDragStart} inspect={inspectPokemonCatalog} pokemons={pokemonCatalog} />} 
                     {(teamBerriesToggle == "itemCatalogView") && <ItemCatalog active={active} scrollState={itemScrollState} onDragStart={onDragStart} inspect={inspectItemCatalog} items={itemCatalog} />} 
-                  </div>
+                  </div> 
                 </Col>
                 <Col xs={8} md={6}>
                     <Inspector onDragOver={onDragOver} onDrop={onDrop} view={inspectView} object={inspectData} apiData={inspectDataAPI} updatePokemonMoves={updateMoves} updateNickname={updateNickname} AddObjectToBox={addObjToBox} AddObjectToTeam={addObjToTeam} removeObj={removeObj} moveTo={moveTo} />
@@ -789,6 +812,7 @@ const closeAnalysis = () => {
               </Row>
             </Container>
             <Container fluid>
+              <h4 className="box-header">Box</h4>
               <Box active={active} scrollState={boxScrollState} onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} inspect={inspectBox} box={box} />
             </Container> 
             <Modal
@@ -797,11 +821,25 @@ const closeAnalysis = () => {
               centered
             >
               <Modal.Header>
-                  Analysis
+                  <h2>Analysis</h2>
                   <Button onClick={() => closeAnalysis()} variant="primary"> Close </Button>
               </Modal.Header>
               <Modal.Body>
                 <Analysis team={team} />
+              </Modal.Body>
+              <Modal.Footer></Modal.Footer>
+            </Modal>
+            <Modal
+              show={help}
+              onHide={closeHelp}
+              centered
+            >
+              <Modal.Header>
+                  <h2>Tips for using Team Builder</h2>
+                  <Button onClick={() => closeHelp()} variant="primary"> Close </Button>
+              </Modal.Header>
+              <Modal.Body>
+                <Help />
               </Modal.Body>
               <Modal.Footer></Modal.Footer>
             </Modal>

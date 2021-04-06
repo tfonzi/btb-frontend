@@ -20,7 +20,6 @@ const Box = ({box, inspect, onDragStart, onDragOver, onDrop, scrollState, active
                                         e.dataTransfer.getData("id"), 
                                         'box')}
         >
-            <h3 className="box-header">Box</h3>
             <div id="BoxScroll" className="box-flex">
                 {box.map((obj) => (
                     <div key={obj._id}>

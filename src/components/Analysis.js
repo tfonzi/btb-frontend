@@ -194,25 +194,33 @@ const Analysis = ({team}) => {
     
     if(teamData){
         console.log("teamData: ", teamData)
-        return (
-            <div>
-                <h3>Overview</h3>
-                <div className="analysis-team-images">
+        if(teamData.length === 0){
+            return(
+                <div>
+                    <h5>Add some Pokemon to your team to start analyzing!</h5>
+                </div>
+            )
+        }
+        else{
+            return (
+                <div>
+                    <h3>Overview</h3>
+                    <div className="analysis-team-images">
+                        {teamData.map(teamMember => (
+                            <Image className="analysis-team-image" draggable="false" key={`${teamMember._id}_image`} src={teamMember.image} onClick={() => scrollTo(teamMember._id)} />
+                        ))}
+                    </div>
+                    <TeamAnalysis team={team} />
                     {teamData.map(teamMember => (
-                        <Image className="analysis-team-image" draggable="false" key={`${teamMember._id}_image`} src={teamMember.image} onClick={() => scrollTo(teamMember._id)} />
+                        <TeamMemberAnalysis key={teamMember._id} teamMember={teamMember} />
                     ))}
                 </div>
-                <TeamAnalysis team={team} />
-                {teamData.map(teamMember => (
-                    <TeamMemberAnalysis key={teamMember._id} teamMember={teamMember} />
-                ))}
-            </div>
-        )
+            )
+        }
     }
     else{
         return (<p>Is Loading ...</p>)
     }
-
 }
 
 

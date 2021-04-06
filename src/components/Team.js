@@ -30,7 +30,6 @@ const Team = ({team, inspect, onDragStart, onDragOver, onDrop, scrollState, acti
                                             e.dataTransfer.getData("id"), 
                                             'team')}
             >
-                <h3 className="team-header">Team</h3>
                 <div id="TeamScroll" className ="team-flex">
                     {team.map((obj) => (
                         <div key={obj._id}>

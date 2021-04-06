@@ -23,6 +23,19 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
     
     const [nickname, setNickname] = useState("")
 
+    const [addedToTeam, setAddedToTeam] = useState(false)
+    const [addedToBox, setAddedToBox] = useState(false)
+
+    const signifyAddedToTeam = () => {
+        setAddedToTeam(true)
+        setTimeout(() => {setAddedToTeam(false)}, 1000)
+    }
+
+    const signifyAddedToBox = () => {
+        setAddedToBox(true)
+        setTimeout(() => {setAddedToBox(false)}, 1000)
+    }
+
     const sendNickname = () =>{
                 
         if(nickname){
@@ -64,10 +77,12 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
         copy.nickname = ""
         delete copy._id
         if(source == "box"){
+            signifyAddedToBox()
             AddObjectToBox(copy)
         }
 
         if(source == "team"){
+            signifyAddedToTeam()
             AddObjectToTeam(copy)
         }
     }
@@ -103,7 +118,8 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                             <h5>{object.description}</h5>
                             <Row>
                                 <Col>
-                                    <Button onClick={() => sendObject("box")} >Add to Box</Button>
+                                    <Button className={addedToBox?"hide inspector-button":"inspector-button"} onClick={() => sendObject("box")} >Add to Box</Button>
+                                    <Button className={addedToBox?"inspector-button":" hide inspector-button"} disabled>Sent to Box!</Button>
                                 </Col>
                             </Row>
                         </div>
@@ -128,8 +144,10 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                             </Col>
                             <Col className="inspector-cols">
                                 <div className="inspector-buttons">
-                                    <Button className="inspector-button" variant="success" onClick={() => sendObject("team")} >Add to Team</Button>
-                                    <Button className="inspector-button" onClick={() => sendObject("box")} >Add to Box</Button>
+                                    <Button className={addedToTeam?"hide inspector-button":"inspector-button"} variant="success" onClick={() => sendObject("team")} >Add to Team</Button>
+                                    <Button className={addedToTeam?"inspector-button":"hide inspector-button"} variant="success" disabled >Sent to team!</Button>
+                                    <Button className={addedToBox?"hide inspector-button":"inspector-button"} onClick={() => sendObject("box")} >Add to Box</Button>
+                                    <Button className={addedToBox?"inspector-button":"hide inspector-button"} disabled >Sent to box!</Button>
                                 </div>
                             </Col>
                         </Row>
@@ -157,7 +175,8 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                                 <Image className="inspector-item-image" draggable="false" src={object.image}/>
                             </Col>
                             <Col xs={5} sm={5} className="inspector-cols">
-                                <Button className="inspector-item-button" onClick={() => sendObject("box")} >Add to Box</Button>
+                                <Button className={addedToBox?"hide inspector-item-button":"inspector-item-button"} onClick={() => sendObject("box")} >Add to Box</Button>
+                                <Button className={addedToBox?"inspector-item-button":"hide inspector-item-button"} disabled >Sent to Box!</Button>
                             </Col>
                         </Row>
                         <p className="p-inspector-item">{apiData.description}</p>
@@ -176,9 +195,8 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
                                                     e.dataTransfer.getData("id"),
                                                     "inspector")}
                         >
-                            
-                            <p className="p">{object.name}</p>
-                            <Image fluid draggable="false" src={object.image}/>
+                            <p className="inspector-name">{object.name}</p>
+                            <Image className="inspector-item-image" draggable="false" src={object.image}/>
                             <p>{apiData.description}</p>
                             <Button className="inspector-button" variant="danger" onClick={() => removeObj(object._id, "box")}>Remove from box</Button>
                                 

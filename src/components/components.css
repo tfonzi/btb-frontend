@@ -7,15 +7,15 @@
 /* For mobile*/
 @media screen and (max-width: 448px) { 
     .menuBar{
-        height: 10vh;
-        height: calc(var(--vh, 1vh) * 10);
+        height: 7vh;
+        height: calc(var(--vh, 1vh) * 7);
         padding: 0;
         margin: 0; 
     }
 
     .topSideView{
-        height: 56vh;
-        height: calc(var(--vh, 1vh) * 56);
+        height: 60vh;
+        height: calc(var(--vh, 1vh) * 60);
     }
 
     
@@ -25,9 +25,10 @@
         margin-left: 7px;
         margin-right: -9px;
         border: 2px solid rgb(208, 230, 233);
+        background-color: white;
         border-radius: 5px;
-        height: 54vh;
-        height: calc(var(--vh, 1vh) * 54);
+        height: 55.5vh;
+        height: calc(var(--vh, 1vh) * 55.5);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -63,11 +64,11 @@
     }
 
     .inspector-header {
-        font-size: larger;
+        font-size: large;
         font-weight: bold;
         padding: 0px;
         margin-top: 20px;
-        margin-bottom: 0px;
+        margin-bottom: 2px;
 
     }
 
@@ -186,29 +187,39 @@
     .leftSideView {
         padding-right: 0;
         margin: 0;
-        margin-left: -15px;
+        width: 115%;
+        margin-left: -13px;
+        height: 55.5vh;
+        height: calc(var(--vh, 1vh) * 55.5);
+        border: 2px solid rgb(208, 230, 233);
+        background-color: white;
     }
 
     .pokemonCatalog-header{
         text-align: center;
-        font-size: x-large;
+        font-size: large;
+        margin-bottom: 2px;
+
     }
     
     .itemCatalog-header{
         text-align: center;
-        font-size: x-large;
+        font-size: larger;
+        margin-bottom: 2px;
+
     }
     
     .team-header{
         text-align: center;
-        font-size: x-large;
-        margin-bottom: 5px;
+        font-size: larger;
+        margin-bottom: 2px;
+
     }
 
     .box-header{
-        position: relative;
-        left: 9%;
-        font-size: x-large;
+        text-align: center;
+        font-size: larger;
+        margin-bottom: 2px;
     }
 
     .berryCatalog-flex {
@@ -217,8 +228,7 @@
         justify-content: space-evenly;
         align-items: flex-start;
         align-content: flex-start;
-        height: 41vh;
-        height: calc(var(--vh, 1vh) * 41);
+        height: auto;
         overflow: auto;
         overflow-x: hidden;
     
@@ -231,9 +241,7 @@
         align-items: flex-start;
         align-content: flex-start;
         width: 100%;
-        height: 46vh;
-        margin: auto;
-        height: calc(var(--vh, 1vh) * 46);
+        height: 100%;
         overflow: auto;
         overflow-x: hidden;
     
@@ -242,6 +250,7 @@
     .pokemonCatalog-object {
         margin: 1px;
         border: 2px solid rgb(208, 230, 233);
+        background-color: white;
         border-radius: 5px;
         height: auto;
     
@@ -274,9 +283,8 @@
         align-items: flex-start;
         align-content: flex-start;
         width: 100%;
-        height: 46vh;
         margin: auto;
-        height: calc(var(--vh, 1vh) * 46);
+        height: 100%;
         overflow: auto;
         overflow-x: hidden;
     
@@ -287,6 +295,8 @@
         border: 2px solid rgb(208, 230, 233);
         border-radius: 5px;
         height: auto;
+        background-color: white;
+
     
     }
 
@@ -317,8 +327,8 @@
         align-items: flex-start;
         align-content: flex-start;
         width: 100%;
-        height: 46vh;
-        height: calc(var(--vh, 1vh) * 46);
+        height: 55vh;
+        height: calc(var(--vh, 1vh) * 55);
         overflow: auto;
         overflow-x: hidden;
     
@@ -337,7 +347,7 @@
         border: 2px solid rgb(208, 230, 233);
         border-radius: 5px;
         height: auto;
-    
+        background-color: white;
     }
     
     .active-team-object {
@@ -356,17 +366,18 @@
     }
 
     .box{
-        height: 32vh;
-        height: calc(var(--vh, 1vh) * 32);
+        height: 28vh;
+        height: calc(var(--vh, 1vh) * 28);
         padding-top: 5px;
+        border: 2px solid rgb(208, 230, 233);
+        background-color: white;
     }
 
     .box-flex {
         display: flex;
         flex-flow: column wrap;
         justify-content: flex-start;
-        height: 25vh;
-        height: calc(var(--vh, 1vh) * 25);
+        height: 100%;
         overflow-y: hidden;
         overflow-x: auto;
         align-items: flex-start;
@@ -386,6 +397,7 @@
         border: 2px solid rgb(208, 230, 233);
         border-radius: 5px;
         height: auto;
+        background-color: white;
     }
     
     .active-box-object {
@@ -406,23 +418,23 @@
 /* For desktop =================================================================================================================================================================*/
 @media screen and (min-width: 449px) {
     .menuBar{
-        height: 10vh;
-        height: calc(var(--vh, 1vh) * 10);
+        height: 6vh;
+        height: calc(var(--vh, 1vh) * 6);
         padding: 0;
         margin: 0; 
     }
 
     .topSideView{
-        height: 60vh;
-        height: calc(var(--vh, 1vh) * 60);
+        height: 55vh;
+        height: calc(var(--vh, 1vh) * 55);
     }
 
     .rightSideView {
         padding-top: 20px;
         padding-left: 20px;
         margin-left: 15px;
-        margin-top: 40px;
         border: 2px solid rgb(208, 230, 233);
+        background-color: white;
         border-radius: 5px;
         height: 50vh;
         height: calc(var(--vh, 1vh) * 50);
@@ -582,22 +594,30 @@
     .leftSideView {
         padding-right: 0;
         margin: 0;
+        border: 2px solid rgb(208, 230, 233);
+        background-color: white;
+        height: 50vh;
+        height: calc(var(--vh, 1vh) * 50);
     }
 
     .pokemonCatalog-header{
         text-align: center;
+        margin-bottom: 2px;
     }
     
     .itemCatalog-header{
         text-align: center;
+        margin-bottom: 2px;
     }
     
     .team-header{
         text-align: center;
+        margin-bottom: 2px;
     }
 
     .box-header{
         text-align: center;
+        margin-bottom: 2px;
     }
 
     .berryCatalog-flex {
@@ -606,8 +626,7 @@
         justify-content: space-evenly;
         align-items: flex-start;
         align-content: flex-start;
-        height: 50vh;
-        height: calc(var(--vh, 1vh) * 50);
+        height: 100%;
         overflow: auto;
         overflow-x: hidden;
     
@@ -620,8 +639,7 @@
         align-items: flex-start;
         align-content: flex-start;
         width: 100%;
-        height: 50vh;
-        height: calc(var(--vh, 1vh) * 50);
+        height: 100%;
         overflow: auto;
         overflow-x: hidden;
     
@@ -632,6 +650,7 @@
         border: 2px solid rgb(208, 230, 233);
         border-radius: 5px;
         height: auto;
+        background-color: white;
     }
 
     .active-pokemonCatalog-object {
@@ -661,8 +680,7 @@
         align-items: flex-start;
         align-content: flex-start;
         width: 100%;
-        height: 50vh;
-        height: calc(var(--vh, 1vh) * 50);
+        height: 100%;
         overflow: auto;
         overflow-x: hidden;
     
@@ -673,6 +691,7 @@
         border: 2px solid rgb(208, 230, 233);
         border-radius: 5px;
         height: auto;
+        background-color: white;
     }
 
     .active-itemCatalog-object {
@@ -697,15 +716,37 @@
     .team-flex {
         display: flex;
         flex-flow: row wrap;
-        justify-content: flex-start;
-        align-items: flex-start;
-        align-content: flex-start;
-        width: 100%;
+        justify-content: space-evenly;
+        align-items: center;
+        align-content: space-around;
+        width: 75%;
+        margin: auto;
         height: 50vh;
         height: calc(var(--vh, 1vh) * 50);
         overflow: auto;
         overflow-x: hidden;
     
+    }
+
+    .team-object {
+        margin: 2px;
+        border: 2px solid rgb(208, 230, 233);
+        border-radius: 5px;
+        background-color: white;
+    }
+    
+    .active-team-object {
+        margin: 2px;
+        border: 2px solid yellow;
+        background-color: rgb(208, 230, 233);
+        border-radius: 5px;
+    
+    }
+
+    .team-image {
+        max-width: 100%;
+        height: 20vh;
+        height: calc(var(--vh, 1vh) * 20);
     }
 
     .p-team {
@@ -716,6 +757,7 @@
     }
 
     .p-team-nickname{
+        margin-top: -12px;
         margin-bottom: 2px;
         text-align: center;
     }
@@ -728,47 +770,34 @@
     }
 
     .p-box-nickname{
+        margin-top: -12px;
         margin-bottom: 2px;
         text-align: center;
     }
 
     .box{
-        height: 30vh;
-        height: calc(var(--vh, 1vh) * 30);
+        height: 35vh;
+        height: calc(var(--vh, 1vh) * 35);
+        border: 2px solid rgb(208, 230, 233);
+        background-color: white;
     }
 
     .box-flex {
         display: flex;
         flex-flow: column wrap;
         justify-content: flex-start;
-        height: 22vh;
-        height: calc(var(--vh, 1vh) * 22);
+        height: 100%;
         overflow-y: hidden;
         overflow-x: auto;
         align-items: flex-start;
         align-content: flex-start;
     }
 
-    .team-object {
-        margin: 2px;
-        border: 2px solid rgb(208, 230, 233);
-        border-radius: 5px;
-    
-    }
-    
-    .active-team-object {
-        margin: 2px;
-        border: 2px solid yellow;
-        background-color: rgb(208, 230, 233);
-        border-radius: 5px;
-    
-    }
-    
     .box-object {
         margin: 2px;
         border: 2px solid rgb(208, 230, 233);
         border-radius: 5px;
-    
+        background-color: white;
     }
     
     .active-box-object {
@@ -822,7 +851,8 @@
     padding-top: 0.5px !important;
     padding-bottom: 0.5px !important;
     position: relative;
-    top: 15%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .navbar-button {
@@ -947,4 +977,13 @@
     margin-top: 5vh;
     text-align: center;
     font-size: large;
+}
+
+.hide{
+    display: none !important;
+}
+
+.help_image{
+    width: 100%;
+    height: auto;
 }

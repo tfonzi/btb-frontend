@@ -12,7 +12,6 @@ const ItemCatalog = ({items, inspect, onDragStart, active, scrollState}) => {
 
     return (
         <>
-            <h3 className="itemCatalog-header">Items</h3>
             <div id="ItemScroll" className="itemCatalog-flex">
                 {items.map((item) => (
                 <div key={item.name}>
