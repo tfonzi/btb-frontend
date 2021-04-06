@@ -26,7 +26,7 @@ const Help = () => {
                 <img className="help_image" src="\resize.jpg"/>
                 <p>
                     Due to the nature of making a single page application on mobile, there can be resizing issues if the page is accidentally zoomed in.
-                    In order to fix this, just refresh the page. 
+                    In order to fix this, just zoom out and refresh the page. 
                 </p>
                 <p>Don't worry-- refreshing should not delete your Pokemon. :)</p>
                 <h4>1. Navigate using the NavBar</h4>
