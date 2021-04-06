@@ -22,6 +22,13 @@ const Help = () => {
      if (width <= 448) { //Mobile
          return (
             <div>
+                <h4>0. (Mobile only) Zoom Issues</h4>
+                <img className="help_image" src="\resize.jpg"/>
+                <p>
+                    Due to the nature of making a single page application on mobile, there can be resizing issues if the page is accidentally zoomed in.
+                    In order to fix this, just refresh the page. 
+                </p>
+                <p>Don't worry-- refreshing should not delete your Pokemon. :)</p>
                 <h4>1. Navigate using the NavBar</h4>
                 <img className="help_image" src="\NavBar_mobile.png"/>
                 <p>The NavBar has easy access to important parts of the website including your team view, catalogs for Pokemon and Items, and the analysis window.</p>
