@@ -1,13 +1,12 @@
 import axios from 'axios'
 import {useState, useEffect} from 'react'
 
-import { readFromCache, writeToCache } from './../cache.js'
 import TeamMemberAnalysis from './TeamMemberAnalysis'
 import TeamAnalysis from './TeamAnalysis'
 
 import Image from 'react-bootstrap/Image'
 
-
+import { readFromCache, writeToCache } from '../../utils/cache.js'
 
 const Analysis = ({team}) => {
     

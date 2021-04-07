@@ -1,0 +1,318 @@
+/* For mobile*/
+@media screen and (max-width: 448px) { 
+
+    .rightSideView {
+        padding-left: 10px;
+        padding-right: 5px;  
+        margin-left: 7px;
+        margin-right: -9px;
+        border: 2px solid rgb(208, 230, 233);
+        background-color: white;
+        border-radius: 5px;
+        height: 55.5vh;
+        height: calc(var(--vh, 1vh) * 55.5);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .inspector-rows {
+        margin: 0   !important;
+    }
+
+    .inspector-cols {
+        padding: 0  !important;
+    }
+
+    .inspector-item-button{
+        margin-top: 45px;
+        font-size: 12px !important;
+        width: 100%
+    }
+
+    .inspector-item-image{
+        height: auto;
+        width: 50%;
+    }
+
+    .p-inspector-item{
+        margin-top: 10px;
+    }
+
+    .inspector-name {
+        font-size: larger;
+        font-weight: bold;
+        text-transform: capitalize;
+        margin: 0px;
+    }
+
+    .inspector-header {
+        font-size: large;
+        font-weight: bold;
+        padding: 0px;
+        margin-top: 20px;
+        margin-bottom: 2px;
+
+    }
+
+    .inspector-buttons {
+        position: absolute;
+        top: 25%;
+    }
+
+    .inspector-button {
+        margin-bottom: 10px;
+        font-size: 12px !important;
+        width: 100%
+    }
+
+    .inspector-nickname{
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+
+    .inspector-nickname-field{
+        font-size: 12px;
+        width: 50%;
+        margin-left: 12px;
+    }
+
+    .inspector-nickname-button{
+        font-size: 12px !important;
+        width: 40%;
+        padding: 3px !important;
+        margin: 5px 0px;
+    }
+
+    .inspector-type{
+        display: inline-block;
+        vertical-align: top;
+        margin: 0;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        font-size: x-small;
+        text-transform: capitalize;
+        text-align: center;
+        width: 42.5%;
+        font-weight: bold;
+        color: white;
+        border-radius: 5px;
+        padding: 2px;
+    }
+
+    .inspector-moves{
+        margin-top: 10px;
+        margin-left: 4px;
+    }
+
+    .inspector-move-select{
+        margin: 4px 0px 0px 0px;
+        font-size: small;
+        text-transform: capitalize;
+        width: 100%;
+    }
+
+    .inspector-move-option{
+        text-transform: capitalize;
+    }
+
+    .inspector-move-buttons{
+        margin-top: 1px;
+    }
+
+    .inspector-move-button{
+        margin: 5px 0px 0px 0px;
+        width: 75%;
+        padding: -0px !important;
+        font-size: small !important;
+    }
+
+    .inspector-move-data{
+        margin-top: -5px;
+    }
+
+    .p_inspector-move-data{
+        padding: 0px;
+        margin-bottom: 5px;
+        font-size: medium;
+        margin-left: 0px;
+        text-transform: capitalize;
+    }
+
+    .p_inspector-move-data-nocap{
+        padding: 0px;
+        margin-bottom: 5px;
+        font-size: medium;
+        margin-left: 0px;
+    }
+
+    .p_inspector-move-data-type{
+        font-size: medium;
+        text-transform: capitalize;
+        padding: 0px;
+        margin-bottom: 2px;
+        display: inline-block;
+        vertical-align: top;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+}
+
+/* For desktop*/
+@media screen and (min-width: 449px) { 
+
+    .rightSideView {
+        padding-top: 20px;
+        padding-left: 20px;
+        margin-left: 15px;
+        border: 2px solid rgb(208, 230, 233);
+        background-color: white;
+        border-radius: 5px;
+        height: 50vh;
+        height: calc(var(--vh, 1vh) * 50);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .inspector-rows {
+        margin: 0   !important;
+    }
+
+    .inspector-cols {
+        padding: 0  !important;
+    }
+
+    .inspector-item-button{
+        margin-top: 70px;
+        font-size: 14px !important;
+        width: 50%
+    }
+
+    .inspector-item-image{
+        height: auto;
+        width: 25%;
+    }
+
+    .p-inspector-item{
+        margin-top: 10px;
+        font-size: large;
+    }
+
+    .inspector-name {
+        font-size: larger;
+        font-weight: bold;
+        text-transform: capitalize;
+        margin: 0px;
+    }
+
+    .inspector-header {
+        font-size: larger;
+        font-weight: bold;
+        padding: 0px;
+        margin-top: 20px;
+        margin-bottom: 0px;
+
+    }
+
+    .inspector-buttons {
+        position: absolute;
+        top: 25%;
+    }
+
+    .inspector-button {
+        margin-bottom: 10px;
+        font-size: 14px !important;
+        width: 100%
+    }
+
+    .inspector-nickname{
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+
+    .inspector-nickname-field{
+        font-size: 12px;
+        width: 50%
+    }
+
+    .inspector-nickname-button{
+        font-size: 12px !important;
+        width: 40%;
+        padding: 3px !important;
+        margin: 5px;
+    }
+
+    .inspector-type{
+        display: inline-block;
+        vertical-align: top;
+        margin: 0;
+        margin-bottom: 5px;
+        margin-top: 0px;
+        font-size: small;
+        text-transform: capitalize;
+        text-align: center;
+        margin-right: 5px;
+        width: 20%;
+        font-weight: bold;
+        color: white;
+        border-radius: 5px;
+        padding: 2px;
+    }
+
+    .inspector-moves{
+        margin-top: 10px;
+        margin-left: 17.5px;
+    }
+
+    .inspector-move-select{
+        margin-left: -17.5px;
+        text-transform: capitalize;
+        margin-bottom: 8px;
+
+    }
+
+    .inspector-move-option{
+        text-transform: capitalize;
+    }
+
+    .inspector-move-button{
+        width: 100%;
+        padding: 0px !important;
+        font-size: small !important;
+        margin-bottom: 4px;
+        margin-left: -20px;
+
+    }
+
+    .inspector-move-data {
+        margin-left: -30px;
+    }
+
+    .p_inspector-move-data{
+        font-size: smaller;
+        text-transform: capitalize;
+        padding: 0px;
+        margin-bottom: 2px;
+    }
+
+    .p_inspector-move-data-type{
+        font-size: smaller;
+        text-transform: capitalize;
+        padding: 0px;
+        margin-bottom: 2px;
+        display: inline-block;
+        vertical-align: top;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+    .p_inspector-move-data-nocap{
+        padding: 0px;
+        margin-bottom: 5px;
+        font-size: smaller;
+    }
+    
+}
+
+.hide{
+    display: none !important;
+}

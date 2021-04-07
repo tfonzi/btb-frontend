@@ -1,4 +1,4 @@
-import './components.css'
+import './misc.css'
 
 const Stats = ({stats}) => {
     

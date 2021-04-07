@@ -1,0 +1,90 @@
+/* For mobile*/
+@media screen and (max-width: 448px) { 
+
+
+}
+
+/* For desktop*/
+@media screen and (min-width: 449px) { 
+
+    
+}
+
+.analysis-teamMember{
+    margin-top: 15px;
+}
+
+.analysis-teamMember-name{
+    font-size: x-large;
+    text-transform: capitalize;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.analysis-teamMember-effect{
+    margin-top: 10px;
+    margin-left: -20px;
+}
+
+.analysis-stats {
+    margin: 25px;
+}
+
+.analysis-moves {
+    margin-top: 10px;
+    border-bottom: 3px solid black;
+}
+.analysis-moves-header {
+    font-size: large;
+    font-weight: bold;
+}
+
+.analysis-move{
+    border-top: 2px dotted black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.analysis-move-name {
+    text-transform: capitalize;
+    font-size: medium;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.analysis-move-effect{
+    margin-top: 10px;
+    margin-left: -20px;
+}
+
+.analysis-move-info{
+    font-size: small;
+    text-transform: capitalize;
+    margin: 0px;
+}
+
+.analysis-move-description-button{
+    margin-top: 5px;
+    font-size: x-small !important;
+    
+}
+
+.analysis-team-images{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: auto;
+}
+
+.analysis-team-image{
+    margin: 2px;
+    border: 2px solid rgb(208, 230, 233);
+    border-radius: 5px;
+}
+
+.analysis-team-image:hover{
+    border: 2px solid yellow;
+    background-color: rgb(208, 230, 233);
+    margin: 2px;
+}

@@ -1,0 +1,98 @@
+/* For mobile*/
+@media screen and (max-width: 448px) { 
+    .menuBar{
+        height: 7vh;
+        height: calc(var(--vh, 1vh) * 7);
+        padding: 0;
+        margin: 0; 
+    }
+
+    .topSideView{
+        height: 60vh;
+        height: calc(var(--vh, 1vh) * 60);
+    }
+
+    .leftSideView {
+        padding-right: 0;
+        margin: 0;
+        width: 115%;
+        margin-left: -13px;
+        height: 55.5vh;
+        height: calc(var(--vh, 1vh) * 55.5);
+        border: 2px solid rgb(208, 230, 233);
+        background-color: white;
+    }
+
+    .pokemonCatalog-header{
+        text-align: center;
+        font-size: large;
+        margin-bottom: 2px;
+
+    }
+    
+    .itemCatalog-header{
+        text-align: center;
+        font-size: larger;
+        margin-bottom: 2px;
+
+    }
+    
+    .team-header{
+        text-align: center;
+        font-size: larger;
+        margin-bottom: 2px;
+
+    }
+
+    .box-header{
+        text-align: center;
+        font-size: larger;
+        margin-bottom: 2px;
+    }
+
+    
+}
+
+/* For desktop =================================================================================================================================================================*/
+@media screen and (min-width: 449px) {
+    .menuBar{
+        height: 6vh;
+        height: calc(var(--vh, 1vh) * 6);
+        padding: 0;
+        margin: 0; 
+    }
+
+    .topSideView{
+        height: 55vh;
+        height: calc(var(--vh, 1vh) * 55);
+    }
+
+    .leftSideView {
+        padding-right: 0;
+        margin: 0;
+        border: 2px solid rgb(208, 230, 233);
+        background-color: white;
+        height: 50vh;
+        height: calc(var(--vh, 1vh) * 50);
+    }
+
+    .pokemonCatalog-header{
+        text-align: center;
+        margin-bottom: 2px;
+    }
+    
+    .itemCatalog-header{
+        text-align: center;
+        margin-bottom: 2px;
+    }
+    
+    .team-header{
+        text-align: center;
+        margin-bottom: 2px;
+    }
+
+    .box-header{
+        text-align: center;
+        margin-bottom: 2px;
+    }
+}

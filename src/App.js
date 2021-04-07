@@ -4,34 +4,29 @@ import axios from 'axios'
 import { useAuth0 } from "@auth0/auth0-react";
 import { v4 as uuidv4 } from 'uuid';
 
-
-
-import MenuBar from './components/MenuBar'
-import Team from './components/Team'
-import Berries from './components/Berries'
-import PokemonCatalog from './components/PokemonCatalog'
-import ItemCatalog from './components/ItemCatalog'
-import Inspector from './components/Inspector'
-import Box from './components/Box'
-import Analysis from './components/Analysis'
-import Debug from './components/Debug'
-import PostLogin from './components/PostLogin'
-import Help from './components/Help'
-
-
-
-import 'bootstrap/dist/css/bootstrap.min.css'
-import "./components/components.css"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
+import MenuBar from './components/structure/MenuBar'
+import Help from './components/structure/Help'
+import PostLogin from './components/structure/PostLogin'
 
-import { readFromCache, writeToCache } from './cache.js'
+import Team from './components/containers/Team'
+import PokemonCatalog from './components/containers/PokemonCatalog'
+import ItemCatalog from './components/containers/ItemCatalog'
+import Box from './components/containers/Box'
 
+import Analysis from './components/analysis/Analysis'
 
+import Inspector from './components/inspector/Inspector'
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import "./App.css"
+
+import { readFromCache, writeToCache } from './utils/cache.js'
 
 const App = () => {
   
@@ -49,14 +44,13 @@ const App = () => {
   const [itemScrollState, setItemScrollState] = useState(0)
   const [teamScrollState, setTeamScrollState] = useState(0)
   const [boxScrollState, setBoxScrollState] = useState(0)
-  const [berryScrollState, setBerryScrollState] = useState(0)
   const [analysis, setAnalysis] = useState(false)
   const [help, setHelp] = useState(false)
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
 
 
-  const backend_url = "https://btb-backend.azurewebsites.net"
-  //const backend_url = "http://localhost:5000"
+  //const backend_url = "https://btb-backend.azurewebsites.net"
+  const backend_url = "http://localhost:5000"
 
   useEffect(() => {
 
@@ -73,11 +67,6 @@ const App = () => {
         console.log(e.message);
       }
     };
-
-    const getBerryCatalog = async () => {
-      const berriesFromServer = await fetchBerryCatalog()
-      setBerryCatalog(berriesFromServer)
-    }
 
     const getBoxFromLocalStorage = () => {
       const boxObjects = readFromCache("guest_box")
@@ -156,11 +145,6 @@ const App = () => {
 
   /*API Functions ==============================================================================================================*/
 
-  const fetchBerryCatalog = async () => {
-    const res = await axios.get(`${backend_url}/berries`)
-    return res.data
-  }
-
   const fetchBox = async () => {
     const userId = user.sub.replace('|', '_')
     const res = await axios.get(`${backend_url}/${userId}/box`)
@@ -171,13 +155,6 @@ const App = () => {
     const userId = user.sub.replace('|', '_')
     const res = await axios.get(`${backend_url}/${userId}/team`)
     return res.data
-  }
-
-  const addBerryToCatalog = (berry) => {
-    axios.post(`${backend_url}/berries`, berry)
-      .then(res =>{
-            setBerryCatalog([...berryCatalog, res.data])
-      })
   }
 
   const addObjToBox = (obj) => {
@@ -511,11 +488,6 @@ const App = () => {
     setTeamBerriesToggle("teamView")
   }
 
-  const changeViewToBerries = () => {
-    updateScrollState()
-    setTeamBerriesToggle("berryCatalogView")
-  }
-
   const changeViewToPokemonCatalog = () => {
     updateScrollState()
     setTeamBerriesToggle("pokemonCatalogView")
@@ -534,11 +506,6 @@ const App = () => {
           setTeamScrollState(el.scrollTop)
         break
 
-      case "berryCatalogView":{}
-          el = document.getElementById("BerryScroll")
-          setBerryScrollState(el.scrollTop)
-        break
-
       case "pokemonCatalogView":
         el = document.getElementById("PCScroll")
         setPCScrollState(el.scrollTop)
@@ -549,14 +516,6 @@ const App = () => {
         setItemScrollState(el.scrollTop)
         break
     }
-  }
-
-  const inspectBerry = (id) => {
-    const data = berryCatalog.find(berry => berry._id == id)
-    updateScrollState()
-    setInspectData(data)
-    setInspectView("inspectBerryCatalog")
-    setActive(`berryCatalog ${id}`)
   }
 
   const inspectPokemonCatalog =  (id) => {
@@ -697,10 +656,7 @@ const closeHelp = () => {
 
     //Check Destination
     if(dest == "inspector"){
-      if(source == "berryCatalog"){
-        inspectBerry(id)
-      }
-      else if(source == "pokemonCatalog"){
+      if(source == "pokemonCatalog"){
         inspectPokemonCatalog(id)
       }
       else if(source == "itemCatalog"){
@@ -784,7 +740,7 @@ const closeHelp = () => {
         <Route path='/' exact render={(props) => (
           <>
             <div className="menuBar">
-              <MenuBar isAuthenticated={isAuthenticated} isLoading={isLoading} user={user} berryView={changeViewToBerries} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} itemCatalogView={changeViewToItemCatalog} analysis={showAnalysis} help={showHelp} />
+              <MenuBar isAuthenticated={isAuthenticated} isLoading={isLoading} user={user} teamView={changeViewToTeams} pokemonCatalogView={changeViewToPokemonCatalog} itemCatalogView={changeViewToItemCatalog} analysis={showAnalysis} help={showHelp} />
             </div>
             <Container fluid className="topSideView">
               <Row noGutters="true">
@@ -801,7 +757,6 @@ const closeHelp = () => {
                 <Col xs={4} md={6}> {/*Natively one column is 25% while the other is 75%. On desktop, it switches to 50-50 */}
                   <div className="leftSideView">
                     {(teamBerriesToggle == "teamView") && <Team active={active} scrollState={teamScrollState} onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} inspect={inspectTeam} team={team} />}
-                    {(teamBerriesToggle == "berryCatalogView") && <Berries active={active} scrollState={berryScrollState} onDragStart={onDragStart} inspect={inspectBerry} berries={berryCatalog} />}
                     {(teamBerriesToggle == "pokemonCatalogView") && <PokemonCatalog active={active} scrollState={pCScrollState} onDragStart={onDragStart} inspect={inspectPokemonCatalog} pokemons={pokemonCatalog} />} 
                     {(teamBerriesToggle == "itemCatalogView") && <ItemCatalog active={active} scrollState={itemScrollState} onDragStart={onDragStart} inspect={inspectItemCatalog} items={itemCatalog} />} 
                   </div> 
@@ -845,9 +800,6 @@ const closeHelp = () => {
             </Modal>
           </>
           )} />
-        <Route path='/debug' exact render={(props) => (
-          <Debug addBerry={addBerryToCatalog}/>
-        )}/>
         <Route path='/PostLogin' exact render={(props) => (
           <PostLogin user={user} isLoading={isLoading} isAuthenticated={isAuthenticated} backend_url={backend_url} updateBox={updateBox} />
         )}/>

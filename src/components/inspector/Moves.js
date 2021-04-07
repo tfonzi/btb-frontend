@@ -6,11 +6,11 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
 
-import './components.css'
-import './types.css'
+import './inspector.css'
+import '../misc/types.css'
 
 import axios from 'axios'
-import { readFromCache, writeToCache } from './../cache.js'
+import { readFromCache, writeToCache } from '../../utils/cache.js'
 
 
 

@@ -1,8 +1,7 @@
 import Image from 'react-bootstrap/Image'
 
-import './components.css'
+import './containers.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
 
 const PokemonCatalogObject = ({pokemon, inspect, onDragStart}) => {
     return (

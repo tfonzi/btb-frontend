@@ -5,11 +5,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import './components.css'
+import './structure.css'
 
 import {useEffect} from 'react'
 
-import { readFromCache, deleteCache } from '../cache.js'
+import { readFromCache, deleteCache } from '../../utils/cache.js'
 import Row from 'react-bootstrap/Row'
 
 

@@ -5,14 +5,12 @@ import Popover from 'react-bootstrap/Popover'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Button from 'react-bootstrap/Button'
 
+import Stats from '../misc/Stats'
 
+import './analysis.css'
+import '../misc/types.css'
 
-import Stats from './Stats'
-import './components.css'
-import './types.css'
 import {findTypeEffects} from './TypeEffects.js'
-
-
 
 const TeamMemberAnalysis = ({teamMember}) => {
     

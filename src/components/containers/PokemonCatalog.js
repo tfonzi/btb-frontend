@@ -1,7 +1,7 @@
 import PokemonCatalogObject from './PokemonCatalogObject'
 import {useEffect} from 'react'
 
-import './components.css'
+import './containers.css'
 
 const PokemonCatalog = ({pokemons, inspect, onDragStart, active, scrollState}) => {
     

@@ -1,23 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 
-import axios from 'axios';
+import './inspector.css'
+import '../misc/types.css'
 
-import './components.css'
-import './types.css'
-
-
-import Stats from './Stats'
+import Stats from '../misc/Stats'
 import Moves from './Moves'
 
-
-
 import {useState} from 'react'
-import PokemonCatalog from './PokemonCatalog'
 
 const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMoves, updateNickname, AddObjectToBox, AddObjectToTeam, removeObj, moveTo}) => {
     
@@ -104,26 +97,6 @@ const Inspector = ({view, object, apiData, onDragOver, onDrop, updatePokemonMove
     }
     else{
         switch(view){
-
-            case "inspectBerryCatalog": //BerryCatalog Inspect
-                return(
-                        <div
-                            onDragOver={(e) => onDragOver(e, "inspector")} 
-                            onDrop={(e) => onDrop(e, e.dataTransfer.getData("source"),
-                                                    e.dataTransfer.getData("id"),
-                                                    "inspector")}
-                        >
-                            <h4>{object.name}</h4>
-                            <Image fluid draggable="false" src={object.image} />
-                            <h5>{object.description}</h5>
-                            <Row>
-                                <Col>
-                                    <Button className={addedToBox?"hide inspector-button":"inspector-button"} onClick={() => sendObject("box")} >Add to Box</Button>
-                                    <Button className={addedToBox?"inspector-button":" hide inspector-button"} disabled>Sent to Box!</Button>
-                                </Col>
-                            </Row>
-                        </div>
-                    )
 
             case "inspectPokemonCatalog": //PokemonCatalog Inspect 
             

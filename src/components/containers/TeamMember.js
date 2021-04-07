@@ -1,7 +1,6 @@
 import Image from 'react-bootstrap/Image'
 
-import './components.css'
-
+import './containers.css'
 
 const TeamMember = ({obj, inspect, onDragStart}) => {
     return (

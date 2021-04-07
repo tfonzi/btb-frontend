@@ -1,4 +1,3 @@
-import {Link} from 'react-router-dom'
 import { useAuth0 } from "@auth0/auth0-react";
 import {useState, useEffect} from 'react'
 
@@ -6,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown  from 'react-bootstrap/NavDropdown'
 
-import './components.css'
+import './structure.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 

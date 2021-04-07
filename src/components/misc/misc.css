@@ -1,0 +1,21 @@
+/* For mobile*/
+@media screen and (max-width: 448px) { 
+
+    .p-stats {
+        margin: 0;
+        padding: 0;
+        text-transform: capitalize;
+    }
+
+}
+
+/* For desktop*/
+@media screen and (min-width: 449px) { 
+
+    .p-stats {
+        margin: 0;
+        padding: 0;
+        text-transform: capitalize;
+    }
+
+}

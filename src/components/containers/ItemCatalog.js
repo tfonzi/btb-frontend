@@ -1,7 +1,7 @@
 import Item from './Item'
 import {useEffect} from 'react'
 
-import './components.css'
+import './containers.css'
 
 const ItemCatalog = ({items, inspect, onDragStart, active, scrollState}) => {
     

@@ -1,0 +1,75 @@
+/* For mobile*/
+@media screen and (max-width: 448px) { 
+
+
+}
+
+/* For desktop*/
+@media screen and (min-width: 449px) { 
+
+    
+}
+
+.navbar {
+    padding-left: 10px !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-right: 10px !important;
+}
+
+.navbar-login-button {
+    padding-top: 0.5px !important;
+    padding-bottom: 0.5px !important;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.navbar-button {
+    margin-right: 10px;
+    text-align: center;
+    font-size: smaller;
+}
+
+.navbar-dropdown-text{
+    font-size: large;
+    text-align: center;
+    margin: 0px;
+}
+
+.navbar-header {
+    font-size: smaller;
+    margin-right: 15px;
+}
+
+.navbar-image {
+    margin-left: 5px;
+    margin-top: -2px
+}
+
+.postLogin-button {
+    margin: auto;
+    margin-top: 5vh;
+    width: 50%;
+    font-size: larger;
+}
+.postLogin-button-txt {
+    margin: 0;
+    font-size: larger;
+}
+
+.postLogin-header {
+    margin-top: 5vh;
+    text-align: center;
+}
+
+.postLogin-p {
+    margin-top: 5vh;
+    text-align: center;
+    font-size: large;
+}
+
+.help_image{
+    width: 100%;
+    height: auto;
+}

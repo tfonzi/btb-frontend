@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 
-import "./components.css"
+import './structure.css'
 
 const Help = () => {
     

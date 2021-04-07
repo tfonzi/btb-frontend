@@ -1,7 +1,7 @@
 import TeamMember from './TeamMember'
 import {useEffect} from 'react'
 
-import './components.css'
+import './containers.css'
 
 const Team = ({team, inspect, onDragStart, onDragOver, onDrop, scrollState, active}) => {
     

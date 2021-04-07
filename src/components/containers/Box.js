@@ -2,8 +2,7 @@ import BoxObj from './BoxObj'
 
 import {useEffect} from 'react'
 
-
-import './components.css'
+import './containers.css'
 
 const Box = ({box, inspect, onDragStart, onDragOver, onDrop, scrollState, active}) => {
     
