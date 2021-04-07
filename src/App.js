@@ -49,8 +49,8 @@ const App = () => {
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
 
 
-  //const backend_url = "https://btb-backend.azurewebsites.net"
-  const backend_url = "http://localhost:5000"
+  const backend_url = "https://btb-backend.azurewebsites.net"
+  //const backend_url = "http://localhost:5000"
 
   useEffect(() => {
 
